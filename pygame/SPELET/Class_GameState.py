@@ -725,10 +725,9 @@ class GameState():
             if self.gold > någonting.price:
                 self.inv_add(någonting)
                 self.gold -= någonting.price
-           # else:
-                #Du hade inte tillräckligt mycket guld
+            # else:
+                #Du hade inte tillräckligt mycket guld  
 
-    
     def Game_Over_Scene(self):
         from Class_Item import Empty
         self.spelare.Hp = 100
