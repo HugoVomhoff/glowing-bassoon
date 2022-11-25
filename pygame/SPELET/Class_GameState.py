@@ -603,11 +603,11 @@ class GameState():
         inventory = self.spelare.inventory
 
         
-        Item1_Bild = pygame.image.load(f"Bilder/{inventory[0].image}.png")
-        Item2_Bild = pygame.image.load(f"Bilder/{inventory[1].image}.png")
-        Item3_Bild = pygame.image.load(f"Bilder/{inventory[2].image}.png")
-        Item4_Bild = pygame.image.load(f"Bilder/{inventory[3].image}.png")
-        Item5_Bild = pygame.image.load(f"Bilder/{inventory[4].image}.png")
+        Item1_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[0].image}.png")
+        Item2_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[1].image}.png")
+        Item3_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[2].image}.png")
+        Item4_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[3].image}.png")
+        Item5_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[4].image}.png")
 
         Item1_Button = Button(910*self.scale, 800*self.scale, Item1_Bild, 1)
         Item2_Button = Button(910*self.scale, 800*self.scale, Item2_Bild, 1)
