@@ -14,7 +14,6 @@ class Player():
         self.inv_full = False
         self.gold = gold
         
-        
         self.alla_items = alla_items
         self.current_item = "inget"
 
@@ -68,12 +67,14 @@ class Player():
     def Chest(self):
         
         guld_eller_item = random.randint(1,10)
+        self.chest_gold = False
+        
         if guld_eller_item <= 3:
+            
             if self.alla_items[0] == "m":
                 print("Det fanns inga items kvar så du får denna snygga babe ;) ")
 
             elif(self.alla_items[1] == "m"):
-                print(f"Du hittade {self.alla_items[0].Name}! {self.alla_items[0].Description}")
                 self.inv_add(self.alla_items[0])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
@@ -81,7 +82,6 @@ class Player():
             elif len(self.alla_items) == 2:
                 
                 self.founditem = random.randint(0, len(self.alla_items)-1)
-                print(f"Du hittade {self.alla_items[self.founditem].Name}! {self.alla_items[self.founditem].Description}")
                 self.inv_add(self.alla_items[self.founditem])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
@@ -90,13 +90,15 @@ class Player():
             else:
                 
                 self.founditem = random.randint(0, len(self.alla_items)-1)
-                print(f"Du hittade {self.alla_items[self.founditem].Name}! {self.alla_items[self.founditem].Description}")
                 self.inv_add(self.alla_items[self.founditem])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
         else:
-            self.gold += random.randint(40,120)
-            #Du hittade x guld
+
+            self.chest_gold = True
+            self.current_item = random.randint(40,120)
+            self.gold += self.current_item
+
         
 
     def str_add(self, AddedStr):

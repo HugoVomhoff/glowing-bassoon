@@ -544,6 +544,7 @@ class GameState():
         pygame.display.flip()
 
     def Chest_Scene_Open(self):
+        
         Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
         background_Width = Open_Chest.get_width() * self.scale
         background_Height = Open_Chest.get_height() * self.scale
@@ -554,15 +555,27 @@ class GameState():
         font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 * self.scale))
         text_obj3 = font_obj3.render("You opened the chest and found:",True,font_color)
         text_rect = text_obj3.get_rect(center = (self.screen_Width//2, 170*self.scale))
+        
+        if self.spelare.chest_gold == True:
 
-        font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 * self.scale))
-        text_obj4 = font_obj4.render(self.found_item.Name,True,font_color)
-        text_rect1 = text_obj4.get_rect(center = (self.screen_Width//2, 300*self.scale))
+            font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 * self.scale))
+            text_obj4 = font_obj4.render(f"{self.found_item} Gold",True,font_color)
+            text_rect1 = text_obj4.get_rect(center = (self.screen_Width//2, 300*self.scale))
 
-        item = pygame.image.load(f"Bilder/{self.found_item.image}.png")
-        item_Width = item.get_width() * self.scale
-        item_Height = item.get_height() * self.scale
-        item = pygame.transform.scale(item, (item_Width, item_Height)) 
+            item = pygame.image.load(f"Bilder/GULD.png")
+            item_Width = item.get_width() * self.scale
+            item_Height = item.get_height() * self.scale
+            item = pygame.transform.scale(item, (item_Width, item_Height)) 
+
+        else:
+            font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 * self.scale))
+            text_obj4 = font_obj4.render(self.found_item.Name,True,font_color)
+            text_rect1 = text_obj4.get_rect(center = (self.screen_Width//2, 300*self.scale))
+
+            item = pygame.image.load(f"Bilder/{self.found_item.image}.png")
+            item_Width = item.get_width() * self.scale
+            item_Height = item.get_height() * self.scale
+            item = pygame.transform.scale(item, (item_Width, item_Height)) 
 
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(910*self.scale, 800*self.scale, Continue_Button, 1)

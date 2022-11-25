@@ -19,7 +19,7 @@ Excalibur = Item("Excalibur", 70, "The legendary sword of King Arthur", 5, "Exca
 Axe = Item("Axe", 35, "A stupid ass looking axe", 0, "Axe", 175)
 Twosided_Axe = Item("Two-sided Axe", 40, "davids ansvarsområde", 0, "axe_twosided", 225)
 Spearaxe = Item("Spear-Axe", 50, "Powerfull axe that can also be used as a spear!", 0, "axe_spear", 300)
-Dagger = Item("Long Dagger", 20, "A long dagger -_-", 0, "dagger", 150)
+Dagger = Item("Long Dagger", 20, "A long dagger -_-", 0, "daggerish", 150)
 Mjölnir = Item("Mjölnir", 60, "Thor something something", 5, "Mjolnir", 450)
 
 
