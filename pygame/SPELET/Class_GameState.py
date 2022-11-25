@@ -37,7 +37,7 @@ class GameState():
         text_obj2 = font_obj2.render("Press spacebar to continue",True,font_color)
         text_rect2 = text_obj2.get_rect(center = (self.screen_Width//2, self.screen_Height-75*self.scale))
 
-        for event in pygame.event.get():
+        for event in pygame.event.get([pygame.KEYDOWN, pygame.QUIT]):
             
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -95,23 +95,23 @@ class GameState():
         screen.blit(text_obj6,((3*(z)/(3+1)+2*image_Width*scale+image_Width*scale*0.1), 500*self.scale))
         pygame.display.flip()
 
-        for event in pygame.event.get():
+        if L_button.clicked():
+            print("hej")
+            self.spelare.Set_Difficulty(1)
+            self.state = 'Choice_Scene'
+
+        if N_button.clicked():
+            self.spelare.Set_Difficulty(2)
+            self.state = 'Choice_Scene'
+
+        if S_button.clicked():
+            self.spelare.Set_Difficulty(3)
+            self.state = 'Choice_Scene'    
+
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-                
-        if pygame.mouse.get_pressed()[0] == 1:
-            time.sleep(0.2)
-
-        if L_button.draw(screen):
-            self.spelare.Set_Difficulty(1)
-            self.state = 'Choice_Scene'
-        if N_button.draw(screen):
-            self.spelare.Set_Difficulty(2)
-            self.state = 'Choice_Scene'
-        if S_button.draw(screen):
-            self.spelare.Set_Difficulty(3)
-            self.state = 'Choice_Scene'    
     
     def Choice_Scene(self):
 
@@ -166,19 +166,22 @@ class GameState():
         
         pygame.display.flip()
     
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
        
-        if Exit_Button.draw(screen):
+        if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
-        if Stats_Button.draw(screen):
+
+        if Stats_Button.clicked():
             self.spelare.Choice(1)
-        if Inventory_Button.draw(screen):
+
+        if Inventory_Button.clicked():
             self.spelare.Choice(2)
-        if Äventyr_Button.draw(screen):
+
+        if Äventyr_Button.clicked():
             self.state = 'Door_Choice_Scene' 
 
     def Show_Stats_Scene(self):
@@ -221,12 +224,12 @@ class GameState():
         
         pygame.display.flip()
 
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
                 
-        if Go_back.draw(screen):
+        if Go_back.clicked():
             self.state = 'Choice_Scene'
         
     def Show_Inv_Scene(self):
@@ -303,12 +306,12 @@ class GameState():
         
         pygame.display.flip()
                     
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         
-        if Go_back.draw(screen):
+        if Go_back.clicked():
             self.state = 'Choice_Scene'
                   
     def Door_Choice_Scene(self):
@@ -331,16 +334,16 @@ class GameState():
         Door2_Button = Button(695*self.scale, 320*self.scale, Door2, 1) 
         Door3_Button = Button(145*self.scale, 270*self.scale, door3, 1)
 
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             
-        if Door1_Button.draw(screen):
+        if Door1_Button.clicked():
             self.spelare.Choice(3)
-        if Door2_Button.draw(screen):
+        if Door2_Button.clicked():
             self.spelare.Choice(3)
-        if Door3_Button.draw(screen):
+        if Door3_Button.clicked():
             self.spelare.Choice(3)
         
         screen.blit(bakgrund,(0,0))
@@ -365,7 +368,7 @@ class GameState():
         screen.blit(Monster1, (0, 0))
         pygame.display.flip()
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -382,11 +385,11 @@ class GameState():
         image1 = pygame.image.load("Bilder/Knapp.png")
         Return_Button = Button(100, 400, image1, 0.1)
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        if Return_Button.draw(screen):
+        if Return_Button.clicked():
             self.state = 'Choice_Scene'
         
         screen.fill((0, 0, 0))
@@ -410,11 +413,11 @@ class GameState():
         Return_Button.draw(screen)
         pygame.display.flip()
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        if Return_Button.draw(screen):
+        if Return_Button.clicked():
             self.state = 'Choice_Scene'
 
     def Draw_Scene(self):
@@ -437,11 +440,11 @@ class GameState():
         Return_Button.draw(screen)
         pygame.display.flip()
 
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        if Return_Button.draw(screen):
+        if Return_Button.clicked():
             self.state = 'Choice_Scene'
        
     def Trap_Scene(self):
@@ -462,7 +465,7 @@ class GameState():
         else:
             self.state = 'Fall_For_Trap_Scene' 
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -480,7 +483,7 @@ class GameState():
         Continue_Button.draw(screen)       
         pygame.display.flip()
             
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -499,12 +502,12 @@ class GameState():
         Continue_Button.draw(screen)
         pygame.display.flip()
        
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             
-        if Continue_Button.draw(screen):
+        if Continue_Button.clicked():
             self.state = 'Choice_Scene'
          
     def Chest_Scene(self):
@@ -524,12 +527,12 @@ class GameState():
 
 
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         
-        if Chest_Button.draw(screen):
+        if Chest_Button.clicked():
             
             self.spelare.Chest()
             self.found_item = self.spelare.current_item
@@ -590,12 +593,12 @@ class GameState():
         
         pygame.display.flip()
 
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         
-        if Continue_Button.draw(screen):
+        if Continue_Button.clicked():
             
             if self.spelare.inv_full == True:
                 self.state = 'Item_manager'
@@ -639,31 +642,31 @@ class GameState():
         Continue_Button.draw(screen)
         pygame.display.flip()
 
-        if Item1_Button.draw(screen):
+        if Item1_Button.clicked():
             self.inv_change = 1
             self.spelare.inv_change(1)
             
-        if Item2_Button.draw(screen):
+        if Item2_Button.clicked():
             self.inv_change = 2
             self.spelare.inv_change(2)
 
-        if Item3_Button.draw(screen):
+        if Item3_Button.clicked():
             self.inv_change = 3
             self.spelare.inv_change(3)
 
-        if Item4_Button.draw(screen):
+        if Item4_Button.clicked():
             self.inv_change = 4
             self.spelare.inv_change(4)
 
-        if Item5_Button.draw(screen):
+        if Item5_Button.clicked():
             self.inv_change = 5
             self.spelare.inv_change(5)
 
-        if Continue_Button.draw(screen):
+        if Continue_Button.clicked():
             self.state = 'Choice_Scene'
 
                     
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -695,7 +698,7 @@ class GameState():
         Continue_Button.draw(screen)
         pygame.display.flip()
 
-        if Item1_Button.draw(screen):
+        if Item1_Button.clicked():
             någonting = Shop_List[0]
 
             if self.gold > någonting.price:
@@ -706,7 +709,7 @@ class GameState():
 
               
             
-        if Item2_Button.draw(screen):
+        if Item2_Button.clicked():
             någonting = Shop_List[1]
 
             if self.gold > någonting.price:
@@ -715,7 +718,7 @@ class GameState():
             #else:
                 #Du hade inte tillräckligt mycket guld
 
-        if Item3_Button.draw(screen):
+        if Item3_Button.clicked():
             någonting = Shop_List[2]
 
             if self.gold > någonting.price:
@@ -724,7 +727,7 @@ class GameState():
             #else:
                 #Du hade inte tillräckligt mycket guld
 
-        if Item4_Button.draw(screen):
+        if Item4_Button.clicked():
             någonting = Shop_List[3]
 
             if self.gold > någonting.price:
@@ -732,7 +735,7 @@ class GameState():
                 self.gold -= någonting.price
             #else:
                 #Du hade inte tillräckligt mycket guld
-        if Item5_Button.draw(screen):
+        if Item5_Button.clicked():
             någonting = Shop_List[4]
 
             if self.gold > någonting.price:
@@ -767,13 +770,13 @@ class GameState():
         screen.blit(text_obj, text_rect)
         pygame.display.flip()
 
-        for event in pygame.event.get():
+        for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        if Continue_Button.draw(screen):
+        if Continue_Button.clicked():
             self.state = 'Titlecard'
-        if Exit_Button.draw(screen):
+        if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
 

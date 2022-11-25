@@ -8,4 +8,5 @@ Clock = pygame.time.Clock()
 
 while True:
     game_state.state_manager()
-    Clock.tick(60)   
+    pygame.event.clear()   
+    Clock.tick(60)

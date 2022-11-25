@@ -1,5 +1,4 @@
 import pygame
-dum = 5
 
 def draw_rect_alpha(surface, color, rect):
             shape_surf = pygame.Surface(pygame.Rect(rect).size, pygame.SRCALPHA)
