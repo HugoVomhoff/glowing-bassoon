@@ -5,14 +5,16 @@ from Class_Item import Empty
 
 class Player(): 
     def __init__ (self, Str, Hp, lvl, intelligence, gold):
+       
         self.intelligence = intelligence
-        self.inventory = [Empty, Empty ,Empty ,Empty ,Empty]
-        self.value_inventory = []
         self.Hp = Hp
         self.Str = Str
         self.lvl = lvl
         self.inv_full = False
         self.gold = gold
+
+        self.inventory = [Empty, Empty ,Empty ,Empty ,Empty]
+        self.value_inventory = []
         
         self.alla_items = alla_items
         self.current_item = "inget"
@@ -22,7 +24,6 @@ class Player():
         game_state.state = 'Show_Stats_Scene'
 
     def Set_Difficulty(self, difficulty):
-       # self.difficulty = input(f" {'':_<101} \n|{'':<101}|\n|{'':<39}{'':_<23}{'':<39}|\n|{'':<38}| Välj svårighetsgraden |{'':<38}|\n|{'':38}|{'':_<23}|{'':<38}|\n|{'':<101}|\n|{'':<3} {'':_<29}{'':<2} {'':_<29}{'':<2} {'':_<29} {'':<3}|\n|{'':<3}|{'':<12}Lätt{'':<13}| |{'':<11} Normal{'':<11}| |{'':<12}Svår{'':<13}|{'':<3}|\n|{'':<3}|{'':_<29}| |{'':_<29}| |{'':_<29}|{'':<3}|\n|{'':<101}|\n|{'':_<101}|\n")
         if difficulty == 1:
             self.monstermaxstr = 100
         elif difficulty == 2:
