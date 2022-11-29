@@ -695,18 +695,26 @@ class GameState():
         font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 * self.scale))
        
         Item1_Bild = pygame.image.load(f"Bilder/{Shop_List[0].image}.png")
-        Item1 = pygame.transform.scale(Item1_Bild, (180*self.scale, 180*self.scale))
+        Item1 = pygame.transform.scale(Item1_Bild, (120*self.scale, 120*self.scale))
+
         Item2_Bild = pygame.image.load(f"Bilder/{Shop_List[1].image}.png")
-        Item2 = pygame.transform.scale(Item2_Bild, (180*self.scale, 180*self.scale))
+        Item2 = pygame.transform.scale(Item2_Bild, (120*self.scale, 120*self.scale))
+
         Item3_Bild = pygame.image.load(f"Bilder/{Shop_List[2].image}.png")
-        Item3 = pygame.transform.scale(Item3_Bild, (180*self.scale, 180*self.scale))
+        Item3 = pygame.transform.scale(Item3_Bild, (120*self.scale, 120*self.scale))
+
         Item4_Bild = pygame.image.load(f"Bilder/{Shop_List[3].image}.png")
-        Item4 = pygame.transform.scale(Item4_Bild, (180*self.scale, 180*self.scale))
-        
-        Item1_text = font_obj2.render(f" Name: {Shop_List[0].Name}, Description: {Shop_List[0].Description}",True,font_color1)
-        Item2_text = font_obj2.render(f" Name: {Shop_List[1].Name}, Description: {Shop_List[1].Description}",True,font_color1)
-        Item3_text = font_obj2.render(f" Name: {Shop_List[2].Name}, Description: {Shop_List[2].Description}",True,font_color1)
-        Item4_text = font_obj2.render(f" Name: {Shop_List[3].Name}, Description: {Shop_List[3].Description}",True,font_color1)
+        Item4 = pygame.transform.scale(Item4_Bild, (120*self.scale, 120*self.scale))
+
+        item1_hover = Button(300*self.scale, 400*self.scale, Item1_Bild, 1)
+        item2_hover = Button(650*self.scale, 400*self.scale, Item2_Bild, 1)
+        item3_hover = Button(1150*self.scale, 400*self.scale, Item3_Bild, 1)
+        item4_hover = Button(1480*self.scale, 400*self.scale, Item4_Bild, 1)
+
+        Item1_text = font_obj3.render(f" Name: {Shop_List[0].Name}, Description: {Shop_List[0].Description}",True,font_color1)
+        Item2_text = font_obj3.render(f" Name: {Shop_List[1].Name}, Description: {Shop_List[1].Description}",True,font_color1)
+        Item3_text = font_obj3.render(f" Name: {Shop_List[2].Name}, Description: {Shop_List[2].Description}",True,font_color1)
+        Item4_text = font_obj3.render(f" Name: {Shop_List[3].Name}, Description: {Shop_List[3].Description}",True,font_color1)
         
         Str_text1 = font_obj3.render(f" Strength: {Shop_List[0].Strength}",True,font_color2)
         Str_text2 = font_obj3.render(f" Strength: {Shop_List[1].Strength}",True,font_color2)
@@ -718,33 +726,52 @@ class GameState():
         
         screen.fill((0, 0, 0))
         screen.blit(bakgrund, (0, 0))
-        
         Continue_Button.draw(screen)
+
+        if item1_hover.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (130*self.scale, 400*self.scale,450*self.scale, 300*self.scale,))
+            screen.blit(Item1_text, (250*self.scale, 100*self.scale))
+            screen.blit(Str_text1, (250*self.scale, 150*self.scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (280*self.scale, 400*self.scale,160*self.scale, 160*self.scale,))  
+
+        if item2_hover.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (480*self.scale, 400*self.scale,450*self.scale, 300*self.scale,))
+            screen.blit(Item2_text, (250*self.scale, 250*self.scale))
+            screen.blit(Str_text2, (250*self.scale, 300*self.scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (630*self.scale, 400*self.scale,160*self.scale, 160*self.scale,))
+
+        if item3_hover.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (980*self.scale, 400*self.scale,450*self.scale, 300*self.scale,)) 
+            screen.blit(Item3_text, (250*self.scale, 400*self.scale))
+            screen.blit(Str_text3, (250*self.scale, 450*self.scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (1130*self.scale, 400*self.scale,160*self.scale, 160*self.scale,))
+
+        if item4_hover.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (1310*self.scale, 400*self.scale,450*self.scale, 300*self.scale,))
+            screen.blit(Item4_text, (250*self.scale, 550*self.scale))
+            screen.blit(Str_text4, (250*self.scale, 600*self.scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (1460*self.scale, 400*self.scale,160*self.scale, 160*self.scale,))
+                       
         
-        
-        screen.blit(Item1, (100*self.scale, 100*self.scale))
-        screen.blit(Item2, (100*self.scale, 250*self.scale))
-        screen.blit(Item3, (100*self.scale, 400*self.scale))
-        screen.blit(Item4, (100*self.scale, 550*self.scale))
-        
-        screen.blit(Item1_text, (250*self.scale, 100*self.scale))
-        screen.blit(Item2_text, (250*self.scale, 250*self.scale))
-        screen.blit(Item3_text, (250*self.scale, 400*self.scale))
-        screen.blit(Item4_text, (250*self.scale, 550*self.scale))
-        
-        screen.blit(Str_text1, (250*self.scale, 150*self.scale))
-        screen.blit(Str_text2, (250*self.scale, 300*self.scale))
-        screen.blit(Str_text3, (250*self.scale, 450*self.scale))
-        screen.blit(Str_text4, (250*self.scale, 600*self.scale))
-        
-       
-        
+        screen.blit(Item1, (300*self.scale, 420*self.scale))
+        screen.blit(Item2, (650*self.scale, 420*self.scale))
+        screen.blit(Item3, (1150*self.scale, 420*self.scale))
+        screen.blit(Item4, (1480*self.scale, 420*self.scale))
+    
         pygame.display.flip()
 
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+        if Continue_Button.clicked():
+            self.state = 'Choice_Scene'
+        
        
     def Game_Over_Scene(self):
         from Class_Item import Empty

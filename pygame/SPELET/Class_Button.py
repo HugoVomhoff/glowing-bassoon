@@ -23,10 +23,14 @@ class Button():
 	
 
 	def clicked(self):
-		
 		if self.rect.collidepoint(pygame.mouse.get_pos()):
 			for event in pygame.event.get(pygame.MOUSEBUTTONDOWN):
 				if event.button == 1:
 					return True
 
 		return False
+
+	def hover(self):
+		if self.rect.collidepoint(pygame.mouse.get_pos()):
+			return True
+		
