@@ -136,17 +136,20 @@ class GameState():
        
         z = self.screen_Width-(image_Width*3)
 
-        Äventyr_Button = Button(75*self.scale, (1*(self.screen_Height-(image_Height*scale*5))/(6)+2 * scale*image_Height), self.Button_image, scale)
+        Äventyr_Button = Button(75*self.scale, (1*(self.screen_Height-(image_Height*scale*6))/(7)+2 * scale*image_Height), self.Button_image, scale)
         text_äventyr1 = font_obj5.render("Begin Exploring", True, font_color)
-        text_äventyr2 = font_obj5.render("Keep Exploring", True, font_color)
+    
 
-        Inventory_Button = Button(75*self.scale, (2*(self.screen_Height-(image_Height*scale*5))/(6)+ 3* scale*image_Height), self.Button_image, scale)
+        Inventory_Button = Button(75*self.scale, (2*(self.screen_Height-(image_Height*scale*6))/(7)+ 3* scale*image_Height), self.Button_image, scale)
         text_inventory = font_obj5.render("Show Inventory", True, font_color)
 
-        Stats_Button = Button(75*self.scale, (3*(self.screen_Height-(image_Height*scale*5))/(6)+ 4 * scale*image_Height),self.Button_image, scale)
+        Stats_Button = Button(75*self.scale, (3*(self.screen_Height-(image_Height*scale*6))/(7)+ 4 * scale*image_Height),self.Button_image, scale)
         text_stats = font_obj5.render("Show Stats", True, font_color)
+        
+        Shop_button = Button(75*self.scale, (4*(self.screen_Height-(image_Height*scale*6))/(7)+5 * scale*image_Height), self.Button_image, scale)
+        text_shop = font_obj5.render("Shop", True, font_color)
 
-        Exit_Button = Button(75*self.scale, (4*(self.screen_Height-(image_Height*scale*5))/(6)+ 5 * scale*image_Height), self.Button_image, scale)
+        Exit_Button = Button(75*self.scale, (5*(self.screen_Height-(image_Height*scale*6))/(7)+ 6 * scale*image_Height), self.Button_image, scale)
         Exit_game = font_obj5.render("Exit Game", True, font_color)
 
            
@@ -156,12 +159,14 @@ class GameState():
         Stats_Button.draw(screen)
         Inventory_Button.draw(screen)
         Äventyr_Button.draw(screen)
-        
+        Shop_button.draw(screen)
+                
         screen.blit(text_obj3,text_rect)
-        screen.blit(text_äventyr1,((125*self.scale+image_Width*0.05), (1*(self.screen_Height-(image_Height*scale*5))/(6)+ 2 * scale*image_Height)))
-        screen.blit(text_inventory,((125*self.scale+image_Width*0.05), (2*(self.screen_Height-(image_Height*scale*5))/(6)+ 3 * scale*image_Height)))
-        screen.blit(text_stats,((125*self.scale+image_Width*0.05), (3*(self.screen_Height-(image_Height*scale*5))/(6)+ 4 * scale*image_Height)))
-        screen.blit(Exit_game,((125*self.scale+image_Width*0.05), (4*(self.screen_Height-(image_Height*scale*5))/(6)+ 5 * scale*image_Height)))
+        screen.blit(text_äventyr1,((125*self.scale+image_Width*0.05), (1*(self.screen_Height-(image_Height*scale*6))/(7)+ 2 * scale*image_Height)))
+        screen.blit(text_inventory,((125*self.scale+image_Width*0.05), (2*(self.screen_Height-(image_Height*scale*6))/(7)+ 3 * scale*image_Height)))
+        screen.blit(text_stats,((125*self.scale+image_Width*0.05), (3*(self.screen_Height-(image_Height*scale*6))/(7)+ 4 * scale*image_Height)))
+        screen.blit(text_shop,((125*self.scale+image_Width*0.05), (4*(self.screen_Height-(image_Height*scale*6))/(7)+ 5 * scale*image_Height)))
+        screen.blit(Exit_game,((125*self.scale+image_Width*0.05), (5*(self.screen_Height-(image_Height*scale*6))/(7)+ 6 * scale*image_Height)))
         
         
         pygame.display.flip()
@@ -183,6 +188,9 @@ class GameState():
 
         if Äventyr_Button.clicked():
             self.state = 'Door_Choice_Scene' 
+
+        if Shop_button.clicked():
+            self.state = 'Shop_Scene'
 
     def Show_Stats_Scene(self):
 
@@ -679,19 +687,19 @@ class GameState():
         Item2_Bild = pygame.image.load(f"Bilder/{Shop_List[1].image}.png")
         Item3_Bild = pygame.image.load(f"Bilder/{Shop_List[2].image}.png")
         Item4_Bild = pygame.image.load(f"Bilder/{Shop_List[3].image}.png")
-        Item5_Bild = pygame.image.load(f"Bilder/{Shop_List[4].image}.png")
+        #Item5_Bild = pygame.image.load(f"Bilder/{Shop_List[4].image}.png")
 
         Item1_Button = Button(910*self.scale, 800*self.scale, Item1_Bild, 1)
         Item2_Button = Button(910*self.scale, 800*self.scale, Item2_Bild, 1)
         Item3_Button = Button(910*self.scale, 800*self.scale, Item3_Bild, 1)
         Item4_Button = Button(910*self.scale, 800*self.scale, Item4_Bild, 1)
-        Item5_Button = Button(910*self.scale, 800*self.scale, Item5_Bild, 1)
+        #Item5_Button = Button(910*self.scale, 800*self.scale, Item5_Bild, 1)
 
         Item1_Button.draw(screen)
         Item2_Button.draw(screen)
         Item3_Button.draw(screen)
         Item4_Button.draw(screen)
-        Item5_Button.draw(screen)
+        #Item5_Button.draw(screen)
 
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(910*self.scale, 800*self.scale, Continue_Button, 1)
@@ -735,12 +743,12 @@ class GameState():
                 self.gold -= någonting.price
             #else:
                 #Du hade inte tillräckligt mycket guld
-        if Item5_Button.clicked():
-            någonting = Shop_List[4]
+        #if Item5_Button.clicked():
+            #någonting = Shop_List[4]
 
-            if self.gold > någonting.price:
-                self.inv_add(någonting)
-                self.gold -= någonting.price
+            #if self.gold > någonting.price:
+                #self.inv_add(någonting)
+                #self.gold -= någonting.price
             # else:
                 #Du hade inte tillräckligt mycket guld  
 
@@ -774,6 +782,7 @@ class GameState():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+                
         if Continue_Button.clicked():
             self.state = 'Titlecard'
         if Exit_Button.clicked():
@@ -823,3 +832,7 @@ class GameState():
             self.Door_Choice_Scene()       
         if self.state == "Shop_Scene":
             self.Shop_Scene()
+            
+            
+            
+            
