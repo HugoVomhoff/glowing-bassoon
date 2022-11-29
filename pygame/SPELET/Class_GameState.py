@@ -223,7 +223,7 @@ class GameState():
         screen.blit(bakgrund, (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*self.scale, 90*self.scale,1620*self.scale, 900*self.scale,))
         Go_back.draw(screen)
-        screen.blit(Character, (120*self.scale0*self.scale, 125*self.scale))
+        screen.blit(Character, (1200*self.scale, 125*self.scale))
         screen.blit(text_obj, (200*self.scale, 150*self.scale))
         screen.blit(text_obj1, (200*self.scale, 320*self.scale))
         screen.blit(text_obj2, (200*self.scale, 490*self.scale))
