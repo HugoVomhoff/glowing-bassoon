@@ -3,6 +3,8 @@ import pygame
 from Game_State import game_state
 
 pygame.init()
+pygame.display.set_caption("Davids Äventyr")
+pygame.mouse.set_visible(True) 
 
 Clock = pygame.time.Clock()
 
