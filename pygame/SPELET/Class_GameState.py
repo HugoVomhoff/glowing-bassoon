@@ -4,6 +4,8 @@ import sys
 from Class_Button import Button
 from skärpning import draw_rect_alpha
 
+pygame.init()
+
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
@@ -13,6 +15,11 @@ Gray = (100, 100, 100)
 Black = (0,0,0)
 White = (255, 255, 255)
 Gold = (255, 192, 0)
+Dark_Grey = (20, 20, 20)
+Purple = (139, 0, 139)
+Yellow = (255, 255, 0)
+Red = (120, 0, 0)
+Green = (0, 120, 0)
 
 # font + fontsize
 font1 = pygame.font.Font("Fonts/Font1.TTF", int(45*scale))
@@ -51,22 +58,26 @@ class GameState():
         
         for event in pygame.event.get([pygame.KEYDOWN, pygame.QUIT]):  
                 
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.state = 'Difficulty_Scene'
 
     def Difficulty_Scene(self):
-          
-        text_obj3 = self.font1.render("Choose Difficulty",True,self.White)
-        text_rect = text_obj3.get_rect(center = (self.screen_Width//2, self.screen_Height//2-200*scale))
 
-        image_Width = self.Button1_image.get_width() **scale
+        text_obj3 = font1.render("Choose Difficulty",True,White)
+        text_rect = text_obj3.get_rect(center = (screen_Width//2, screen_Height//2-200*scale))
+
+        image_Width = Button1_image.get_width() *scale
         
-        z = self.screen_Width-(image_Width*scale*3)
+        z = screen_Width-(image_Width*scale*3)
        
-        L_button = Button((self.screen_Width-(image_Width*scale*3))/(4), 500*scale, self.Button1_image, 0.8)
-        N_button = Button((2*(self.screen_Width-(image_Width*scale*3))/(4)+ scale*image_Width), 500*scale, self.Button1_image, 0.8)
-        S_button = Button((3*(self.screen_Width-(image_Width*scale*3))/(4)+ 2 * scale*image_Width), 500*scale ,self.Button1_image, 0.8)
+        L_button = Button((screen_Width-(image_Width*scale*3))/(4), 500*scale, Button1_image, 0.8)
+        N_button = Button((2*(screen_Width-(image_Width*scale*3))/(4)+ scale*image_Width), 500*scale, Button1_image, 0.8)
+        S_button = Button((3*(screen_Width-(image_Width*scale*3))/(4)+ 2 * scale*image_Width), 500*scale ,Button1_image, 0.8)
         
         text_obj4 = font1.render("Easy", True, White)
         text_obj5 = font1.render("Normal", True, White)
@@ -75,7 +86,7 @@ class GameState():
         
         screen.fill((0, 0, 0))
         screen.blit(text_obj3,text_rect)
-        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((self.screen_Width/2-(600*scale)), (self.screen_Height/2-(275*scale)), int(1200*scale), int(175*scale)), int(5*scale))
+        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(600*scale)), (screen_Height/2-(275*scale)), int(1200*scale), int(175*scale)), int(5*scale))
 
         S_button.draw(screen) 
         N_button.draw(screen)
@@ -106,42 +117,36 @@ class GameState():
     
     def Choice_Scene(self):
 
-        scale = 0.8
-        #Choice_Scene
-        font_color = (20,20,20)
-        font_color2 = (100,100,100)        
+        #Choice_Scene    
         
         bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
-        background_Width = bakgrund.get_width() **scale
-        background_Height = bakgrund.get_height() **scale
+        background_Width = bakgrund.get_width() *scale
+        background_Height = bakgrund.get_height() *scale
         bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
         
-        font_obj5 = pygame.font.Font("Fonts/Font6.ttf", int(70 **scale))
-        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 **scale))
+        font_obj5 = pygame.font.Font("Fonts/Font6.ttf", int(70 *scale))
+        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
 
-        text_obj3 = font_obj3.render("Choose Your Action",True,font_color2)
-        text_rect = text_obj3.get_rect(center = (self.screen_Width//2, 150*scale))
+        text_obj3 = font_obj3.render("Choose Your Action",True,Gray)
+        text_rect = text_obj3.get_rect(center = (screen_Width/2, 150*scale))
         
-        image_Width = self.Button_image.get_width() **scale
-        image_Height = self.Button_image.get_height() **scale
-       
-        z = self.screen_Width-(image_Width*3)
+        image_Width = Button_image.get_width() * scale
+        image_Height = Button_image.get_height() * scale
 
-        Äventyr_Button = Button(75*scale, (1*(self.screen_Height-(image_Height*scale*6))/(7)+2 * scale*image_Height), self.Button_image, scale)
-        text_äventyr1 = font_obj5.render("Begin Exploring", True, font_color)
+        Äventyr_Button = Button(75*scale, (1*(screen_Height-(image_Height*6.5))/(7.5)+2 * image_Height), Button_image, 0.8)
+        text_äventyr1 = font_obj5.render("Begin Exploring", True, Dark_Grey)
     
+        Inventory_Button = Button(75*scale, (2*(screen_Height-(image_Height*6.5))/(7.5)+ 3* image_Height), Button_image, 0.8)
+        text_inventory = font_obj5.render("Show Inventory", True, Dark_Grey)
 
-        Inventory_Button = Button(75*scale, (2*(self.screen_Height-(image_Height*scale*6))/(7)+ 3* scale*image_Height), self.Button_image, scale)
-        text_inventory = font_obj5.render("Show Inventory", True, font_color)
-
-        Stats_Button = Button(75*scale, (3*(self.screen_Height-(image_Height*scale*6))/(7)+ 4 * scale*image_Height),self.Button_image, scale)
-        text_stats = font_obj5.render("Show Stats", True, font_color)
+        Stats_Button = Button(75*scale, (3*(screen_Height-(image_Height*6.5))/(7.5)+ 4 * image_Height),Button_image, 0.8)
+        text_stats = font_obj5.render("Show Stats", True, Dark_Grey)
         
-        Shop_button = Button(75*scale, (4*(self.screen_Height-(image_Height*scale*6))/(7)+5 * scale*image_Height), self.Button_image, scale)
-        text_shop = font_obj5.render("Shop", True, font_color)
+        Shop_button = Button(75*scale, (4*(screen_Height-(image_Height*6.5))/(7.5)+5 * image_Height), Button_image, 0.8)
+        text_shop = font_obj5.render("Shop", True, Dark_Grey)
 
-        Exit_Button = Button(75*scale, (5*(self.screen_Height-(image_Height*scale*6))/(7)+ 6 * scale*image_Height), self.Button_image, scale)
-        Exit_game = font_obj5.render("Exit Game", True, font_color)
+        Exit_Button = Button(75*scale, (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height), Button_image, 0.8)
+        Exit_game = font_obj5.render("Exit Game", True, Dark_Grey)
 
            
         screen.blit(bakgrund, (0, 0))
@@ -153,11 +158,11 @@ class GameState():
         Shop_button.draw(screen)
                 
         screen.blit(text_obj3,text_rect)
-        screen.blit(text_äventyr1,((125*scale+image_Width*0.05), (1*(self.screen_Height-(image_Height*scale*6))/(7)+ 2 * scale*image_Height)))
-        screen.blit(text_inventory,((125*scale+image_Width*0.05), (2*(self.screen_Height-(image_Height*scale*6))/(7)+ 3 * scale*image_Height)))
-        screen.blit(text_stats,((125*scale+image_Width*0.05), (3*(self.screen_Height-(image_Height*scale*6))/(7)+ 4 * scale*image_Height)))
-        screen.blit(text_shop,((125*scale+image_Width*0.05), (4*(self.screen_Height-(image_Height*scale*6))/(7)+ 5 * scale*image_Height)))
-        screen.blit(Exit_game,((125*scale+image_Width*0.05), (5*(self.screen_Height-(image_Height*scale*6))/(7)+ 6 * scale*image_Height)))
+        screen.blit(text_äventyr1,((125*scale+image_Width*0.05), (1*(screen_Height-(image_Height*6.5))/(7.5)+ 2 * image_Height)))
+        screen.blit(text_inventory,((125*scale+image_Width*0.05), (2*(screen_Height-(image_Height*6.5))/(7.5)+ 3 * image_Height)))
+        screen.blit(text_stats,((125*scale+image_Width*0.05), (3*(screen_Height-(image_Height*6.5))/(7.5)+ 4 * image_Height)))
+        screen.blit(text_shop,((125*scale+image_Width*0.05), (4*(screen_Height-(image_Height*6.5))/(7.5)+ 5 * image_Height)))
+        screen.blit(Exit_game,((125*scale+image_Width*0.05), (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height)))
         
         
         pygame.display.flip()
@@ -186,30 +191,25 @@ class GameState():
     def Show_Stats_Scene(self):
 
         bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
-        background_Width = bakgrund.get_width() **scale
-        background_Height = bakgrund.get_height() **scale
+        background_Width = bakgrund.get_width() * scale
+        background_Height = bakgrund.get_height() * scale
         bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
         
         Character = pygame.image.load("renders/Färdigt/Character - oilpaint.png")
-        background_Width = Character.get_width() **scale * 0.9
-        background_Height = Character.get_height() **scale * 0.9
+        background_Width = Character.get_width() * scale * 0.9
+        background_Height = Character.get_height() * scale * 0.9
         Character = pygame.transform.scale(Character, (background_Width, background_Height))
 
-        font_color = (120*scale, 0, 0)  
-        font_color1 = (139, 0, 139)  #lila
-        font_color2 = (0, 120*scale, 0)  #grönt 
-        font_color3 = (255, 255, 0)  #gult ##### FINNS METOD ######
-        font_color4 = (20,20,20)
         font_obj = pygame.font.Font("Fonts/Font1.TTF",int(70*scale))
-        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(70 **scale))
+        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(70 *scale))
 
-        text_obj = font_obj.render(f"Health : {self.spelare.Hp}",True,font_color)
-        text_obj1 = font_obj.render(f"Strength : {self.spelare.Str}",True,font_color1)
-        text_obj2 = font_obj.render(f"Level : {self.spelare.lvl}",True,font_color2)        
-        text_obj3 = font_obj.render(f"Intelligence : {self.spelare.intelligence}",True,font_color3)
+        text_obj = font_obj.render(f"Health : {self.spelare.Hp}",True,Red)
+        text_obj1 = font_obj.render(f"Strength : {self.spelare.Str}",True,Purple)
+        text_obj2 = font_obj.render(f"Level : {self.spelare.lvl}",True,Green)        
+        text_obj3 = font_obj.render(f"Intelligence : {self.spelare.intelligence}",True,Yellow)
 
-        text_obj4 = font_obj2.render("Go back", True, font_color4)
-        Go_back = Button(730*scale, 850*scale, self.Button1_image, 0.8)
+        text_obj4 = font_obj2.render("Go back", True, Dark_Grey)
+        Go_back = Button(730*scale, 850*scale, Button1_image, 0.8)
 
         screen.blit(bakgrund, (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 90*scale,1620*scale, 900*scale,))
@@ -234,18 +234,16 @@ class GameState():
     def Show_Inv_Scene(self):
         
         bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
-        background_Width = bakgrund.get_width() **scale
-        background_Height = bakgrund.get_height() **scale
+        background_Width = bakgrund.get_width() *scale
+        background_Height = bakgrund.get_height() *scale
         bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
         
-        font_color1 =(255, 255, 255)
-        font_color2  =(120*scale,0,0)
-        font_color4 = (20,20,20)
-        font_obj1 = pygame.font.Font("Fonts/Font6.ttf", int(70 **scale))
-        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(35 **scale))
-        font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 **scale))
-        text_obj4 = font_obj1.render("Go back", True, font_color4)
-        Go_back = Button(730*scale, 880*scale, self.Button1_image, 0.8)
+        font_obj1 = pygame.font.Font("Fonts/Font6.ttf", int(70 *scale))
+        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(35 *scale))
+        font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 *scale))
+        text_obj4 = font_obj1.render("Go back", True, Dark_Grey)
+        
+        Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
     
         inventory = self.spelare.inventory
         
@@ -260,19 +258,19 @@ class GameState():
         Item5_Bild = pygame.image.load(f"Bilder/{inventory[4].image}.png")
         Item5 = pygame.transform.scale(Item5_Bild, (120*scale, 120*scale))
         
-        Item1_text = font_obj2.render(f" Name: {inventory[0].Name}, Description: {inventory[0].Description}",True,font_color1)
-        Item2_text = font_obj2.render(f" Name: {inventory[1].Name}, Description: {inventory[1].Description}",True,font_color1)
-        Item3_text = font_obj2.render(f" Name: {inventory[2].Name}, Description: {inventory[2].Description}",True,font_color1)
-        Item4_text = font_obj2.render(f" Name: {inventory[3].Name}, Description: {inventory[3].Description}",True,font_color1)
-        Item5_text = font_obj2.render(f" Name: {inventory[4].Name}, Description: {inventory[4].Description}",True,font_color1)
+        Item1_text = font_obj2.render(f" Name: {inventory[0].Name}, Description: {inventory[0].Description}",True,White)
+        Item2_text = font_obj2.render(f" Name: {inventory[1].Name}, Description: {inventory[1].Description}",True,White)
+        Item3_text = font_obj2.render(f" Name: {inventory[2].Name}, Description: {inventory[2].Description}",True,White)
+        Item4_text = font_obj2.render(f" Name: {inventory[3].Name}, Description: {inventory[3].Description}",True,White)
+        Item5_text = font_obj2.render(f" Name: {inventory[4].Name}, Description: {inventory[4].Description}",True,White)
         
-        Str_text1 = font_obj3.render(f" Strength: {inventory[0].Strength}",True,font_color2)
-        Str_text2 = font_obj3.render(f" Strength: {inventory[1].Strength}",True,font_color2)
-        Str_text3 = font_obj3.render(f" Strength: {inventory[2].Strength}",True,font_color2)
-        Str_text4 = font_obj3.render(f" Strength: {inventory[3].Strength}",True,font_color2)
-        Str_text5 = font_obj3.render(f" Strength: {inventory[4].Strength}",True,font_color2)
+        Str_text1 = font_obj3.render(f" Strength: {inventory[0].Strength}",True,Red)
+        Str_text2 = font_obj3.render(f" Strength: {inventory[1].Strength}",True,Red)
+        Str_text3 = font_obj3.render(f" Strength: {inventory[2].Strength}",True,Red)
+        Str_text4 = font_obj3.render(f" Strength: {inventory[3].Strength}",True,Red)
+        Str_text5 = font_obj3.render(f" Strength: {inventory[4].Strength}",True,Red)
         
-        screen.fill((0, 0, 0))
+        
         screen.blit(bakgrund, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
         Go_back.draw(screen)
@@ -315,18 +313,18 @@ class GameState():
                   
     def Door_Choice_Scene(self):
         from Game_State import game_state
-        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 **scale))
-        text_obj3 = font_obj3.render("Where do you want to go? Pick a door!",True,self.font_color1)
-        text_rect = text_obj3.get_rect(center = (self.screen_Width//2, 75*scale))
+        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
+        text_obj3 = font_obj3.render("Where do you want to go? Pick a door!",True,Dark_Grey)
+        text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
         
         Door1 = pygame.image.load("Bilder/dörrknapp1.png")
         Door2 = pygame.image.load("Bilder/dörrknapp2.png")
         door3 = pygame.image.load("Bilder/dörrknapp3.png")
         
-        bakgrund = pygame.image.load("renders/Färdigt/Tre dörrar v3- oilpaint.png")
-        background_Width = bakgrund.get_width() **scale
-        background_Height = bakgrund.get_height() **scale
-        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
+        Background = pygame.image.load("renders/Färdigt/Tre dörrar v3- oilpaint.png")
+        background_Width = Background.get_width() *scale
+        background_Height = Background.get_height() *scale
+        Background = pygame.transform.scale(Background, (background_Width, background_Height))
         
         Door1_Button = Button(1458*scale, 235*scale, Door1, 1)   
         Door2_Button = Button(695*scale, 320*scale, Door2, 1) 
@@ -344,7 +342,7 @@ class GameState():
         if Door3_Button.clicked():
             self.spelare.Choice(3)
         
-        screen.blit(bakgrund,(0,0))
+        screen.blit(Background,(0,0))
         
         Door1_Button.draw(screen)
         Door2_Button.draw(screen)
@@ -357,12 +355,10 @@ class GameState():
         
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel - oilpaint.png")
-        background_Width = Monster1.get_width() **scale
-        background_Height = Monster1.get_height() **scale
+        background_Width = Monster1.get_width() *scale
+        background_Height = Monster1.get_height() *scale
         Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
 
-        
-        screen.fill((0, 0, 0))
         screen.blit(Monster1, (0, 0))
         pygame.display.flip()
         
@@ -376,8 +372,8 @@ class GameState():
 
     def Win_Scene(self):
         Monster1 = pygame.image.load("renders/Färdigt/spindel - död - oilpaint.png")
-        background_Width = Monster1.get_width() **scale
-        background_Height = Monster1.get_height() **scale
+        background_Width = Monster1.get_width() *scale
+        background_Height = Monster1.get_height() *scale
         Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
 
         image1 = pygame.image.load("Bilder/Knapp.png")
@@ -390,7 +386,7 @@ class GameState():
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
         
-        screen.fill((0, 0, 0))
+        
         screen.blit(Monster1, (0, 0))
         
         Return_Button.draw(screen)
@@ -399,14 +395,14 @@ class GameState():
     def Lose_Scene(self):
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel du dog - oilpaint.png")
-        background_Width = Monster1.get_width() **scale
-        background_Height = Monster1.get_height() **scale
+        background_Width = Monster1.get_width() *scale
+        background_Height = Monster1.get_height() *scale
         Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
         
         image1 = pygame.image.load("Bilder/exit_btn.png")
         Return_Button = Button(100, 400, image1,0.1)
         
-        screen.fill((0, 0, 0))
+        
         screen.blit(Monster1, (0, 0))
         Return_Button.draw(screen)
         pygame.display.flip()
@@ -421,14 +417,14 @@ class GameState():
     def Draw_Scene(self):
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel - tie - oilpaint.png")
-        background_Width = Monster1.get_width() **scale
-        background_Height = Monster1.get_height() **scale
+        background_Width = Monster1.get_width() *scale
+        background_Height = Monster1.get_height() *scale
         Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
         
         image1 = pygame.image.load("Bilder/Knapp.png")
         Return_Button = Button(100, 400, image1, 0.1)
          
-        screen.fill((0, 0, 0))
+        
         screen.blit(Monster1, (0, 0))
         
         background = pygame.image.load("Bilder/lika.png")
@@ -448,12 +444,12 @@ class GameState():
     def Trap_Scene(self):
         
         Trap = pygame.image.load("renders/Färdigt/Trap1 - oilpaint.png")
-        background_Width = Trap.get_width() **scale
-        background_Height = Trap.get_height() **scale
+        background_Width = Trap.get_width() *scale
+        background_Height = Trap.get_height() *scale
         Trap = pygame.transform.scale(Trap, (background_Width, background_Height))
         
                 
-        screen.fill((0, 0, 0))
+        
         screen.blit(Trap, (0,0))
         pygame.display.flip()
         
@@ -470,13 +466,13 @@ class GameState():
                 
     def Dodge_Trap_Scene(self):
         Trap = pygame.image.load("renders/Färdigt/Trap1 - dodge - oilpaint.png")
-        background_Width = Trap.get_width() **scale
-        background_Height = Trap.get_height() **scale
+        background_Width = Trap.get_width() *scale
+        background_Height = Trap.get_height() *scale
         Trap = pygame.transform.scale(Trap, (background_Width, background_Height))
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
         
-        screen.fill((0, 0, 0))
+        
         screen.blit(Trap, (0,0))
         Continue_Button.draw(screen)       
         pygame.display.flip()
@@ -488,8 +484,8 @@ class GameState():
                 
     def Fall_For_Trap_Scene(self):
         Trap = pygame.image.load("renders/Färdigt/Trap1 du dog - oilpaint.png")
-        background_Width = Trap.get_width() **scale
-        background_Height = Trap.get_height() **scale
+        background_Width = Trap.get_width() *scale
+        background_Height = Trap.get_height() *scale
         Trap = pygame.transform.scale(Trap, (background_Width, background_Height))    
          
         Continue_Button = pygame.image.load("Bilder/continue.png")
@@ -511,13 +507,13 @@ class GameState():
     def Chest_Scene(self):
         font_color = (100,100,100) 
 
-        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 **scale))
+        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
         text_obj3 = font_obj3.render("Press the chest to open it",True,font_color)
         text_rect = text_obj3.get_rect(center = (self.screen_Width//2, 150*scale))
 
         Chest = pygame.image.load("renders/Färdigt/Kista - stängd - oilpaint.png")
-        background_Width = Chest.get_width() **scale
-        background_Height = Chest.get_height() **scale
+        background_Width = Chest.get_width() *scale
+        background_Height = Chest.get_height() *scale
         Chest = pygame.transform.scale(Chest, (background_Width, background_Height))
 
         Chest_Button = pygame.image.load("Bilder/kistknapp.png")
@@ -537,7 +533,7 @@ class GameState():
             self.state = 'Chest_Scene_Open'
 
 
-        screen.fill((0, 0, 0))
+        
         screen.blit(Chest, (0, 0))
         Chest_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
@@ -547,41 +543,41 @@ class GameState():
     def Chest_Scene_Open(self):
         
         Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
-        background_Width = Open_Chest.get_width() **scale
-        background_Height = Open_Chest.get_height() **scale
+        background_Width = Open_Chest.get_width() *scale
+        background_Height = Open_Chest.get_height() *scale
         Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height)) 
 
         font_color = (120*scale,120*scale,120*scale) 
         
-        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 **scale))
+        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
         text_obj3 = font_obj3.render("You opened the chest and found:",True,font_color)
         text_rect = text_obj3.get_rect(center = (self.screen_Width//2, 170*scale))
         
         if self.spelare.chest_gold == True:
 
-            font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 **scale))
+            font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 *scale))
             text_obj4 = font_obj4.render(f"{self.found_item} Gold",True,font_color)
             text_rect1 = text_obj4.get_rect(center = (self.screen_Width//2, 300*scale))
 
             item = pygame.image.load(f"Bilder/GULD.png")
-            item_Width = item.get_width() **scale
-            item_Height = item.get_height() **scale
+            item_Width = item.get_width() *scale
+            item_Height = item.get_height() *scale
             item = pygame.transform.scale(item, (item_Width, item_Height)) 
 
         else:
-            font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 **scale))
+            font_obj4 = pygame.font.Font("Fonts/Font1.TTF", int(70 *scale))
             text_obj4 = font_obj4.render(self.found_item.Name,True,font_color)
             text_rect1 = text_obj4.get_rect(center = (self.screen_Width//2, 300*scale))
 
             item = pygame.image.load(f"Bilder/{self.found_item.image}.png")
-            item_Width = item.get_width() **scale
-            item_Height = item.get_height() **scale
+            item_Width = item.get_width() *scale
+            item_Height = item.get_height() *scale
             item = pygame.transform.scale(item, (item_Width, item_Height)) 
 
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(910*scale, 800*scale, Continue_Button, 1)
         
-        screen.fill((0, 0, 0))
+        
         screen.blit(Open_Chest, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
         screen.blit(text_obj3,text_rect)
@@ -606,11 +602,11 @@ class GameState():
     def Item_manager(self):
 
         Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
-        background_Width = Open_Chest.get_width() **scale
-        background_Height = Open_Chest.get_height() **scale
+        background_Width = Open_Chest.get_width() *scale
+        background_Height = Open_Chest.get_height() *scale
         Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height))
 
-        screen.fill((0, 0, 0))
+        
         screen.blit(Open_Chest, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
         
@@ -673,19 +669,14 @@ class GameState():
         from Class_Item import Shop_List
         
         bakgrund = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
-        background_Width = bakgrund.get_width() **scale
-        background_Height = bakgrund.get_height() **scale
+        background_Width = bakgrund.get_width() *scale
+        background_Height = bakgrund.get_height() *scale
         bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
         
-        font_color1 =(255, 255, 255)
-        font_color2  =(120,0,0)
-        font_color3 = (100,100,100)
-        font_color4 = (255, 192, 0)
-        
         font_obj = pygame.font.Font("Fonts/Font1.ttf", int(100*scale))
-        font_obj1 = pygame.font.Font("Fonts/Font6.ttf", int(70 **scale))
-        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(35 **scale))
-        font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 **scale))
+        font_obj1 = pygame.font.Font("Fonts/Font6.ttf", int(70 *scale))
+        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(35 *scale))
+        font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 *scale))
        
         Item1_Bild = pygame.image.load(f"Bilder/{Shop_List[0].image}.png")
         Item1 = pygame.transform.scale(Item1_Bild, (120*scale, 120*scale))
@@ -699,66 +690,67 @@ class GameState():
         Item4_Bild = pygame.image.load(f"Bilder/{Shop_List[3].image}.png")
         Item4 = pygame.transform.scale(Item4_Bild, (120*scale, 120*scale))
 
-        item1_hover = Button(300*scale, 400*scale, Item1_Bild, 1)
-        item2_hover = Button(650*scale, 400*scale, Item2_Bild, 1)
-        item3_hover = Button(1150*scale, 400*scale, Item3_Bild, 1)
-        item4_hover = Button(1480*scale, 400*scale, Item4_Bild, 1)
+        item1 = Button(300*scale, 400*scale, Item1, 1)
+        item2 = Button(650*scale, 400*scale, Item2, 1)
+        item3 = Button(1150*scale, 400*scale, Item3, 1)
+        item4 = Button(1480*scale, 400*scale, Item4, 1)
+        
+        Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
         
         #Gold_image = pygmae.transform
 
-        Item1_text = font_obj3.render(f" Name: {Shop_List[0].Name}, Description: {Shop_List[0].Description}",True,font_color1)
-        Item2_text = font_obj3.render(f" Name: {Shop_List[1].Name}, Description: {Shop_List[1].Description}",True,font_color1)
-        Item3_text = font_obj3.render(f" Name: {Shop_List[2].Name}, Description: {Shop_List[2].Description}",True,font_color1)
-        Item4_text = font_obj3.render(f" Name: {Shop_List[3].Name}, Description: {Shop_List[3].Description}",True,font_color1)
+        Item1_text = font_obj3.render(f" Name: {Shop_List[0].Name}, Description: {Shop_List[0].Description}",True,White)
+        Item2_text = font_obj3.render(f" Name: {Shop_List[1].Name}, Description: {Shop_List[1].Description}",True,White)
+        Item3_text = font_obj3.render(f" Name: {Shop_List[2].Name}, Description: {Shop_List[2].Description}",True,White)
+        Item4_text = font_obj3.render(f" Name: {Shop_List[3].Name}, Description: {Shop_List[3].Description}",True,White)
         
-        Str_text1 = font_obj3.render(f" Strength: {Shop_List[0].Strength}",True,font_color2)
-        Str_text2 = font_obj3.render(f" Strength: {Shop_List[1].Strength}",True,font_color2)
-        Str_text3 = font_obj3.render(f" Strength: {Shop_List[2].Strength}",True,font_color2)
-        Str_text4 = font_obj3.render(f" Strength: {Shop_List[3].Strength}",True,font_color2)
+        Str_text1 = font_obj3.render(f" Strength: {Shop_List[0].Strength}",True,Red)
+        Str_text2 = font_obj3.render(f" Strength: {Shop_List[1].Strength}",True,Red)
+        Str_text3 = font_obj3.render(f" Strength: {Shop_List[2].Strength}",True,Red)
+        Str_text4 = font_obj3.render(f" Strength: {Shop_List[3].Strength}",True,Red)
 
-        Title = font_obj.render("Shop", True, font_color3)
-        Title_center = Title.get_rect(center = (self.screen_Width//2, 150*scale))
+        Title = font_obj.render("Shop", True, Gray)
+        Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
 
-        gold_ammount = font_obj2.render("Gold: ", True, font_color4)
+        gold_ammount = font_obj2.render("Gold: ", True, Gold)
         
-        screen.fill((0, 0, 0))
         screen.blit(bakgrund, (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
 
-        if item1_hover.hover():
+        if item1.hover():
             draw_rect_alpha(screen, (0, 0, 0, 150), (130*scale, 400*scale,450*scale, 300*scale,))
             screen.blit(Item1_text, (250*scale, 100*scale))
             screen.blit(Str_text1, (250*scale, 150*scale))
         else:
             draw_rect_alpha(screen, (0, 0, 0, 100), (280*scale, 400*scale,160*scale, 160*scale,))  
 
-        if item2_hover.hover():
+        if item2.hover():
             draw_rect_alpha(screen, (0, 0, 0, 150), (480*scale, 400*scale,450*scale, 300*scale,))
             screen.blit(Item2_text, (250*scale, 250*scale))
             screen.blit(Str_text2, (250*scale, 300*scale))
         else:
             draw_rect_alpha(screen, (0, 0, 0, 100), (630*scale, 400*scale,160*scale, 160*scale,))
 
-        if item3_hover.hover():
+        if item3.hover():
             draw_rect_alpha(screen, (0, 0, 0, 150), (980*scale, 400*scale,450*scale, 300*scale,)) 
             screen.blit(Item3_text, (250*scale, 400*scale))
             screen.blit(Str_text3, (250*scale, 450*scale))
         else:
             draw_rect_alpha(screen, (0, 0, 0, 100), (1130*scale, 400*scale,160*scale, 160*scale,))
 
-        if item4_hover.hover():
+        if item4.hover():
             draw_rect_alpha(screen, (0, 0, 0, 150), (1310*scale, 400*scale,450*scale, 300*scale,))
             screen.blit(Item4_text, (250*scale, 550*scale))
             screen.blit(Str_text4, (250*scale, 600*scale))
         else:
             draw_rect_alpha(screen, (0, 0, 0, 100), (1460*scale, 400*scale,160*scale, 160*scale,))
         
-        screen.blit(self.Button_image, (0, 0) )
-        screen.blit(Item1, (300*scale, 420*scale))
-        screen.blit(Item2, (650*scale, 420*scale))
-        screen.blit(Item3, (1150*scale, 420*scale))
-        screen.blit(Item4, (1480*scale, 420*scale))
+        item1.draw(screen)
+        item2.draw(screen)
+        item3.draw(screen)
+        item4.draw(screen)
+        
     
         pygame.display.flip()
 
