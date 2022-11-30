@@ -689,7 +689,10 @@ class GameState():
         
         font_color1 =(255, 255, 255)
         font_color2  =(120,0,0)
-        font_color4 = (20,20,20)
+        font_color3 = (100,100,100)
+        font_color4 = (255, 192, 0)
+        
+        font_obj = pygame.font.Font("Fonts/Font1.ttf", int(100*self.scale))
         font_obj1 = pygame.font.Font("Fonts/Font6.ttf", int(70 * self.scale))
         font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(35 * self.scale))
         font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 * self.scale))
@@ -721,12 +724,15 @@ class GameState():
         Str_text3 = font_obj3.render(f" Strength: {Shop_List[2].Strength}",True,font_color2)
         Str_text4 = font_obj3.render(f" Strength: {Shop_List[3].Strength}",True,font_color2)
 
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(910*self.scale, 800*self.scale, Continue_Button, 1)
+        Title = font_obj.render("Shop", True, font_color3)
+        Title_center = Title.get_rect(center = (self.screen_Width//2, 150*self.scale))
+
+        gold_ammount = font_obj2.render("Gold: ", True, font_color4)
         
         screen.fill((0, 0, 0))
         screen.blit(bakgrund, (0, 0))
-        Continue_Button.draw(screen)
+        screen.blit(Title, Title_center)
+        draw_rect_alpha(screen, (0, 0, 0, 100), (760*self.scale, 85*self.scale,400*self.scale, 125*self.scale*self.scale,))
 
         if item1_hover.hover():
             draw_rect_alpha(screen, (0, 0, 0, 150), (130*self.scale, 400*self.scale,450*self.scale, 300*self.scale,))
@@ -756,7 +762,6 @@ class GameState():
         else:
             draw_rect_alpha(screen, (0, 0, 0, 100), (1460*self.scale, 400*self.scale,160*self.scale, 160*self.scale,))
                        
-        
         screen.blit(Item1, (300*self.scale, 420*self.scale))
         screen.blit(Item2, (650*self.scale, 420*self.scale))
         screen.blit(Item3, (1150*self.scale, 420*self.scale))
@@ -769,10 +774,9 @@ class GameState():
                 pygame.quit()
                 sys.exit()
 
-        if Continue_Button.clicked():
-            self.state = 'Choice_Scene'
-        
-       
+        #if Continue_Button.clicked():
+            self.state = 'Choice_Scene'  
+                   
     def Game_Over_Scene(self):
         from Class_Item import Empty
         self.spelare.Hp = 100
