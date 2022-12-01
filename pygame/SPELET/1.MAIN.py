@@ -1,5 +1,5 @@
 import pygame
-
+pygame.init()
 from Game_State import game_state
 
 pygame.display.set_caption("Davids Äventyr")
