@@ -24,5 +24,5 @@ Mjölnir = Item("Mjölnir", 60, "Thor something something", 5, "Mjolnir", 450)
 
 
 
-alla_items = [Spiked_Club, Gandalf_Staff, Eternal_Flame, Excalibur, Crossbow, Axe, Twosided_Axe, Spearaxe, Dagger, Mjölnir]
+alla_items = [Crossbow, Axe, Twosided_Axe, Spearaxe, Dagger, Mjölnir]
 Shop_List = [Spiked_Club, Gandalf_Staff, Eternal_Flame, Excalibur]

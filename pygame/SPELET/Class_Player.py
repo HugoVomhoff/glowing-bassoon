@@ -1,7 +1,6 @@
 import random
 from Class_GameState import GameState
-from Class_Item import alla_items
-from Class_Item import Empty
+from Class_Item import alla_items, Shop_List, Empty
 
 class Player(): 
     def __init__ (self, Str, Hp, lvl, intelligence, gold):
@@ -75,6 +74,7 @@ class Player():
                 print("Det fanns inga items kvar så du får denna snygga babe ;) ")
 
             elif(self.alla_items[1] == "m"):
+                self.shop = False
                 self.inv_add(self.alla_items[0])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
@@ -82,6 +82,7 @@ class Player():
             elif len(self.alla_items) == 2:
                 
                 self.founditem = random.randint(0, len(self.alla_items)-1)
+                self.shop = False
                 self.inv_add(self.alla_items[self.founditem])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
@@ -90,6 +91,7 @@ class Player():
             else:
                 
                 self.founditem = random.randint(0, len(self.alla_items)-1)
+                self.shop = False
                 self.inv_add(self.alla_items[self.founditem])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
@@ -130,21 +132,33 @@ class Player():
         from Game_State import game_state
 
         if self.inventory.count(Empty) == 0:
+            if self.shop == False:
             
+                self.inv_full = True
             
-            self.inv_full = True
+                game_state.state = "Chest_Scene_Open"
+            else:
+                self.inv_full = True
             
-            game_state.state = "Chest_Scene_Open"
+                game_state.state = "Shop_Scene"
+
             
 
             
         else:
             
-            game_state.state = "Chest_Scene_Open"
-            self.inventory[5 - self.inventory.count(Empty)] = item
-            self.str_add(item.Strength)
-            self.value_inventory.append(item)
-    
+            if self.shop == False:
+                game_state.state = "Chest_Scene_Open"
+                self.inventory[5 - self.inventory.count(Empty)] = item
+                self.str_add(item.Strength)
+                self.value_inventory.append(item)
+            else: 
+                game_state.state = "Shop_Scene"
+                self.inventory[5 - self.inventory.count(Empty)] = item
+                self.str_add(item.Strength)
+                self.value_inventory.append(item)
+
+        
     def inv_change(self, change):
 
         item = self.current_item
@@ -154,8 +168,20 @@ class Player():
         self.str_add(item.Strength)
                
     def  Show_Inv(self):
+
         from Game_State import game_state
         game_state.state = 'Show_Inv_Scene'
         
         for plats in self.inventory:
             print(plats)
+
+def Buy_item(self, item, index):
+    if self.gold >= item.price:
+        if self.inventory.count(Empty) > 0:
+            self.gold -= item.price
+            Shop_List[index] = alla_items[0]
+            alla_items = alla_items.pop(0)
+            self.shop = True
+            self.inv_add(item)
+    else:
+        self.can_afford = False
