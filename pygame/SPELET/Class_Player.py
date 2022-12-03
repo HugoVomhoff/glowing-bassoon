@@ -11,12 +11,12 @@ class Player():
         self.lvl = lvl
         self.inv_full = False
         self.gold = gold
-
+        self.Shop_List = Shop_List
+        
         self.inventory = [Empty, Empty ,Empty ,Empty ,Empty]
         self.value_inventory = []
         
         self.alla_items = alla_items
-        self.current_item = "inget"
 
     def Show_Stats(self):
         from Game_State import game_state
@@ -37,7 +37,8 @@ class Player():
         elif Choice == 2:
             self.Show_Inv()   
         elif Choice == 3:
-            utfall = random.randint(1,3)
+            utfall = 3
+            #utfall = random.randint(1,3)
             
             if utfall == 1:
                 game_state.state = "Monster_Scene"
@@ -70,10 +71,10 @@ class Player():
         
         if guld_eller_item <= 3:
             
-            if self.alla_items[0] == "m":
+            if self.alla_items[0].Name == "no":
                 print("Det fanns inga items kvar så du får denna snygga babe ;) ")
 
-            elif(self.alla_items[1] == "m"):
+            elif(self.alla_items[1].Name == "no"):
                 self.shop = False
                 self.inv_add(self.alla_items[0])
                 self.current_item = self.alla_items[self.founditem]
@@ -86,7 +87,7 @@ class Player():
                 self.inv_add(self.alla_items[self.founditem])
                 self.current_item = self.alla_items[self.founditem]
                 self.alla_items.pop(self.founditem)
-                self.alla_items.append("m")
+                self.alla_items.append(Empty)
                 
             else:
                 
@@ -132,6 +133,7 @@ class Player():
         from Game_State import game_state
 
         if self.inventory.count(Empty) == 0:
+            
             if self.shop == False:
             
                 self.inv_full = True
@@ -162,10 +164,12 @@ class Player():
     def inv_change(self, change):
 
         item = self.current_item
-
         self.str_add(-1*(self.value_inventory[change - 1].Strength)) 
         self.inventory[change - 1] = item
         self.str_add(item.Strength)
+        from Game_State import game_state
+        game_state.state = 'Choice Scene'
+        
                
     def  Show_Inv(self):
 
@@ -175,13 +179,13 @@ class Player():
         for plats in self.inventory:
             print(plats)
 
-def Buy_item(self, item, index):
-    if self.gold >= item.price:
-        if self.inventory.count(Empty) > 0:
+    def Buy_item(self, item, index):
+        self.can_afford = True
+        if self.gold >= item.price:
             self.gold -= item.price
-            Shop_List[index] = alla_items[0]
-            alla_items = alla_items.pop(0)
+            self.Shop_List[index] = self.alla_items[0]
+            self.alla_items = self.alla_items.pop(0)
             self.shop = True
             self.inv_add(item)
-    else:
-        self.can_afford = False
+        else:
+            self.can_afford = False

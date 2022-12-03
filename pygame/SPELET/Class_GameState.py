@@ -575,17 +575,17 @@ class GameState():
         inventory = self.spelare.inventory
 
         
-        Item1_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[0].image}.png")
-        Item2_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[1].image}.png")
-        Item3_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[2].image}.png")
-        Item4_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[3].image}.png")
-        Item5_Bild = pygame.image.load(f"renders/Default Renders/items{inventory[4].image}.png")
+        Item1_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[0].image}.png")
+        Item2_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[1].image}.png")
+        Item3_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[2].image}.png")
+        Item4_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[3].image}.png")
+        Item5_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[4].image}.png")
 
-        Item1_Button = Button(910*scale, 800*scale, Item1_Bild, 1)
-        Item2_Button = Button(910*scale, 800*scale, Item2_Bild, 1)
-        Item3_Button = Button(910*scale, 800*scale, Item3_Bild, 1)
-        Item4_Button = Button(910*scale, 800*scale, Item4_Bild, 1)
-        Item5_Button = Button(910*scale, 800*scale, Item5_Bild, 1)
+        Item1_Button = Button(100*scale, 800*scale, Item1_Bild, 1)
+        Item2_Button = Button(250*scale, 800*scale, Item2_Bild, 1)
+        Item3_Button = Button(400*scale, 800*scale, Item3_Bild, 1)
+        Item4_Button = Button(550*scale, 800*scale, Item4_Bild, 1)
+        Item5_Button = Button(700*scale, 800*scale, Item5_Bild, 1)
 
         Item1_Button.draw(screen)
         Item2_Button.draw(screen)
@@ -596,7 +596,6 @@ class GameState():
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(910*scale, 800*scale, Continue_Button, 1)
         Continue_Button.draw(screen)
-        pygame.display.flip()
 
         if Item1_Button.clicked():
             self.inv_change = 1
@@ -620,6 +619,8 @@ class GameState():
 
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
+        
+        pygame.display.flip()
 
                     
         for event in pygame.event.get(pygame.QUIT):
@@ -708,8 +709,9 @@ class GameState():
 
         
         if item1.clicked():   
-            self.spelare.Buy_item(self.spelare.Shop_List[1], 1)
+            self.spelare.Buy_item(self.spelare.Shop_List[0], 0)
             if self.spelare.can_afford == False:
+                print("du har inte tillräckligt med pengar")
                 
 
 
@@ -743,7 +745,7 @@ class GameState():
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
         
-        Exit = pygame.image.load("Bilder/exit_btn.png")
+        Exit = pygame.image.load("Bilder/continue.png")
         Exit_Button = Button(710*scale, 800*scale, Exit, 1)
         
 
