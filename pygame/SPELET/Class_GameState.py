@@ -2,7 +2,7 @@ import pygame
 import time
 import sys
 from Class_Button import Button
-from skärpning import draw_rect_alpha, fonts
+from Variabler import draw_rect_alpha, fonts
 
 font1, font2, font3, Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_70 = fonts
 
@@ -20,9 +20,7 @@ Purple = (139, 0, 139)
 Yellow = (255, 255, 0)
 Red = (120, 0, 0)
 Green = (0, 120, 0)
-
-
-        
+  
 # Default images
 Button_image = pygame.image.load("Bilder/Knapp.png").convert_alpha()
 Button1_image = pygame.image.load("Bilder/Knapp1.png").convert_alpha()
@@ -524,7 +522,8 @@ class GameState():
             item = pygame.image.load(f"Bilder/GULD.png")
             item_Width = item.get_width() *scale
             item_Height = item.get_height() *scale
-            item = pygame.transform.scale(item, (item_Width, item_Height)) 
+            item = pygame.transform.scale(item, (item_Width, item_Height))
+            print (self.spelare.gold)
 
         else:
            
@@ -556,25 +555,31 @@ class GameState():
         
         if Continue_Button.clicked():
             
-            if self.spelare.inv_full == True:
+            if self.spelare.inv_full == True and self.spelare.chest_gold == False:
                 self.state = 'Item_manager'
             else:
                 self.state = "Choice_Scene"         
     
     def Item_manager(self):
 
-        Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
-        background_Width = Open_Chest.get_width() *scale
-        background_Height = Open_Chest.get_height() *scale
-        Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height))
-
         
-        screen.blit(Open_Chest, (0, 0))
+        if self.spelare.shop == False:
+            Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
+            background_Width = Open_Chest.get_width() *scale
+            background_Height = Open_Chest.get_height() *scale
+            Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height))
+            screen.blit(Open_Chest, (0, 0))
+        else:
+            Shop = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
+            background_Width = Shop.get_width() *scale
+            background_Height = Shop.get_height() *scale
+            Shop = pygame.transform.scale(Shop, (background_Width, background_Height))
+            screen.blit(Shop, (0, 0))
+        
         draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
         
         inventory = self.spelare.inventory
 
-        
         Item1_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[0].image}.png")
         Item2_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[1].image}.png")
         Item3_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[2].image}.png")
@@ -582,10 +587,10 @@ class GameState():
         Item5_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[4].image}.png")
 
         Item1_Button = Button(100*scale, 800*scale, Item1_Bild, 1)
-        Item2_Button = Button(250*scale, 800*scale, Item2_Bild, 1)
-        Item3_Button = Button(400*scale, 800*scale, Item3_Bild, 1)
-        Item4_Button = Button(550*scale, 800*scale, Item4_Bild, 1)
-        Item5_Button = Button(700*scale, 800*scale, Item5_Bild, 1)
+        Item2_Button = Button(500*scale, 800*scale, Item2_Bild, 1)
+        Item3_Button = Button(900*scale, 800*scale, Item3_Bild, 1)
+        Item4_Button = Button(1300*scale, 800*scale, Item4_Bild, 1)
+        Item5_Button = Button(1700*scale, 800*scale, Item5_Bild, 1)
 
         Item1_Button.draw(screen)
         Item2_Button.draw(screen)
@@ -594,33 +599,30 @@ class GameState():
         Item5_Button.draw(screen)
 
         Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(910*scale, 800*scale, Continue_Button, 1)
+        Continue_Button = Button(910*scale, 300*scale, Continue_Button, 1)
         Continue_Button.draw(screen)
 
+        pygame.display.flip()
+
         if Item1_Button.clicked():
-            self.inv_change = 1
-            self.spelare.inv_change(1)
+            self.spelare.inv_change(0)
             
         if Item2_Button.clicked():
-            self.inv_change = 2
-            self.spelare.inv_change(2)
+            self.spelare.inv_change(1)
 
         if Item3_Button.clicked():
-            self.inv_change = 3
-            self.spelare.inv_change(3)
+            self.spelare.inv_change(2)
 
         if Item4_Button.clicked():
-            self.inv_change = 4
-            self.spelare.inv_change(4)
+            self.spelare.inv_change(3)
 
         if Item5_Button.clicked():
-            self.inv_change = 5
-            self.spelare.inv_change(5)
+            self.spelare.inv_change(4)
 
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
         
-        pygame.display.flip()
+        
 
                     
         for event in pygame.event.get(pygame.QUIT):
@@ -709,11 +711,36 @@ class GameState():
 
         
         if item1.clicked():   
-            self.spelare.Buy_item(self.spelare.Shop_List[0], 0)
+            
+            if self.spelare.Shop_List[0].Name != "no":
+                self.spelare.Buy_item(self.spelare.Shop_List[0], 0)
+            
             if self.spelare.can_afford == False:
-                print("du har inte tillräckligt med pengar")
-                
+                print("du har inte tillräckligt med pengar") # adda nån text då obviously
 
+        if item2.clicked():   
+            
+            if self.spelare.Shop_List[1].Name != "no":
+                self.spelare.Buy_item(self.spelare.Shop_List[1], 1)
+            
+            if self.spelare.can_afford == False:
+                print("du har inte tillräckligt med pengar")# adda nån text då obviously
+                
+        if item3.clicked():   
+            
+            if self.spelare.Shop_List[2].Name != "no":
+                self.spelare.Buy_item(self.spelare.Shop_List[2], 2)
+            
+            if self.spelare.can_afford == False:
+                print("du har inte tillräckligt med pengar")# adda nån text då obviously
+
+        if item4.clicked():   
+            
+            if self.spelare.Shop_List[3].Name != "no":
+                self.spelare.Buy_item(self.spelare.Shop_List[3], 3)
+            
+            if self.spelare.can_afford == False:
+                print("du har inte tillräckligt med pengar")# adda nån text då obviously
 
         if Go_back.clicked():
             self.state = "Choice_Scene"
