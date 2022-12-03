@@ -21,6 +21,7 @@ Yellow = (255, 255, 0)
 Red = (120, 0, 0)
 Green = (0, 120, 0)
 
+
         
 # Default images
 Button_image = pygame.image.load("Bilder/Knapp.png").convert_alpha()
@@ -53,12 +54,11 @@ class GameState():
 
         pygame.display.flip()
         
-        for event in pygame.event.get([pygame.KEYDOWN, pygame.QUIT]):  
-            
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.state = 'Difficulty_Scene'
-            
+        
+        if pygame.key.get_pressed()[pygame.K_SPACE] == True:
+            self.state = 'Difficulty_Scene'
+
+        for event in pygame.event.get(pygame.QUIT):  
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -819,8 +819,4 @@ class GameState():
             self.Door_Choice_Scene()       
         if self.state == "Shop_Scene":
             self.Shop_Scene()
-            
-            
-            
-            
-            
+                       
