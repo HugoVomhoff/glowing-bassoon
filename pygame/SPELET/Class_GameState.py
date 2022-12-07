@@ -29,7 +29,7 @@ image_Width = Button1_image.get_width() *scale
 image_Height = Button_image.get_height() * scale
 
     
-class GameState():
+class GameState(): ### hoppas att ni förstår vår kod :))))) ####
     
     def __init__(self, spelare):
        
@@ -779,7 +779,7 @@ class GameState():
         font_color = (255, 255, 255)  
         font_obj = pygame.font.Font("Fonts/Font1.TTF",int(120*scale))
         text_obj = font_obj.render("Du är stendöd",True,font_color)
-        text_rect = text_obj.get_rect(center = (self.screen_Width//2, self.screen_Height//2))
+        text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2))
 
         screen.fill((0,0,0))
         Continue_Button.draw(screen)

@@ -11,3 +11,4 @@ while True:
     game_state.state_manager()
     pygame.event.clear()
     Clock.tick(60)
+
