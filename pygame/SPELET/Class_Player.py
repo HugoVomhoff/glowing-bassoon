@@ -37,8 +37,7 @@ class Player():
         elif Choice == 2:
             self.Show_Inv()   
         elif Choice == 3:
-            #utfall = random.randint(1,3)            
-            utfall = 3
+            utfall = random.randint(1,3)            
             if utfall == 1:
                 game_state.state = "Monster_Scene"
 

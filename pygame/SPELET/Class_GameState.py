@@ -4,11 +4,12 @@ import sys
 from Class_Button import Button
 from Variabler import draw_rect_alpha, fonts
 
-font1, font2, font3, Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_70 = fonts
-
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
+
+# Fonts
+font1, font2, Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_70 = fonts
 
 # Font colors
 Gray = (100, 100, 100)
@@ -28,7 +29,6 @@ Button1_image = pygame.image.load("Bilder/Knapp1.png").convert_alpha()
 image_Width = Button1_image.get_width() *scale
 image_Height = Button_image.get_height() * scale
 
-    
 class GameState(): ### hoppas att ni förstår vår kod :))))) ####
     
     def __init__(self, spelare):
@@ -63,16 +63,16 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
                   
     def Difficulty_Scene(self): 
 
-        text_obj3 = font1.render("Choose Difficulty",True,White)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, screen_Height//2-200*scale))
+        text_obj3 = Font1_120.render("Choose Difficulty",True,White)
+        text_rect = text_obj3.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
        
         L_button = Button((screen_Width-(image_Width*scale*3))/(4), 500*scale, Button1_image, 0.8)
         N_button = Button((2*(screen_Width-(image_Width*scale*3))/(4)+ scale*image_Width), 500*scale, Button1_image, 0.8)
         S_button = Button((3*(screen_Width-(image_Width*scale*3))/(4)+ 2 * scale*image_Width), 500*scale ,Button1_image, 0.8)
         
-        text_obj4 = font1.render("Easy", True, White)
-        text_obj5 = font1.render("Normal", True, White)
-        text_obj6 = font1.render("Hard", True, White)
+        Easy = Font6_70.render("Easy", True, White)
+        Normal = Font6_70.render("Normal", True, White)
+        Hard = Font6_70.render("Hard", True, White)
 
         
         screen.fill((0, 0, 0))
@@ -83,13 +83,12 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         N_button.draw(screen)
         L_button.draw(screen)
 
-        screen.blit(text_obj4,((screen_Width-(image_Width*scale*3)/(3+1)+image_Width*0.8*0.1, 500*scale)))
-        screen.blit(text_obj5,((2*(screen_Width-(image_Width*scale*3))/(3+1)+image_Width*0.8+image_Width*scale*0.1),500*scale))
-        screen.blit(text_obj6,((3*(screen_Width-(image_Width*scale*3))/(3+1)+2*image_Width*0.8+image_Width*0.8*0.1), 500*scale))
+        screen.blit(Easy,((screen_Width-(image_Width*3)/(3+1), 500*scale)))
+        screen.blit(Normal,((2*(screen_Width-(image_Width*3))/(3+1)+image_Width*0.8),500*scale))
+        screen.blit(Hard,((3*(screen_Width-(image_Width*3))/(3+1)+2*image_Width*0.8), 500*scale))
         pygame.display.flip()
 
         if L_button.clicked():
-            print("hej")
             self.spelare.Set_Difficulty(1)
             self.state = 'Choice_Scene'
 
@@ -800,7 +799,7 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
 
     def state_manager(self):
        
-        for event in pygame.event.get([pygame.KEYDOWN, pygame.QUIT]):  
+        for event in pygame.event.get(pygame.QUIT):  
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
