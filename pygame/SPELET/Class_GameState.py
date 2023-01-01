@@ -9,7 +9,7 @@ screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
 
 # Fonts
-font1, font2, Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_70 = fonts
+font1, font2, Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_70, Font6_80 = fonts
 
 # Font colors
 Gray = (100, 100, 100)
@@ -27,7 +27,10 @@ Button_image = pygame.image.load("Bilder/Knapp.png").convert_alpha()
 Button1_image = pygame.image.load("Bilder/Knapp1.png").convert_alpha()
 
 image_Width = Button1_image.get_width() *scale
-image_Height = Button_image.get_height() * scale
+image_Height = Button1_image.get_height() * scale
+
+image_Width1 = Button_image.get_width() *scale
+image_Height1 = Button_image.get_height() * scale
 
 class GameState(): ### hoppas att ni förstår vår kod :))))) ####
     
@@ -66,14 +69,13 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         text_obj3 = Font1_120.render("Choose Difficulty",True,White)
         text_rect = text_obj3.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
        
-        L_button = Button((screen_Width-(image_Width*scale*3))/(4), 500*scale, Button1_image, 0.8)
-        N_button = Button((2*(screen_Width-(image_Width*scale*3))/(4)+ scale*image_Width), 500*scale, Button1_image, 0.8)
-        S_button = Button((3*(screen_Width-(image_Width*scale*3))/(4)+ 2 * scale*image_Width), 500*scale ,Button1_image, 0.8)
+        L_button = Button((1*(screen_Width-(image_Width*3))/(4)), 500*scale, Button1_image,1)
+        N_button = Button((2*(screen_Width-(image_Width*3))/(4)+ image_Width), 500*scale, Button1_image, 1)
+        S_button = Button((3*(screen_Width-(image_Width*3))/(4)+ 2* image_Width), 500*scale ,Button1_image,1)
         
-        Easy = Font6_70.render("Easy", True, White)
-        Normal = Font6_70.render("Normal", True, White)
-        Hard = Font6_70.render("Hard", True, White)
-
+        Easy = Font6_80.render("Easy", True, White)
+        Normal = Font6_80.render("Normal", True, White)
+        Hard = Font6_80.render("Hard", True, White)
         
         screen.fill((0, 0, 0))
         screen.blit(text_obj3,text_rect)
@@ -83,10 +85,11 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         N_button.draw(screen)
         L_button.draw(screen)
 
-        screen.blit(Easy,((screen_Width-(image_Width*3)/(3+1), 500*scale)))
-        screen.blit(Normal,((2*(screen_Width-(image_Width*3))/(3+1)+image_Width*0.8),500*scale))
-        screen.blit(Hard,((3*(screen_Width-(image_Width*3))/(3+1)+2*image_Width*0.8), 500*scale))
+        screen.blit(Easy,(1*(screen_Width-(image_Width*3))/(4)+ 20*scale, 500*scale))
+        screen.blit(Normal,(2*(screen_Width-(image_Width*3))/(4) + image_Width + 20*scale ,500*scale))
+        screen.blit(Hard,(3*(screen_Width-(image_Width*3))/(4) + 2* image_Width + 20*scale, 500*scale))
         pygame.display.flip()
+        
 
         if L_button.clicked():
             self.spelare.Set_Difficulty(1)
@@ -183,27 +186,29 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         background_Height = Character.get_height() * scale * 0.9
         Character = pygame.transform.scale(Character, (background_Width, background_Height))
 
-        text_obj = Font1_70.render(f"Health : {self.spelare.Hp}",True,Red)
-        text_obj1 = Font1_70.render(f"Strength : {self.spelare.Str}",True,Purple)
-        text_obj2 = Font1_70.render(f"Level : {self.spelare.lvl}",True,Green)        
-        text_obj3 = Font1_70.render(f"Intelligence : {self.spelare.intelligence}",True,Yellow)
+        Health_text = Font1_70.render(f"Health : {self.spelare.Hp}",True,Red)
+        Str_text = Font1_70.render(f"Strength : {self.spelare.Str}",True,Purple)
+        Level_text = Font1_70.render(f"Level : {self.spelare.lvl}",True,Green)        
+        Intelligence_text = Font1_70.render(f"Intelligence : {self.spelare.intelligence}",True,Yellow)
+        Gold_text = Font1_70.render(f"Gold : {self.spelare.gold}", True, Gold)
 
-        text_obj4 = Font6_70.render("Go back", True, Dark_Grey)
-        Go_back = Button(730*scale, 850*scale, Button1_image, 0.8)
+        Return_text= Font6_70.render("Go back", True, Dark_Grey)
+        Return_button = Button(730*scale, 850*scale, Button1_image, 0.8)
 
         screen.blit(bakgrund, (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 90*scale,1620*scale, 900*scale,))
-        Go_back.draw(screen)
+        Return_button.draw(screen)
         screen.blit(Character, (1200*scale, 125*scale))
-        screen.blit(text_obj, (200*scale, 150*scale))
-        screen.blit(text_obj1, (200*scale, 320*scale))
-        screen.blit(text_obj2, (200*scale, 490*scale))
-        screen.blit(text_obj3, (200*scale, 660*scale))
-        screen.blit(text_obj4, (775*scale, 850*scale))
+        screen.blit(Health_text, (200*scale, 150*scale))
+        screen.blit(Str_text, (200*scale, 300*scale))
+        screen.blit(Level_text, (200*scale, 450*scale))
+        screen.blit(Intelligence_text, (200*scale, 600*scale))
+        screen.blit(Gold_text, (200*scale, 750*scale))
+        screen.blit(Return_text, (775*scale, 850*scale))
         
         pygame.display.flip()
 
-        if Go_back.clicked():
+        if Return_button.clicked():
             self.state = 'Choice_Scene'
             
         for event in pygame.event.get(pygame.QUIT):
@@ -221,7 +226,7 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         text_obj4 = Font6_70.render("Go back", True, Dark_Grey)
         
         Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
-    
+        
         inventory = self.spelare.inventory
         
         Item1_Bild = pygame.image.load(f"Bilder/{inventory[0].image}.png")
@@ -271,13 +276,6 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         screen.blit(Str_text4, (250*scale, 600*scale))
         screen.blit(Str_text5, (250*scale, 750*scale))
        
-           
-        #Item1_Button.draw(screen)
-        #Item2_Button.draw(screen)
-        #Item3_Button.draw(screen)
-        #Item4_Button.draw(screen)
-        #Item5_Button.draw(screen) 
-        
         pygame.display.flip()
                     
         for event in pygame.event.get(pygame.QUIT):
@@ -351,13 +349,22 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         background_Width = Monster1.get_width() *scale
         background_Height = Monster1.get_height() *scale
         Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
-
-        image1 = pygame.image.load("Bilder/Knapp.png")
-        Return_Button = Button(100, 400, image1, 0.1)  
+        
+        text_obj = Font1_100.render("You killed the spider",True,Gray)
+        text_obj2 = Font1_100.render("and leveled up",True,Gray)
+        text_obj3 = Font1_100.render("Press continue to forward",True,Gray)
+        Continue_text = Font1_100.render("Continue", True, Gray)
+        Return_Button = Button(800, 900 , Button1_image, 1)  
         
         screen.blit(Monster1, (0, 0))
+        draw_rect_alpha(screen, (0, 0, 0, 50), (50*scale, 50*scale,1820*scale, 980*scale,))
         
         Return_Button.draw(screen)
+        screen.blit(text_obj, (700 *scale, 200*scale))
+        screen.blit(text_obj2, (900*scale, 325*scale))
+        screen.blit(text_obj3, (650 *scale, 450*scale))
+        screen.blit(Continue_text, (810
+                                    *scale, 900*scale))
         pygame.display.flip()
 
         for event in pygame.event.get(pygame.QUIT):
@@ -395,12 +402,9 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         background_Height = Monster1.get_height() *scale
         Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
         
-        background = pygame.image.load("Bilder/lika.png")
-        image1 = pygame.image.load("Bilder/Knapp.png")
-        Return_Button = Button(100, 400, image1, 0.1)
+        Return_Button = Button(100, 400, Button_image, 0.8)
          
         screen.blit(Monster1, (0, 0))
-        screen.blit(background,(0,0))
         Return_Button.draw(screen)
         pygame.display.flip()
 
@@ -660,15 +664,15 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         
         Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
         
-        Item1_text = font_obj3.render(f" Name: {self.spelare.Shop_List[0].Name}, Description: {self.spelare.Shop_List[0].Description}",True,White)
-        Item2_text = font_obj3.render(f" Name: {self.spelare.Shop_List[1].Name}, Description: {self.spelare.Shop_List[1].Description}",True,White)
-        Item3_text = font_obj3.render(f" Name: {self.spelare.Shop_List[2].Name}, Description: {self.spelare.Shop_List[2].Description}",True,White)
-        Item4_text = font_obj3.render(f" Name: {self.spelare.Shop_List[3].Name}, Description: {self.spelare.Shop_List[3].Description}",True,White)
+        Item1_text = font_obj3.render(f"{self.spelare.Shop_List[0].Name}, \n {self.spelare.Shop_List[0].Description}",True,White)
+        Item2_text = font_obj3.render(f"{self.spelare.Shop_List[1].Name}, \n {self.spelare.Shop_List[1].Description}",True,White)
+        Item3_text = font_obj3.render(f"{self.spelare.Shop_List[2].Name}, \n {self.spelare.Shop_List[2].Description}",True,White)
+        Item4_text = font_obj3.render(f"{self.spelare.Shop_List[3].Name}, \n {self.spelare.Shop_List[3].Description}",True,White)
         
-        Str_text1 = font_obj3.render(f" Strength: {self.spelare.Shop_List[0].Strength}",True,Red)
-        Str_text2 = font_obj3.render(f" Strength: {self.spelare.Shop_List[1].Strength}",True,Red)
-        Str_text3 = font_obj3.render(f" Strength: {self.spelare.Shop_List[2].Strength}",True,Red)
-        Str_text4 = font_obj3.render(f" Strength: {self.spelare.Shop_List[3].Strength}",True,Red)
+        Str_text1 = font_obj3.render(f"{self.spelare.Shop_List[0].Strength}",True,Red)
+        Str_text2 = font_obj3.render(f"{self.spelare.Shop_List[1].Strength}",True,Red)
+        Str_text3 = font_obj3.render(f"{self.spelare.Shop_List[2].Strength}",True,Red)
+        Str_text4 = font_obj3.render(f"{self.spelare.Shop_List[3].Strength}",True,Red)
 
         Title = font_obj.render("Shop", True, Gray)
         Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
