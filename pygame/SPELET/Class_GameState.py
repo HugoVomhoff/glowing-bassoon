@@ -762,7 +762,7 @@ class GameState():
         text_obj = Font1_100.render("You were hurt by the spider ",True,Gray)
         text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
 
-        text_obj2 = Font1_100.render("and fled",True,Gray)
+        text_obj2 = Font1_100.render("and ran away",True,Gray)
         text_rect2 = text_obj2.get_rect(center = (screen_Width/2, 325*scale))
 
         text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
