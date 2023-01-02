@@ -624,17 +624,17 @@ class GameState():
                 pygame.quit()
                 sys.exit()
 
-    def Monster_Scene(self):
+    def Monster_Scene(self): #klar
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width,screen_Height))
 
-        Continue_text = Font1_100.render("Attack", True, Gray)
-        Return_Button = Button(800, 900 , Button1_image, 1)  
+        Attack = Font6_70.render("Attack", True, Dark_Grey)
+        Return_Button = Button(800, 900 , Button1_image, 0.7)  
 
         screen.blit(Bakground, (0, 0))
         Return_Button.draw(screen)
-        screen.blit(Continue_text, (810*scale, 900*scale))
+        screen.blit(Attack, (820*scale, 900*scale))
         pygame.display.flip()
         
         for event in pygame.event.get(pygame.QUIT):
@@ -645,25 +645,30 @@ class GameState():
         if Return_Button.clicked():
             self.spelare.monster()
 
-    def Win_Scene(self):
+    def Win_Scene(self): #klar?
         Monster1 = pygame.image.load("renders/Färdigt/spindel - död - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
         
-        text_obj = Font1_100.render("You killed the spider",True,Gray)
+        text_obj = Font1_100.render("You slaughtered the spider",True,Gray)
+        text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
+
         text_obj2 = Font1_100.render("and leveled up",True,Gray)
-        text_obj3 = Font1_100.render("Press continue to forward",True,Gray)
+        text_rect2 = text_obj2.get_rect(center = (screen_Width/2, 325*scale))
+
+        text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
+        text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
         
-        Continue_text = Font1_100.render("Continue", True, Gray)
-        Return_Button = Button(800, 900 , Button1_image, 1)  
+        Continue_text = Font6_70.render("Continue", True, Dark_Grey)
+        Return_Button = Button(800, 900 , Button1_image, 0.7)  
         
         screen.blit(Bakground, (0, 0))
-        draw_rect_alpha(screen, (0, 0, 0, 50), (50*scale, 50*scale,1820*scale, 980*scale,))
+        draw_rect_alpha(screen, (0, 0, 0, 75), (50*scale, 50*scale,1820*scale, 980*scale,))
         
         Return_Button.draw(screen)
-        screen.blit(text_obj, (700 *scale, 200*scale))
-        screen.blit(text_obj2, (900*scale, 325*scale))
-        screen.blit(text_obj3, (650 *scale, 450*scale))
-        screen.blit(Continue_text, (810*scale, 900*scale))
+        screen.blit(text_obj, text_rect1)
+        screen.blit(text_obj2, text_rect2)
+        screen.blit(text_obj3, text_rect3)
+        screen.blit(Continue_text, (820*scale, 900*scale))
 
         pygame.display.flip()
 
