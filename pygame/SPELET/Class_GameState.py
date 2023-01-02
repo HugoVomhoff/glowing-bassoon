@@ -586,13 +586,11 @@ class GameState():
                 pygame.quit()
                 sys.exit()
 
-    def Door_Choice_Scene(self):
+    def Door_Choice_Scene(self): #klar
         from Game_State import game_state
                         
-        Background = pygame.image.load("renders/Färdigt/Tre dörrar v3- oilpaint.png")
-        background_Width = Background.get_width() *scale
-        background_Height = Background.get_height() *scale
-        Background = pygame.transform.scale(Background, (background_Width, background_Height))
+        Background_image = pygame.image.load("renders/Färdigt/Tre dörrar v3- oilpaint.png")
+        Background = pygame.transform.scale(Background_image, (screen_Width, screen_Height))
         
         Door1 = pygame.image.load("Bilder/dörrknapp1.png")
         Door2 = pygame.image.load("Bilder/dörrknapp2.png")
@@ -604,13 +602,6 @@ class GameState():
         
         text_obj3 = Font1_100.render("Where do you want to go? Pick a door!",True,Gray)
         text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
-            
-        if Door1_Button.clicked():
-            self.spelare.Choice(3)
-        if Door2_Button.clicked():
-            self.spelare.Choice(3)
-        if Door3_Button.clicked():
-            self.spelare.Choice(3)
         
         screen.blit(Background,(0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (100*scale, 20*scale,1720*scale, 120*scale,))
@@ -620,6 +611,13 @@ class GameState():
         screen.blit(text_obj3, text_rect)
         
         pygame.display.flip()
+
+        if Door1_Button.clicked():
+            self.spelare.Choice(3)
+        if Door2_Button.clicked():
+            self.spelare.Choice(3)
+        if Door3_Button.clicked():
+            self.spelare.Choice(3)
         
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -629,11 +627,14 @@ class GameState():
     def Monster_Scene(self):
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel - oilpaint.png")
-        background_Width = Monster1.get_width() *scale
-        background_Height = Monster1.get_height() *scale
-        Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
+        Bakground = pygame.transform.scale(Monster1, (screen_Width,screen_Height))
 
-        screen.blit(Monster1, (0, 0))
+        Continue_text = Font1_100.render("Attack", True, Gray)
+        Return_Button = Button(800, 900 , Button1_image, 1)  
+
+        screen.blit(Bakground, (0, 0))
+        Return_Button.draw(screen)
+        screen.blit(Continue_text, (810*scale, 900*scale))
         pygame.display.flip()
         
         for event in pygame.event.get(pygame.QUIT):
@@ -641,30 +642,29 @@ class GameState():
                 pygame.quit()
                 sys.exit()
         
-        time.sleep(1.5)
-        self.spelare.monster()
+        if Return_Button.clicked():
+            self.spelare.monster()
 
     def Win_Scene(self):
         Monster1 = pygame.image.load("renders/Färdigt/spindel - död - oilpaint.png")
-        background_Width = Monster1.get_width() *scale
-        background_Height = Monster1.get_height() *scale
-        Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
+        Bakground = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
         
         text_obj = Font1_100.render("You killed the spider",True,Gray)
         text_obj2 = Font1_100.render("and leveled up",True,Gray)
         text_obj3 = Font1_100.render("Press continue to forward",True,Gray)
+        
         Continue_text = Font1_100.render("Continue", True, Gray)
         Return_Button = Button(800, 900 , Button1_image, 1)  
         
-        screen.blit(Monster1, (0, 0))
+        screen.blit(Bakground, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 50), (50*scale, 50*scale,1820*scale, 980*scale,))
         
         Return_Button.draw(screen)
         screen.blit(text_obj, (700 *scale, 200*scale))
         screen.blit(text_obj2, (900*scale, 325*scale))
         screen.blit(text_obj3, (650 *scale, 450*scale))
-        screen.blit(Continue_text, (810
-                                    *scale, 900*scale))
+        screen.blit(Continue_text, (810*scale, 900*scale))
+
         pygame.display.flip()
 
         for event in pygame.event.get(pygame.QUIT):

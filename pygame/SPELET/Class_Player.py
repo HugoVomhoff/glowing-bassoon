@@ -37,8 +37,7 @@ class Player():
         elif Choice == 2:
             self.Show_Inv()   
         elif Choice == 3:
-            #utfall = random.randint(1,3)   
-            utfall = 3         
+            utfall = random.randint(1,3)   
             if utfall == 1:
                 game_state.state = "Monster_Scene"
 
@@ -148,7 +147,7 @@ class Player():
                 self.inventory[5 - self.inventory.count(Empty)] = item
                 self.str_add(item.Strength)
      
-    def inv_change(self, change_index):
+    def inv_change(self, change_index): 
 
         self.str_add(-1*(self.inventory[change_index].Strength)) 
         self.inventory[change_index] = self.current_item
