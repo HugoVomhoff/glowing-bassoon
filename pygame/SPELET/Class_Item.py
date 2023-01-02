@@ -8,7 +8,7 @@ class Item():
         self.image = image 
 
 
-Empty = Item("no", 0, "no", 0, "Empty", 0) 
+Empty = Item("", 0, "", 0, "Empty", 0) 
 
 Crossbow = Item("A Crossow", 40, "A bow with alot of arrows!", 10, "crossbow", 300)
 Holy_Bible = Item("Holy Bible", 0, "The original Holy Bible!", 40, "placeholder", 200)

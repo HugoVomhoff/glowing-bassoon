@@ -9,7 +9,7 @@ screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
 
 # Fonts
-font1, font2, Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_70, Font6_80 = fonts
+font1, font2, Font1_30, Font1_70, Font1_100, Font1_120, Font6_20, Font6_25, Font6_35, Font6_55, Font6_70, Font6_80 = fonts
 
 # Font colors
 Gray = (100, 100, 100)
@@ -32,12 +32,14 @@ image_Height = Button1_image.get_height() * scale
 image_Width1 = Button_image.get_width() *scale
 image_Height1 = Button_image.get_height() * scale
 
-class GameState(): ### hoppas att ni förstår vår kod :))))) ####
+class GameState(): 
     
     def __init__(self, spelare):
        
         self.state = 'Titlecard'
         self.spelare = spelare
+        self.cannot_afford = False
+        self.count = 0
 
     def Titlecard(self):
           
@@ -240,11 +242,11 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         Item5_Bild = pygame.image.load(f"Bilder/{inventory[4].image}.png")
         Item5 = pygame.transform.scale(Item5_Bild, (120*scale, 120*scale))
         
-        Item1_text = Font6_35.render(f" Name: {inventory[0].Name}, Description: {inventory[0].Description}",True,White)
-        Item2_text = Font6_35.render(f" Name: {inventory[1].Name}, Description: {inventory[1].Description}",True,White)
-        Item3_text = Font6_35.render(f" Name: {inventory[2].Name}, Description: {inventory[2].Description}",True,White)
-        Item4_text = Font6_35.render(f" Name: {inventory[3].Name}, Description: {inventory[3].Description}",True,White)
-        Item5_text = Font6_35.render(f" Name: {inventory[4].Name}, Description: {inventory[4].Description}",True,White)
+        Item1_text = Font6_35.render(f" {inventory[0].Name},  {inventory[0].Description}",True,White)
+        Item2_text = Font6_35.render(f" {inventory[1].Name},  {inventory[1].Description}",True,White)
+        Item3_text = Font6_35.render(f" {inventory[2].Name},  {inventory[2].Description}",True,White)
+        Item4_text = Font6_35.render(f" {inventory[3].Name},  {inventory[3].Description}",True,White)
+        Item5_text = Font6_35.render(f" {inventory[4].Name},  {inventory[4].Description}",True,White)
         
         Str_text1 = Font6_25.render(f" Strength: {inventory[0].Strength}",True,Red)
         Str_text2 = Font6_25.render(f" Strength: {inventory[1].Strength}",True,Red)
@@ -252,6 +254,11 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         Str_text4 = Font6_25.render(f" Strength: {inventory[3].Strength}",True,Red)
         Str_text5 = Font6_25.render(f" Strength: {inventory[4].Strength}",True,Red)
         
+        Int_text1 = Font6_25.render(f"Intelligence: {inventory[0].intelligence}",True,Yellow)
+        Int_text2 = Font6_25.render(f"Intelligence: {inventory[1].intelligence}",True,Yellow)
+        Int_text3 = Font6_25.render(f"Intelligence: {inventory[2].intelligence}",True,Yellow)
+        Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
+        Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
         screen.blit(bakgrund, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
@@ -264,17 +271,26 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         screen.blit(Item4, (100*scale, 550*scale))
         screen.blit(Item5, (100*scale, 700*scale))
         
-        screen.blit(Item1_text, (250*scale, 100*scale))
-        screen.blit(Item2_text, (250*scale, 250*scale))
-        screen.blit(Item3_text, (250*scale, 400*scale))
-        screen.blit(Item4_text, (250*scale, 550*scale))
-        screen.blit(Item5_text, (250*scale, 700*scale))
-        
-        screen.blit(Str_text1, (250*scale, 150*scale))
-        screen.blit(Str_text2, (250*scale, 300*scale))
-        screen.blit(Str_text3, (250*scale, 450*scale))
-        screen.blit(Str_text4, (250*scale, 600*scale))
-        screen.blit(Str_text5, (250*scale, 750*scale))
+        if inventory[0].Name != "":
+            screen.blit(Int_text1, (430*scale, 150*scale))
+            screen.blit(Str_text1, (250*scale, 150*scale))
+            screen.blit(Item1_text, (250*scale, 100*scale))
+        if inventory[1].Name != "":
+            screen.blit(Int_text2, (430*scale, 300*scale))
+            screen.blit(Str_text2, (250*scale, 300*scale))
+            screen.blit(Item2_text, (250*scale, 250*scale))
+        if inventory[2].Name != "":
+            screen.blit(Int_text3, (430*scale, 450*scale))
+            screen.blit(Str_text3, (250*scale, 450*scale))
+            screen.blit(Item3_text, (250*scale, 400*scale))
+        if inventory[3].Name != "":
+            screen.blit(Int_text4, (430*scale, 600*scale))
+            screen.blit(Str_text4, (250*scale, 600*scale))
+            screen.blit(Item4_text, (250*scale, 550*scale))
+        if inventory[4].Name != "":
+            screen.blit(Int_text5, (430*scale, 750*scale))
+            screen.blit(Str_text5, (250*scale, 750*scale))
+            screen.blit(Item5_text, (250*scale, 700*scale))
        
         pygame.display.flip()
                     
@@ -285,7 +301,274 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         
         if Go_back.clicked():
             self.state = 'Choice_Scene'
-                  
+
+    def Shop_Scene(self):
+        
+        bakgrund = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
+        background_Width = bakgrund.get_width() *scale
+        background_Height = bakgrund.get_height() *scale
+        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))       
+       
+        Item1_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[0].image}.png")
+        Item1 = pygame.transform.scale(Item1_Bild, (120*scale, 120*scale))
+
+        Item2_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[1].image}.png")
+        Item2 = pygame.transform.scale(Item2_Bild, (120*scale, 120*scale))
+
+        Item3_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[2].image}.png")
+        Item3 = pygame.transform.scale(Item3_Bild, (120*scale, 120*scale))
+
+        Item4_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[3].image}.png")
+        Item4 = pygame.transform.scale(Item4_Bild, (120*scale, 120*scale))
+
+        item1 = Button(300*scale, 400*scale, Item1, 1)
+        item2 = Button(650*scale, 400*scale, Item2, 1)
+        item3 = Button(1150*scale, 400*scale, Item3, 1)
+        item4 = Button(1480*scale, 400*scale, Item4, 1)
+        
+        Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
+        Go_back_text = Font6_70.render("Go back", True, Dark_Grey)
+        
+        Item1_text = Font6_35.render(f"{self.spelare.Shop_List[0].Name}",True,White)
+        Item2_text = Font6_35.render(f"{self.spelare.Shop_List[1].Name}",True,White)
+        Item3_text = Font6_35.render(f"{self.spelare.Shop_List[2].Name}",True,White)
+        Item4_text = Font6_35.render(f"{self.spelare.Shop_List[3].Name}",True,White)
+        
+        Str_text1 = Font6_25.render(f"Strength: {self.spelare.Shop_List[0].Strength}",True,Red)
+        Str_text2 = Font6_25.render(f"Strength: {self.spelare.Shop_List[1].Strength}",True,Red)
+        Str_text3 = Font6_25.render(f"Strength: {self.spelare.Shop_List[2].Strength}",True,Red)
+        Str_text4 = Font6_25.render(f"Strength: {self.spelare.Shop_List[3].Strength}",True,Red)
+
+        Int_text1 = Font6_25.render(f"Intelligence: {self.spelare.Shop_List[0].intelligence}",True,Yellow)
+        Int_text2 = Font6_25.render(f"Intelligence: {self.spelare.Shop_List[1].intelligence}",True,Yellow)
+        Int_text3 = Font6_25.render(f"Intelligence: {self.spelare.Shop_List[2].intelligence}",True,Yellow)
+        Int_text4 = Font6_25.render(f"Intelligence: {self.spelare.Shop_List[3].intelligence}",True,Yellow)
+
+        Cost_text1 = Font6_25.render(f"Cost: {self.spelare.Shop_List[0].price}",True,Gold)
+        Cost_text2 = Font6_25.render(f"Cost: {self.spelare.Shop_List[1].price}",True,Gold)
+        Cost_text3 = Font6_25.render(f"Cost: {self.spelare.Shop_List[2].price}",True,Gold)
+        Cost_text4 = Font6_25.render(f"Cost: {self.spelare.Shop_List[3].price}",True,Gold)
+        
+        Buy_text = Font6_25.render("Click to buy!", True, White)
+        Cannot_afford_text = Font6_70.render("You don't have enough gold to buy this!", True, Gray)
+        Cannot_afford_text_position = Cannot_afford_text.get_rect(center = (screen_Width/2, 300*scale))
+
+        Title = Font1_100.render("Shop", True, Gray)
+        Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
+
+        gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold)
+        gold = pygame.image.load(f"Bilder/Guld.png")
+        gold = pygame.transform.scale(gold, (70*scale, 70*scale))
+        
+        screen.blit(bakgrund, (0, 0))
+        screen.blit(Title, Title_center)
+        draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
+        screen.blit(gold_ammount, (160*scale, 90*scale))
+        screen.blit(gold, (70*scale, 90*scale))
+        
+
+        if item1.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (130*scale, 400*scale,450*scale, 320*scale,))
+            screen.blit(Item1_text, (200*scale, 520*scale))
+            screen.blit(Str_text1, (180*scale, 580*scale))
+            screen.blit(Int_text1, (350*scale, 580*scale))
+            screen.blit(Cost_text1, (280*scale, 620*scale))
+            screen.blit(Buy_text, (260*scale, 660*scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (280*scale, 400*scale,160*scale, 160*scale,))  
+
+        if item2.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (480*scale, 400*scale,450*scale, 320*scale,))
+            screen.blit(Item2_text, (575*scale, 520*scale))
+            screen.blit(Str_text2, (525*scale, 580*scale))
+            screen.blit(Int_text2, (695*scale, 580*scale))
+            screen.blit(Cost_text2, (625*scale, 620*scale))
+            screen.blit(Buy_text, (605*scale, 660*scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (630*scale, 400*scale,160*scale, 160*scale,))
+
+        if item3.hover(): 
+            draw_rect_alpha(screen, (0, 0, 0, 150), (980*scale, 400*scale,450*scale, 320*scale,)) 
+            screen.blit(Item3_text, (1080*scale, 520*scale))
+            screen.blit(Str_text3, (1030*scale, 580*scale))
+            screen.blit(Int_text3, (1200*scale, 580*scale))
+            screen.blit(Cost_text3, (1130*scale, 620*scale))
+            screen.blit(Buy_text, (1110*scale, 660*scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (1130*scale, 400*scale,160*scale, 160*scale,))
+
+        if item4.hover():
+            draw_rect_alpha(screen, (0, 0, 0, 150), (1310*scale, 400*scale,450*scale, 320*scale,))
+            screen.blit(Item4_text, (1455*scale, 520*scale))
+            screen.blit(Str_text4, (1370*scale, 580*scale))
+            screen.blit(Int_text4, (1540*scale, 580*scale))
+            screen.blit(Cost_text4, (1470*scale, 620*scale))
+            screen.blit(Buy_text, (1450*scale, 660*scale))
+        else:
+            draw_rect_alpha(screen, (0, 0, 0, 100), (1460*scale, 400*scale,160*scale, 160*scale,))
+
+        if item1.clicked():   
+            
+            if self.spelare.Shop_List[0].Name != "":
+                self.spelare.Buy_item(self.spelare.Shop_List[0], 0)
+                self.count = 0
+    
+            if self.spelare.can_afford == False:
+                self.cannot_afford = True
+
+        if item2.clicked():   
+            
+            if self.spelare.Shop_List[1].Name != "":
+                self.spelare.Buy_item(self.spelare.Shop_List[1], 1)
+                self.count = 0
+
+            if self.spelare.can_afford == False:
+                self.cannot_afford = True
+                
+        if item3.clicked():   
+            
+            if self.spelare.Shop_List[2].Name != "":
+                self.spelare.Buy_item(self.spelare.Shop_List[2], 2)
+                self.count = 0
+
+            if self.spelare.can_afford == False:
+                self.cannot_afford = True
+
+        if item4.clicked():   
+            
+            if self.spelare.Shop_List[3].Name != "":
+                self.spelare.Buy_item(self.spelare.Shop_List[3], 3)
+                self.count = 0
+
+            if self.spelare.can_afford == False:
+                self.cannot_afford = True
+        
+        if self.cannot_afford == True and self.count < 15:
+                screen.blit(Cannot_afford_text,  Cannot_afford_text_position)      
+                self.count += 1 
+
+        if Go_back.clicked():
+            self.state = "Choice_Scene"
+        
+        item1.draw(screen)
+        item2.draw(screen)
+        item3.draw(screen)
+        item4.draw(screen)
+        Go_back.draw(screen)
+        screen.blit(Go_back_text,(740*scale, 880*scale))
+    
+        pygame.display.flip()
+
+        for event in pygame.event.get(pygame.QUIT):
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+    def Item_manager(self):
+        inventory = self.spelare.inventory
+
+        Item1_text = Font6_35.render(f" {inventory[0].Name}",True,White)
+        Item2_text = Font6_35.render(f" {inventory[1].Name}",True,White)
+        Item3_text = Font6_35.render(f" {inventory[2].Name}",True,White)
+        Item4_text = Font6_35.render(f" {inventory[3].Name}",True,White)
+        Item5_text = Font6_35.render(f" {inventory[4].Name}",True,White)
+        
+        Str_text1 = Font6_25.render(f"Strength: {inventory[0].Strength}",True,Red)
+        Str_text2 = Font6_25.render(f"Strength: {inventory[1].Strength}",True,Red)
+        Str_text3 = Font6_25.render(f"Strength: {inventory[2].Strength}",True,Red)
+        Str_text4 = Font6_25.render(f"Strength: {inventory[3].Strength}",True,Red)
+        Str_text5 = Font6_25.render(f"Strength: {inventory[4].Strength}",True,Red)
+        
+        Int_text1 = Font6_25.render(f"Intelligence: {inventory[0].intelligence}",True,Yellow)
+        Int_text2 = Font6_25.render(f"Intelligence: {inventory[1].intelligence}",True,Yellow)
+        Int_text3 = Font6_25.render(f"Intelligence: {inventory[2].intelligence}",True,Yellow)
+        Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
+        Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
+        
+        if self.spelare.shop == False:
+            Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
+            background_Width = Open_Chest.get_width() *scale
+            background_Height = Open_Chest.get_height() *scale
+            Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height))
+            screen.blit(Open_Chest, (0, 0))
+        else:
+            Shop = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
+            background_Width = Shop.get_width() *scale
+            background_Height = Shop.get_height() *scale
+            Shop = pygame.transform.scale(Shop, (background_Width, background_Height))
+            screen.blit(Shop, (0, 0))
+        
+        draw_rect_alpha(screen, (0, 0, 0, 100), (100*scale, 90*scale,1720*scale, 900*scale,))
+        
+        Item0_Bild = pygame.image.load(f"renders/Default Renders/items/{self.spelare.current_item.image}.png")
+        Item1_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[0].image}.png")
+        Item2_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[1].image}.png")
+        Item3_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[2].image}.png")
+        Item4_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[3].image}.png")
+        Item5_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[4].image}.png")
+
+        Item1_Button = Button(150*scale, 600*scale, Item1_Bild, 0.7)
+        Item2_Button = Button(510*scale, 600*scale, Item2_Bild, 0.7)
+        Item3_Button = Button(870*scale, 600*scale, Item3_Bild, 0.7)
+        Item4_Button = Button(1231*scale, 600*scale, Item4_Bild, 0.7)
+        Item5_Button = Button(1591*scale, 600*scale, Item5_Bild, 0.7)
+    
+        screen.blit(Item1_text, (125*scale, 790*scale))
+        screen.blit(Item2_text, (500*scale, 790*scale))
+        screen.blit(Item3_text, (880*scale, 790*scale))
+        screen.blit(Item4_text, (1200*scale, 790*scale))
+        screen.blit(Item5_text, (1581*scale, 790*scale))
+
+        screen.blit(Str_text1, (170*scale, 840*scale))       
+        screen.blit(Str_text2, (510*scale, 840*scale))
+        screen.blit(Str_text3, (870*scale, 840*scale))  
+        screen.blit(Str_text4, (1230*scale, 840*scale))
+        screen.blit(Str_text5, (1590*scale, 840*scale))
+       
+        screen.blit(Int_text1, (170*scale, 880*scale))
+        screen.blit(Int_text2, (510*scale, 880*scale))
+        screen.blit(Int_text3, (870*scale, 880*scale))
+        screen.blit(Int_text4, (1230*scale, 880*scale))
+        screen.blit(Int_text5, (1590*scale, 880*scale))
+
+        Item1_Button.draw(screen)
+        Item2_Button.draw(screen)
+        Item3_Button.draw(screen)
+        Item4_Button.draw(screen)
+        Item5_Button.draw(screen)
+
+        Continue_Button = pygame.image.load("Bilder/continue.png")
+        Continue_Button = Button(910*scale, 300*scale, Continue_Button, 1)
+        Continue_Button.draw(screen)
+
+        pygame.display.flip()
+
+        if Item1_Button.clicked():
+            self.spelare.inv_change(0)
+            
+        if Item2_Button.clicked():
+            self.spelare.inv_change(1)
+
+        if Item3_Button.clicked():
+            self.spelare.inv_change(2)
+
+        if Item4_Button.clicked():
+            self.spelare.inv_change(3)
+
+        if Item5_Button.clicked():
+            self.spelare.inv_change(4)
+
+        if Continue_Button.clicked():
+            self.state = 'Choice_Scene'
+        
+        
+
+                    
+        for event in pygame.event.get(pygame.QUIT):
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
     def Door_Choice_Scene(self):
         from Game_State import game_state
                         
@@ -302,7 +585,7 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         Door2_Button = Button(695*scale, 320*scale, Door2, 1) 
         Door3_Button = Button(145*scale, 270*scale, door3, 1)
         
-        text_obj3 = Font1_100.render("Where do you want to go? Pick a door!",True,Dark_Grey)
+        text_obj3 = Font1_100.render("Where do you want to go? Pick a door!",True,Gray)
         text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
             
         if Door1_Button.clicked():
@@ -313,7 +596,7 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
             self.spelare.Choice(3)
         
         screen.blit(Background,(0,0))
-        
+        draw_rect_alpha(screen, (0, 0, 0, 100), (100*scale, 20*scale,1720*scale, 120*scale,))
         Door1_Button.draw(screen)
         Door2_Button.draw(screen)
         Door3_Button.draw(screen)
@@ -526,7 +809,6 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
             item_Width = item.get_width() *scale
             item_Height = item.get_height() *scale
             item = pygame.transform.scale(item, (item_Width, item_Height))
-            print (self.spelare.gold)
 
         else:
            
@@ -562,207 +844,6 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
                 self.state = 'Item_manager'
             else:
                 self.state = "Choice_Scene"         
-    
-    def Item_manager(self):
-
-        
-        if self.spelare.shop == False:
-            Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
-            background_Width = Open_Chest.get_width() *scale
-            background_Height = Open_Chest.get_height() *scale
-            Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height))
-            screen.blit(Open_Chest, (0, 0))
-        else:
-            Shop = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
-            background_Width = Shop.get_width() *scale
-            background_Height = Shop.get_height() *scale
-            Shop = pygame.transform.scale(Shop, (background_Width, background_Height))
-            screen.blit(Shop, (0, 0))
-        
-        draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
-        
-        inventory = self.spelare.inventory
-
-        Item1_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[0].image}.png")
-        Item2_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[1].image}.png")
-        Item3_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[2].image}.png")
-        Item4_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[3].image}.png")
-        Item5_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[4].image}.png")
-
-        Item1_Button = Button(100*scale, 800*scale, Item1_Bild, 1)
-        Item2_Button = Button(500*scale, 800*scale, Item2_Bild, 1)
-        Item3_Button = Button(900*scale, 800*scale, Item3_Bild, 1)
-        Item4_Button = Button(1300*scale, 800*scale, Item4_Bild, 1)
-        Item5_Button = Button(1700*scale, 800*scale, Item5_Bild, 1)
-
-        Item1_Button.draw(screen)
-        Item2_Button.draw(screen)
-        Item3_Button.draw(screen)
-        Item4_Button.draw(screen)
-        Item5_Button.draw(screen)
-
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(910*scale, 300*scale, Continue_Button, 1)
-        Continue_Button.draw(screen)
-
-        pygame.display.flip()
-
-        if Item1_Button.clicked():
-            self.spelare.inv_change(0)
-            
-        if Item2_Button.clicked():
-            self.spelare.inv_change(1)
-
-        if Item3_Button.clicked():
-            self.spelare.inv_change(2)
-
-        if Item4_Button.clicked():
-            self.spelare.inv_change(3)
-
-        if Item5_Button.clicked():
-            self.spelare.inv_change(4)
-
-        if Continue_Button.clicked():
-            self.state = 'Choice_Scene'
-        
-        
-
-                    
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-    
-    def Shop_Scene(self):
-        
-        bakgrund = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
-        background_Width = bakgrund.get_width() *scale
-        background_Height = bakgrund.get_height() *scale
-        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
-        
-        font_obj = pygame.font.Font("Fonts/Font1.ttf", int(100*scale))
-        font_obj1 = pygame.font.Font("Fonts/Font6.ttf", int(70 *scale))
-        font_obj2 = pygame.font.Font("Fonts/Font6.ttf", int(35 *scale))
-        font_obj3 = pygame.font.Font("Fonts/Font6.ttf", int(25 *scale))
-       
-        Item1_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[0].image}.png")
-        Item1 = pygame.transform.scale(Item1_Bild, (120*scale, 120*scale))
-
-        Item2_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[1].image}.png")
-        Item2 = pygame.transform.scale(Item2_Bild, (120*scale, 120*scale))
-
-        Item3_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[2].image}.png")
-        Item3 = pygame.transform.scale(Item3_Bild, (120*scale, 120*scale))
-
-        Item4_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[3].image}.png")
-        Item4 = pygame.transform.scale(Item4_Bild, (120*scale, 120*scale))
-
-        item1 = Button(300*scale, 400*scale, Item1, 1)
-        item2 = Button(650*scale, 400*scale, Item2, 1)
-        item3 = Button(1150*scale, 400*scale, Item3, 1)
-        item4 = Button(1480*scale, 400*scale, Item4, 1)
-        
-        Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
-        
-        Item1_text = font_obj3.render(f"{self.spelare.Shop_List[0].Name}, \n {self.spelare.Shop_List[0].Description}",True,White)
-        Item2_text = font_obj3.render(f"{self.spelare.Shop_List[1].Name}, \n {self.spelare.Shop_List[1].Description}",True,White)
-        Item3_text = font_obj3.render(f"{self.spelare.Shop_List[2].Name}, \n {self.spelare.Shop_List[2].Description}",True,White)
-        Item4_text = font_obj3.render(f"{self.spelare.Shop_List[3].Name}, \n {self.spelare.Shop_List[3].Description}",True,White)
-        
-        Str_text1 = font_obj3.render(f"{self.spelare.Shop_List[0].Strength}",True,Red)
-        Str_text2 = font_obj3.render(f"{self.spelare.Shop_List[1].Strength}",True,Red)
-        Str_text3 = font_obj3.render(f"{self.spelare.Shop_List[2].Strength}",True,Red)
-        Str_text4 = font_obj3.render(f"{self.spelare.Shop_List[3].Strength}",True,Red)
-
-        Title = font_obj.render("Shop", True, Gray)
-        Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
-
-        gold_ammount = font_obj2.render("Gold: ", True, Gold)
-        
-        screen.blit(bakgrund, (0, 0))
-        screen.blit(Title, Title_center)
-        draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
-
-        if item1.hover():
-            draw_rect_alpha(screen, (0, 0, 0, 150), (130*scale, 400*scale,450*scale, 300*scale,))
-            screen.blit(Item1_text, (250*scale, 100*scale))
-            screen.blit(Str_text1, (250*scale, 150*scale))
-        else:
-            draw_rect_alpha(screen, (0, 0, 0, 100), (280*scale, 400*scale,160*scale, 160*scale,))  
-
-        if item2.hover():
-            draw_rect_alpha(screen, (0, 0, 0, 150), (480*scale, 400*scale,450*scale, 300*scale,))
-            screen.blit(Item2_text, (250*scale, 250*scale))
-            screen.blit(Str_text2, (250*scale, 300*scale))
-        else:
-            draw_rect_alpha(screen, (0, 0, 0, 100), (630*scale, 400*scale,160*scale, 160*scale,))
-
-        if item3.hover(): 
-            draw_rect_alpha(screen, (0, 0, 0, 150), (980*scale, 400*scale,450*scale, 300*scale,)) 
-            screen.blit(Item3_text, (250*scale, 400*scale))
-            screen.blit(Str_text3, (250*scale, 450*scale))
-        else:
-            draw_rect_alpha(screen, (0, 0, 0, 100), (1130*scale, 400*scale,160*scale, 160*scale,))
-
-        if item4.hover():
-            draw_rect_alpha(screen, (0, 0, 0, 150), (1310*scale, 400*scale,450*scale, 300*scale,))
-            screen.blit(Item4_text, (250*scale, 550*scale))
-            screen.blit(Str_text4, (250*scale, 600*scale))
-        else:
-            draw_rect_alpha(screen, (0, 0, 0, 100), (1460*scale, 400*scale,160*scale, 160*scale,))
-
-
-        
-        if item1.clicked():   
-            
-            if self.spelare.Shop_List[0].Name != "no":
-                self.spelare.Buy_item(self.spelare.Shop_List[0], 0)
-            
-            if self.spelare.can_afford == False:
-                print("du har inte tillräckligt med pengar") # adda nån text då obviously
-
-        if item2.clicked():   
-            
-            if self.spelare.Shop_List[1].Name != "no":
-                self.spelare.Buy_item(self.spelare.Shop_List[1], 1)
-            
-            if self.spelare.can_afford == False:
-                print("du har inte tillräckligt med pengar")# adda nån text då obviously
-                
-        if item3.clicked():   
-            
-            if self.spelare.Shop_List[2].Name != "no":
-                self.spelare.Buy_item(self.spelare.Shop_List[2], 2)
-            
-            if self.spelare.can_afford == False:
-                print("du har inte tillräckligt med pengar")# adda nån text då obviously
-
-        if item4.clicked():   
-            
-            if self.spelare.Shop_List[3].Name != "no":
-                self.spelare.Buy_item(self.spelare.Shop_List[3], 3)
-            
-            if self.spelare.can_afford == False:
-                print("du har inte tillräckligt med pengar")# adda nån text då obviously
-
-        if Go_back.clicked():
-            self.state = "Choice_Scene"
-        
-        item1.draw(screen)
-        item2.draw(screen)
-        item3.draw(screen)
-        item4.draw(screen)
-        Go_back.draw(screen)
-    
-        pygame.display.flip()
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-        #if Continue_Button.clicked():
-            self.state = 'Choice_Scene'  
                    
     def Game_Over_Scene(self):
         from Class_Item import Empty
@@ -770,6 +851,7 @@ class GameState(): ### hoppas att ni förstår vår kod :))))) ####
         self.spelare.Str = 200
         self.spelare.lvl = 1
         self.spelare.intelligence = 100
+        self.spelare.gold = 0
         self.spelare.inventory = [Empty, Empty, Empty, Empty, Empty]
         
         Continue_Button = pygame.image.load("Bilder/continue.png")

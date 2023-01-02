@@ -37,7 +37,8 @@ class Player():
         elif Choice == 2:
             self.Show_Inv()   
         elif Choice == 3:
-            utfall = random.randint(1,3)            
+            #utfall = random.randint(1,3)   
+            utfall = 3         
             if utfall == 1:
                 game_state.state = "Monster_Scene"
 
@@ -69,13 +70,12 @@ class Player():
         
         self.chest_gold = False
         
-        if guld_eller_item <= 3 and self.alla_items[0].Name != "no":
+        if guld_eller_item <= 3 and self.alla_items[0].Name != "":
             
-            if self.alla_items[0].Name == "no":
-                print("Det fanns inga items kvar så du får inte ett skit faktiskt")
+            if self.alla_items[0].Name == "":
                 self.noitems = True
 
-            elif(self.alla_items[1].Name == "no"):
+            elif(self.alla_items[1].Name == ""):
                 self.shop = False
                 self.inv_add(self.alla_items[0])
                 self.current_item = self.alla_items[0]
@@ -161,9 +161,6 @@ class Player():
 
         from Game_State import game_state
         game_state.state = 'Show_Inv_Scene'
-        
-        for plats in self.inventory:
-            print(plats)
 
     def Buy_item(self, item, index):
         
@@ -176,7 +173,7 @@ class Player():
             
             if self.inv_full == True:
                 
-                if self.alla_items[0].Name == "no":
+                if self.alla_items[0].Name == "":
                     self.shop = True
                     self.noitems = True
                     self.current_item = item
@@ -196,7 +193,7 @@ class Player():
 
             
             else:
-                if self.alla_items[0].Name == "no":
+                if self.alla_items[0].Name == "":
                     self.gold -= item.price
                     self.Shop_List[index] = Empty
                     self.shop = True

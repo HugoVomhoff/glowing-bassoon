@@ -3,6 +3,6 @@ from Class_Player import Player
 
 
 
-spelare = Player(200, 100, 1, 100, 0)
+spelare = Player(200, 100, 1, 100, 10000)
 game_state = GameState(spelare)
 
