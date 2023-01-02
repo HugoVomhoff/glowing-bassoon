@@ -113,9 +113,7 @@ class GameState():
     def Choice_Scene(self): #klar
 
         bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
-        background_Width = bakgrund.get_width() *scale
-        background_Height = bakgrund.get_height() *scale
-        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
+        bakgrund = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
         text_obj3 = Font1_100.render("Choose Your Action",True,Gray)
         text_rect = text_obj3.get_rect(center = (screen_Width/2, 150*scale))
@@ -179,9 +177,7 @@ class GameState():
     def Show_Stats_Scene(self): #klar
 
         bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
-        background_Width = bakgrund.get_width() * scale
-        background_Height = bakgrund.get_height() * scale
-        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
+        bakgrund1 = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
         Character = pygame.image.load("renders/Färdigt/Character - oilpaint.png")
         background_Width = Character.get_width() * scale * 0.9
@@ -197,7 +193,7 @@ class GameState():
         Return_text= Font6_70.render("Go back", True, Dark_Grey)
         Return_button = Button(730*scale, 850*scale, Button1_image, 0.8)
 
-        screen.blit(bakgrund, (0,0))
+        screen.blit(bakgrund1, (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 90*scale,1620*scale, 900*scale,))
         Return_button.draw(screen)
         screen.blit(Character, (1200*scale, 125*scale))
@@ -220,10 +216,8 @@ class GameState():
         
     def Show_Inv_Scene(self): #klar
         
-        bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
-        background_Width = bakgrund.get_width() *scale
-        background_Height = bakgrund.get_height() *scale
-        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))
+        backgrund_image = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
+        backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))
         
         text_obj4 = Font6_70.render("Go back", True, Dark_Grey)
         
@@ -260,7 +254,7 @@ class GameState():
         Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
-        screen.blit(bakgrund, (0, 0))
+        screen.blit(backgrund, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
         Go_back.draw(screen)
         screen.blit(text_obj4, (775*scale, 880*scale))
@@ -304,10 +298,8 @@ class GameState():
 
     def Shop_Scene(self): # klar
         
-        bakgrund = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
-        background_Width = bakgrund.get_width() *scale
-        background_Height = bakgrund.get_height() *scale
-        bakgrund = pygame.transform.scale(bakgrund, (background_Width, background_Height))       
+        backgrund_image = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
+        backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))       
        
         Item1_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[0].image}.png")
         Item2_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[1].image}.png")
@@ -353,7 +345,7 @@ class GameState():
         gold = pygame.image.load(f"Bilder/Guld.png")
         gold = pygame.transform.scale(gold, (70*scale, 70*scale))
         
-        screen.blit(bakgrund, (0, 0))
+        screen.blit(backgrund, (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
         screen.blit(gold_ammount, (160*scale, 90*scale))
@@ -624,6 +616,89 @@ class GameState():
                 pygame.quit()
                 sys.exit()
 
+    def Chest_Scene(self):
+
+        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
+        text_obj3 = font_obj3.render("Press the chest to open it",True,Gray)
+        text_rect = text_obj3.get_rect(center = (screen_Width//2, 150*scale))
+
+        Chest = pygame.image.load("renders/Färdigt/Kista - stängd - oilpaint.png")
+        Chest = pygame.transform.scale(Chest, (screen_Width, screen_Height))
+
+        Chest_Button = pygame.image.load("Bilder/kistknapp.png")
+        Chest_Button = Button(700*scale, 440*scale, Chest_Button, 1)
+        
+        screen.blit(Chest, (0, 0))
+        Chest_Button.draw(screen)
+        draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
+        screen.blit(text_obj3,text_rect)
+        pygame.display.flip()
+        
+        
+        for event in pygame.event.get(pygame.QUIT):
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        
+        if Chest_Button.clicked():
+            
+            self.spelare.Chest()
+            self.found_item = self.spelare.current_item
+            self.state = 'Chest_Scene_Open'
+
+    def Chest_Scene_Open(self):
+        
+        Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
+        Open_Chest = pygame.transform.scale(Open_Chest, (screen_Width, screen_Height)) 
+        
+        text_obj3 = Font1_100.render("You opened the chest and found:",True,Gray)
+        text_rect = text_obj3.get_rect(center = (screen_Width//2, 170*scale))
+        
+        if self.spelare.chest_gold == True:
+
+            text_obj4 = Font1_70.render(f"{self.found_item} Gold",True,Gray)
+            text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
+
+            item = pygame.image.load(f"Bilder/GULD.png")
+            item_Width = item.get_width() *scale
+            item_Height = item.get_height() *scale
+            item = pygame.transform.scale(item, (item_Width, item_Height))
+
+        else:
+           
+            text_obj4 = Font1_70.render(self.found_item.Name,True,Gray)
+            text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
+
+            item = pygame.image.load(f"Bilder/{self.found_item.image}.png")
+            item_Width = item.get_width() *scale
+            item_Height = item.get_height() *scale
+            item = pygame.transform.scale(item, (item_Width, item_Height)) 
+
+        Continue_Button = pygame.image.load("Bilder/continue.png")
+        Continue_Button = Button(910*scale, 800*scale, Continue_Button, 1)
+        
+        
+        screen.blit(Open_Chest, (0, 0))
+        draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
+        screen.blit(text_obj3,text_rect)
+        screen.blit(text_obj4,text_rect1)
+        screen.blit(item, (screen_Width//2-item_Width/2, 500*scale))
+        Continue_Button.draw(screen)
+        
+        pygame.display.flip()
+
+        for event in pygame.event.get(pygame.QUIT):
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        
+        if Continue_Button.clicked():
+            
+            if self.spelare.inv_full == True and self.spelare.chest_gold == False:
+                self.state = 'Item_manager'
+            else:
+                self.state = "Choice_Scene"         
+                   
     def Monster_Scene(self): #klar
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel - oilpaint.png")
@@ -681,10 +756,8 @@ class GameState():
             
     def Lose_Scene(self):
         
-        Monster1 = pygame.image.load("renders/Färdigt/spindel du dog - oilpaint.png")
-        background_Width = Monster1.get_width() *scale
-        background_Height = Monster1.get_height() *scale
-        Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
+        Monster1_image = pygame.image.load("renders/Färdigt/spindel du dog - oilpaint.png")
+        Monster1 = pygame.transform.scale(Monster1_image, (screen_Width, screen_Height))
         
         image1 = pygame.image.load("Bilder/continue.png")
         Return_Button = Button(100, 400, image1,0.1)
@@ -742,10 +815,8 @@ class GameState():
                 sys.exit()
                 
     def Dodge_Trap_Scene(self):
-        Trap = pygame.image.load("renders/Färdigt/Trap1 - dodge - oilpaint.png")
-        background_Width = Trap.get_width() *scale
-        background_Height = Trap.get_height() *scale
-        Trap = pygame.transform.scale(Trap, (background_Width, background_Height))
+        Trap_image = pygame.image.load("renders/Färdigt/Trap1 - dodge - oilpaint.png")
+        Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))
         
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
@@ -761,9 +832,7 @@ class GameState():
                 
     def Fall_For_Trap_Scene(self):
         Trap = pygame.image.load("renders/Färdigt/Trap1 du dog - oilpaint.png")
-        background_Width = Trap.get_width() *scale
-        background_Height = Trap.get_height() *scale
-        Trap = pygame.transform.scale(Trap, (background_Width, background_Height))    
+        Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))    
          
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
@@ -780,93 +849,6 @@ class GameState():
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
          
-    def Chest_Scene(self):
-
-        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
-        text_obj3 = font_obj3.render("Press the chest to open it",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, 150*scale))
-
-        Chest = pygame.image.load("renders/Färdigt/Kista - stängd - oilpaint.png")
-        background_Width = Chest.get_width() *scale
-        background_Height = Chest.get_height() *scale
-        Chest = pygame.transform.scale(Chest, (background_Width, background_Height))
-
-        Chest_Button = pygame.image.load("Bilder/kistknapp.png")
-        Chest_Button = Button(700*scale, 440*scale, Chest_Button, 1)
-        
-        screen.blit(Chest, (0, 0))
-        Chest_Button.draw(screen)
-        draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
-        screen.blit(text_obj3,text_rect)
-        pygame.display.flip()
-        
-        
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        
-        if Chest_Button.clicked():
-            
-            self.spelare.Chest()
-            self.found_item = self.spelare.current_item
-            self.state = 'Chest_Scene_Open'
-
-    def Chest_Scene_Open(self):
-        
-        Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
-        background_Width = Open_Chest.get_width() *scale
-        background_Height = Open_Chest.get_height() *scale
-        Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height)) 
-        
-        text_obj3 = Font1_100.render("You opened the chest and found:",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, 170*scale))
-        
-        if self.spelare.chest_gold == True:
-
-            text_obj4 = Font1_70.render(f"{self.found_item} Gold",True,Gray)
-            text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
-
-            item = pygame.image.load(f"Bilder/GULD.png")
-            item_Width = item.get_width() *scale
-            item_Height = item.get_height() *scale
-            item = pygame.transform.scale(item, (item_Width, item_Height))
-
-        else:
-           
-            text_obj4 = Font1_70.render(self.found_item.Name,True,Gray)
-            text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
-
-            item = pygame.image.load(f"Bilder/{self.found_item.image}.png")
-            item_Width = item.get_width() *scale
-            item_Height = item.get_height() *scale
-            item = pygame.transform.scale(item, (item_Width, item_Height)) 
-
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(910*scale, 800*scale, Continue_Button, 1)
-        
-        
-        screen.blit(Open_Chest, (0, 0))
-        draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
-        screen.blit(text_obj3,text_rect)
-        screen.blit(text_obj4,text_rect1)
-        screen.blit(item, (screen_Width//2-item_Width/2, 500*scale))
-        Continue_Button.draw(screen)
-        
-        pygame.display.flip()
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        
-        if Continue_Button.clicked():
-            
-            if self.spelare.inv_full == True and self.spelare.chest_gold == False:
-                self.state = 'Item_manager'
-            else:
-                self.state = "Choice_Scene"         
-                   
     def Game_Over_Scene(self):
         from Class_Item import Empty
         self.spelare.Hp = 100
