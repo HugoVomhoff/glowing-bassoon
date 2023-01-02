@@ -759,11 +759,24 @@ class GameState():
         Monster1_image = pygame.image.load("renders/Färdigt/spindel du dog - oilpaint.png")
         Monster1 = pygame.transform.scale(Monster1_image, (screen_Width, screen_Height))
         
-        image1 = pygame.image.load("Bilder/continue.png")
-        Return_Button = Button(100, 400, image1,0.1)
+        text_obj = Font1_100.render("You were hurt by the spider ",True,Gray)
+        text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
+
+        text_obj2 = Font1_100.render("and fled",True,Gray)
+        text_rect2 = text_obj2.get_rect(center = (screen_Width/2, 325*scale))
+
+        text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
+        text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
+        
+        Continue_text = Font6_70.render("Continue", True, Dark_Grey)
+        Return_Button = Button(800, 900 , Button1_image, 0.7)  
             
         screen.blit(Monster1, (0, 0))
         Return_Button.draw(screen)
+        screen.blit(text_obj, text_rect1)
+        screen.blit(text_obj2, text_rect2)
+        screen.blit(text_obj3, text_rect3)
+        screen.blit(Continue_text, (820*scale, 900*scale))
         pygame.display.flip()
         
         for event in pygame.event.get(pygame.QUIT):
