@@ -720,9 +720,14 @@ class GameState():
         Attack = Font6_70.render("Attack", True, Dark_Grey)
         Attack_Button = Button(800, 900 , Button1_image, 0.7)  
 
+        text_obj3 = Font1_100.render("You encountered a spider!",True,Gray)
+        text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
+
         screen.blit(Bakground, (0, 0))
+        draw_rect_alpha(screen, (0, 0, 0, 100), (350*scale, 20*scale,1220*scale, 120*scale,))
         Attack_Button.draw(screen)
         screen.blit(Attack, (820*scale, 900*scale))
+        screen.blit(text_obj3, text_rect)
         pygame.display.flip()
         
         for event in pygame.event.get(pygame.QUIT):
@@ -733,7 +738,7 @@ class GameState():
         if Attack_Button.clicked():
             self.spelare.monster()
 
-    def Win_Scene(self): #klar?
+    def Win_Scene(self): #klar
         Monster1 = pygame.image.load("renders/Färdigt/spindel - död - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
         
@@ -845,7 +850,7 @@ class GameState():
                 
     def Dodge_Trap_Scene(self):
         Trap_image = pygame.image.load("renders/Färdigt/Trap1 - dodge - oilpaint.png")
-        Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))
+        Trap = pygame.transform.scale(Trap_image, (screen_Width, screen_Height))
         
         Continue_Button = pygame.image.load("Bilder/continue.png")
         Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
@@ -853,6 +858,9 @@ class GameState():
         screen.blit(Trap, (0,0))
         Continue_Button.draw(screen)       
         pygame.display.flip()
+        
+        if Continue_Button.clicked():
+            self.state = "Choice_Scene"
             
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
