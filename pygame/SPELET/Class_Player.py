@@ -93,7 +93,10 @@ class Player():
             self.gold += self.current_item
 
     def str_add(self, AddedStr):
-        self.Str = self.Str + AddedStr
+        self.Str += AddedStr
+    
+    def int_add(self, AddedInt):
+        self.intelligence += AddedInt
 
     def ChangeHp(self, newHp):
         self.Hp = newHp
@@ -142,10 +145,12 @@ class Player():
                 game_state.state = "Chest_Scene_Open"
                 self.inventory[5 - self.inventory.count(Empty)] = item
                 self.str_add(item.Strength)
+                self.int_add(item.intelligence)
             else: 
                 game_state.state = "Shop_Scene"
                 self.inventory[5 - self.inventory.count(Empty)] = item
                 self.str_add(item.Strength)
+                self.int_add(item.intelligence)
      
     def inv_change(self, change_index): 
 

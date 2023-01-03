@@ -61,6 +61,7 @@ class GameState():
         if pygame.key.get_pressed()[pygame.K_SPACE] == True:
             self.state = 'Difficulty_Scene'
 
+
         for event in pygame.event.get(pygame.QUIT):  
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -208,7 +209,10 @@ class GameState():
 
         if Return_button.clicked():
             self.state = 'Choice_Scene'
-            
+        
+        if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
+            self.state = 'Choice_Scene'
+
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -225,15 +229,15 @@ class GameState():
         
         inventory = self.spelare.inventory
         
-        Item1_Bild = pygame.image.load(f"Bilder/{inventory[0].image}.png")
+        Item1_Bild = pygame.image.load(inventory[0].image)
         Item1 = pygame.transform.scale(Item1_Bild, (120*scale, 120*scale))
-        Item2_Bild = pygame.image.load(f"Bilder/{inventory[1].image}.png")
+        Item2_Bild = pygame.image.load(inventory[1].image)
         Item2 = pygame.transform.scale(Item2_Bild, (120*scale, 120*scale))
-        Item3_Bild = pygame.image.load(f"Bilder/{inventory[2].image}.png")
+        Item3_Bild = pygame.image.load(inventory[2].image)
         Item3 = pygame.transform.scale(Item3_Bild, (120*scale, 120*scale))
-        Item4_Bild = pygame.image.load(f"Bilder/{inventory[3].image}.png")
+        Item4_Bild = pygame.image.load(inventory[3].image)
         Item4 = pygame.transform.scale(Item4_Bild, (120*scale, 120*scale))
-        Item5_Bild = pygame.image.load(f"Bilder/{inventory[4].image}.png")
+        Item5_Bild = pygame.image.load(inventory[4].image)
         Item5 = pygame.transform.scale(Item5_Bild, (120*scale, 120*scale))
         
         Item1_text = Font6_35.render(f" {inventory[0].Name},  {inventory[0].Description}",True,White)
@@ -292,7 +296,10 @@ class GameState():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        
+
+        if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
+            self.state = 'Choice_Scene'
+
         if Go_back.clicked():
             self.state = 'Choice_Scene'
 
@@ -301,10 +308,10 @@ class GameState():
         backgrund_image = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))       
        
-        Item1_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[0].image}.png")
-        Item2_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[1].image}.png")
-        Item3_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[2].image}.png")
-        Item4_Bild = pygame.image.load(f"Bilder/{self.spelare.Shop_List[3].image}.png")
+        Item1_Bild = pygame.image.load(self.spelare.Shop_List[0].image)
+        Item2_Bild = pygame.image.load(self.spelare.Shop_List[1].image)
+        Item3_Bild = pygame.image.load(self.spelare.Shop_List[2].image)
+        Item4_Bild = pygame.image.load(self.spelare.Shop_List[3].image)
 
         item1 = Button(300*scale, 400*scale, Item1_Bild, 0.46875)
         item2 = Button(650*scale, 400*scale, Item2_Bild, 0.46875)
@@ -449,6 +456,9 @@ class GameState():
                 pygame.quit()
                 sys.exit()
 
+        if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
+            self.state = 'Choice_Scene'
+
     def Item_manager(self): # klar
         inventory = self.spelare.inventory
 
@@ -493,7 +503,7 @@ class GameState():
             Shop = pygame.transform.scale(Shop, (background_Width, background_Height))
             screen.blit(Shop, (0, 0))
         
-        Item0 = pygame.image.load(f"renders/Default Renders/items/{self.spelare.current_item.image}.png")
+        Item0 = pygame.image.load(self.spelare.current_item.image)
         Item0_Bild = pygame.transform.scale(Item0, (179*scale, 179*scale))
 
         Continue_Button = Button(800*scale, 940*scale, Button1_image, 0.6)
@@ -508,11 +518,11 @@ class GameState():
         screen.blit(Description5, (200*scale,450*scale))
         screen.blit(Description_Bought_Item, (1100*scale,190*scale))
 
-        Item1_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[0].image}.png")
-        Item2_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[1].image}.png")
-        Item3_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[2].image}.png")
-        Item4_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[3].image}.png")
-        Item5_Bild = pygame.image.load(f"renders/Default Renders/items/{inventory[4].image}.png")
+        Item1_Bild = pygame.image.load(inventory[0].image)
+        Item2_Bild = pygame.image.load(inventory[1].image)
+        Item3_Bild = pygame.image.load(inventory[2].image)
+        Item4_Bild = pygame.image.load(inventory[3].image)
+        Item5_Bild = pygame.image.load(inventory[4].image)
         
         screen.blit(Item0_Bild, (1200*scale, 290*scale))
         Item1_Button = Button(150*scale, 600*scale, Item1_Bild, 0.7)
@@ -615,6 +625,9 @@ class GameState():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+                
+        if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
+            self.state = 'Choice_Scene'
 
     def Chest_Scene(self):
 
@@ -669,7 +682,7 @@ class GameState():
             text_obj4 = Font1_70.render(self.found_item.Name,True,Gray)
             text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
 
-            item = pygame.image.load(f"Bilder/{self.found_item.image}.png")
+            item = pygame.image.load(self.found_item.image)
             item_Width = item.get_width() *scale
             item_Height = item.get_height() *scale
             item = pygame.transform.scale(item, (item_Width, item_Height)) 
