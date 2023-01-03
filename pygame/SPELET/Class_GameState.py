@@ -629,7 +629,7 @@ class GameState():
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
-    def Chest_Scene(self):
+    def Chest_Scene(self): #klar
 
         font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
         text_obj3 = font_obj3.render("Press the chest to open it",True,Gray)
@@ -659,7 +659,7 @@ class GameState():
             self.found_item = self.spelare.current_item
             self.state = 'Chest_Scene_Open'
 
-    def Chest_Scene_Open(self):
+    def Chest_Scene_Open(self): #klar
         
         Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
         Open_Chest = pygame.transform.scale(Open_Chest, (screen_Width, screen_Height)) 
@@ -718,10 +718,10 @@ class GameState():
         Bakground = pygame.transform.scale(Monster1, (screen_Width,screen_Height))
 
         Attack = Font6_70.render("Attack", True, Dark_Grey)
-        Return_Button = Button(800, 900 , Button1_image, 0.7)  
+        Attack_Button = Button(800, 900 , Button1_image, 0.7)  
 
         screen.blit(Bakground, (0, 0))
-        Return_Button.draw(screen)
+        Attack_Button.draw(screen)
         screen.blit(Attack, (820*scale, 900*scale))
         pygame.display.flip()
         
@@ -730,7 +730,7 @@ class GameState():
                 pygame.quit()
                 sys.exit()
         
-        if Return_Button.clicked():
+        if Attack_Button.clicked():
             self.spelare.monster()
 
     def Win_Scene(self): #klar?
@@ -767,7 +767,7 @@ class GameState():
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
             
-    def Lose_Scene(self):
+    def Lose_Scene(self): #klar
         
         Monster1_image = pygame.image.load("renders/Färdigt/spindel du dog - oilpaint.png")
         Monster1 = pygame.transform.scale(Monster1_image, (screen_Width, screen_Height))
@@ -822,18 +822,21 @@ class GameState():
     def Trap_Scene(self):
         
         Trap = pygame.image.load("renders/Färdigt/Trap1 - oilpaint.png")
-        background_Width = Trap.get_width() *scale
-        background_Height = Trap.get_height() *scale
-        Trap = pygame.transform.scale(Trap, (background_Width, background_Height))
-        
+        Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))
+
+        Dodge_text = Font6_70.render("Dodge", True, Dark_Grey)
+        Dodge_button = Button(800, 900 , Button1_image, 0.7)  
+
         screen.blit(Trap, (0,0))
+        Dodge_button.draw(screen)
+        screen.blit(Dodge_text, (820*scale, 900*scale ))
         pygame.display.flip()
         
-        time.sleep(1.5)
-        if self.spelare.dodge_trap == True:
-            self.state = 'Dodge_Trap_Scene'
-        else:
-            self.state = 'Fall_For_Trap_Scene' 
+        if Dodge_button.clicked():
+            if self.spelare.dodge_trap == True:
+                self.state = 'Dodge_Trap_Scene'
+            else:
+                self.state = 'Fall_For_Trap_Scene' 
         
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -961,4 +964,3 @@ class GameState():
             self.Door_Choice_Scene()       
         if self.state == "Shop_Scene":
             self.Shop_Scene()
-                       
