@@ -804,17 +804,29 @@ class GameState():
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
 
-    def Draw_Scene(self):
+    def Draw_Scene(self): #borde vara klar
         
         Monster1 = pygame.image.load("renders/Färdigt/spindel - tie - oilpaint.png")
-        background_Width = Monster1.get_width() *scale
-        background_Height = Monster1.get_height() *scale
-        Monster1 = pygame.transform.scale(Monster1, (background_Width, background_Height))
+        Monster1 = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
+
+        text_obj = Font1_100.render("The fight was a fight",True,Gray)
+        text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
+
+        text_obj2 = Font1_100.render("and you ran away",True,Gray)
+        text_rect2 = text_obj2.get_rect(center = (screen_Width/2, 325*scale))
+
+        text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
+        text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
         
-        Return_Button = Button(100, 400, Button_image, 0.8)
+        Continue_text = Font6_70.render("Continue", True, Dark_Grey)
+        Return_Button = Button(800, 900 , Button1_image, 0.7)  
          
         screen.blit(Monster1, (0, 0))
         Return_Button.draw(screen)
+        screen.blit(text_obj, text_rect1)
+        screen.blit(text_obj2, text_rect2)
+        screen.blit(text_obj3, text_rect3)
+        screen.blit(Continue_text, (820*scale, 900*scale))
         pygame.display.flip()
 
         for event in pygame.event.get(pygame.QUIT):
@@ -886,7 +898,7 @@ class GameState():
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
          
-    def Game_Over_Scene(self):
+    def Game_Over_Scene(self): #klar
         from Class_Item import Empty
         self.spelare.Hp = 100
         self.spelare.Str = 200
@@ -894,32 +906,35 @@ class GameState():
         self.spelare.intelligence = 100
         self.spelare.gold = 0
         self.spelare.inventory = [Empty, Empty, Empty, Empty, Empty]
-        
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
-        
-        Exit = pygame.image.load("Bilder/continue.png")
-        Exit_Button = Button(710*scale, 800*scale, Exit, 1)
-        
-
-        font_color = (255, 255, 255)  
-        font_obj = pygame.font.Font("Fonts/Font1.TTF",int(120*scale))
-        text_obj = font_obj.render("Du är stendöd",True,font_color)
+    
+        text_obj = Font1_120.render("You died",True,White)
         text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2))
 
+        Exit_text = Font6_70.render("Exit", True, Dark_Grey)
+        Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
+
+        Restart_text = Font6_70.render("Restart", True, Dark_Grey)
+        Restart_Button = Button(430*scale, 757*scale, Button1_image, 0.7)
+
         screen.fill((0,0,0))
-        Continue_Button.draw(screen)
-        Exit_Button.draw(screen)
         screen.blit(text_obj, text_rect)
+        Exit_Button.draw(screen)
+        Restart_Button.draw(screen)
+        screen.blit(text_obj, text_rect)
+        screen.blit(Exit_text, (1090*scale, 757*scale))
+        screen.blit(Restart_text, (450*scale, 757*scale))
         pygame.display.flip()
+       
+        
 
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
                 
-        if Continue_Button.clicked():
+        if Restart_Button.clicked():
             self.state = 'Titlecard'
+
         if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
