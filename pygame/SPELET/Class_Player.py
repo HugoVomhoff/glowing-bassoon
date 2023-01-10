@@ -37,8 +37,8 @@ class Player():
         elif Choice == 2:
             self.Show_Inv()   
         elif Choice == 3:
-            #utfall = random.randint(1,3)   
-            utfall = 1
+            utfall = random.randint(1,3)   
+            
             if utfall == 1:
                 game_state.state = "Monster_Scene"
 
@@ -57,6 +57,8 @@ class Player():
         self.slumpadfälla = random.randint(1,3)
         undvika_fällan = random.randint(1,100)
         self.dodge_trap = False
+        
+        self.Hp = self.Hp - 5
         
         if undvika_fällan < (self.intelligence - 100):
             self.dodge_trap = True
@@ -117,7 +119,7 @@ class Player():
             game_state.state = "Draw_Scene"
             
         else:
-            self.Hp = self.Hp - monster_str
+            self.Hp -= (monster_str - self.Str)
             game_state.state = "Lose_Scene"
     
     def inv_add(self, item):
@@ -164,7 +166,7 @@ class Player():
         from Game_State import game_state
         game_state.state = "Show_Inv_Scene"
                    
-    def  Show_Inv(self):
+    def Show_Inv(self):
 
         from Game_State import game_state
         game_state.state = 'Show_Inv_Scene'

@@ -43,7 +43,7 @@ class GameState():
 
     def Titlecard(self): #klar ish , behövs bakgrund
           
-        text_obj = Font1_120.render("Davids Äventyr",True,White)
+        text_obj = Font1_120.render("Andreas Äventyr",True,White)
         text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height/2))
 
         text_obj2 = Font1_30.render("Press spacebar to continue", True, White)
