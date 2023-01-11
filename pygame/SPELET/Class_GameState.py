@@ -16,7 +16,7 @@ Gray = (100, 100, 100)
 Black = (0,0,0)
 White = (255, 255, 255)
 Gold = (255, 192, 0)
-Dark_Grey = (20, 20, 20)
+Dark_Grey = (10, 10, 10)
 Purple = (139, 0, 139)
 Yellow = (255, 255, 0)
 Red = (120, 0, 0)
@@ -43,7 +43,7 @@ class GameState():
 
     def Titlecard(self): #klar ish , behövs bakgrund
           
-        text_obj = Font1_120.render("Andreas Äventyr",True,White)
+        text_obj = Font1_120.render("Dungeon Danger ",True,White)
         text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height/2))
 
         text_obj2 = Font1_30.render("Press spacebar to continue", True, White)
@@ -303,7 +303,7 @@ class GameState():
         if Go_back.clicked():
             self.state = 'Choice_Scene'
 
-    def Shop_Scene(self): # klar
+    def Shop_Scene(self): # klar3
         
         backgrund_image = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))       
@@ -687,16 +687,17 @@ class GameState():
             item_Height = item.get_height() *scale
             item = pygame.transform.scale(item, (item_Width, item_Height)) 
 
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(910*scale, 800*scale, Continue_Button, 1)
-        
+        Continue_text = Font6_70.render("Continue", True, Dark_Grey)
+        Continue_Button = Button(800, 900 , Button1_image, 0.7)
         
         screen.blit(Open_Chest, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
         screen.blit(text_obj3,text_rect)
         screen.blit(text_obj4,text_rect1)
-        screen.blit(item, (screen_Width//2-item_Width/2, 500*scale))
         Continue_Button.draw(screen)
+        screen.blit(Continue_text, (820*scale, 900*scale))
+        screen.blit(item, (screen_Width//2-item_Width/2, 500*scale))
+         
         
         pygame.display.flip()
 
@@ -836,16 +837,21 @@ class GameState():
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
        
-    def Trap_Scene(self):
+    def Trap_Scene(self): #klar
         
         Trap = pygame.image.load("renders/Färdigt/Trap1 - oilpaint.png")
         Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))
 
         Dodge_text = Font6_70.render("Dodge", True, Dark_Grey)
-        Dodge_button = Button(800, 900 , Button1_image, 0.7)  
+        Dodge_button = Button(800, 900 , Button1_image, 0.7)
+        
+        SceneTitle =  Font1_100.render("You encountered a rolling boulder, try to dodge!",True,Gray)
+        text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))  
 
         screen.blit(Trap, (0,0))
         Dodge_button.draw(screen)
+        draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 80*scale,1820*scale, 120*scale,))
+        screen.blit(SceneTitle, text_rect)
         screen.blit(Dodge_text, (820*scale, 900*scale ))
         pygame.display.flip()
         
@@ -860,15 +866,21 @@ class GameState():
                 pygame.quit()
                 sys.exit()
                 
-    def Dodge_Trap_Scene(self):
+    def Dodge_Trap_Scene(self): #klar
         Trap_image = pygame.image.load("renders/Färdigt/Trap1 - dodge - oilpaint.png")
         Trap = pygame.transform.scale(Trap_image, (screen_Width, screen_Height))
         
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
+        Continue_text = Font6_70.render("Continue", True, Dark_Grey)
+        Continue_Button = Button(800, 900 , Button1_image, 0.7)
+        
+        SceneTitle =  Font1_100.render("You succeeded to dodge the boulder!",True,Gray)
+        text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale)) 
         
         screen.blit(Trap, (0,0))
-        Continue_Button.draw(screen)       
+        Continue_Button.draw(screen)
+        draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
+        screen.blit(SceneTitle, text_rect) 
+        screen.blit(Continue_text, (820*scale, 900*scale ))
         pygame.display.flip()
         
         if Continue_Button.clicked():
@@ -879,15 +891,21 @@ class GameState():
                 pygame.quit()
                 sys.exit()
                 
-    def Fall_For_Trap_Scene(self):
+    def Fall_For_Trap_Scene(self): #klar
         Trap = pygame.image.load("renders/Färdigt/Trap1 du dog - oilpaint.png")
         Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))    
          
-        Continue_Button = pygame.image.load("Bilder/continue.png")
-        Continue_Button = Button(1000*scale, 800*scale, Continue_Button, 1)
+        Continue_text = Font6_70.render("Continue", True, Dark_Grey)
+        Continue_Button = Button(800, 900 , Button1_image, 0.7)
+        
+        SceneTitle =  Font1_100.render("You failed to dodge the boulder!",True,Gray)
+        text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale)) 
         
         screen.blit(Trap, (0,0))
         Continue_Button.draw(screen)
+        draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
+        screen.blit(SceneTitle, text_rect) 
+        screen.blit(Continue_text, (820*scale, 900*scale ))
         pygame.display.flip()
        
         for event in pygame.event.get(pygame.QUIT):
