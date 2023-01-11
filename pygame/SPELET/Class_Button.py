@@ -2,6 +2,7 @@ import pygame
 
 class Button():
 	
+	# Knappen initieras med en position, en bild och en skala på bilden
 	def __init__(self, x, y, image, scale):
 		
 		self.screen_Width, self.screen_Height = pygame.display.get_surface().get_size()
@@ -17,11 +18,12 @@ class Button():
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
 
+	# Bilden på knappen ritas ut
 	def draw(self, surface):
 		
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 	
-
+	# Om du klickar på knappen så returnas True alla andra ticks returnas False
 	def clicked(self):
 		if self.rect.collidepoint(pygame.mouse.get_pos()):
 			for event in pygame.event.get(pygame.MOUSEBUTTONDOWN):
@@ -30,6 +32,7 @@ class Button():
 
 		return False
 
+	# Om du håller muspekaren över knappen så returnar funktionen hover True
 	def hover(self):
 		if self.rect.collidepoint(pygame.mouse.get_pos()):
 			return True
