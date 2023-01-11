@@ -1,14 +1,18 @@
+# Sätter hur fönstret ska se ut och fixar fullsceen i pygame
 import pygame
 skärm = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
+# Sätter skärmens storlek i variabler
 screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
 
+# ritar en semitransparent rektangel
 def draw_rect_alpha(surface, color, rect):
             shape_surf = pygame.Surface(pygame.Rect(rect).size, pygame.SRCALPHA)
             pygame.draw.rect(shape_surf, color, shape_surf.get_rect())
             surface.blit(shape_surf, rect)
 
+# sätter alla fonter
 font1 = pygame.font.Font("Fonts/Font1.TTF", int(45*scale))
 font2 = pygame.font.Font("Fonts/Font3.ttf", int(100*scale))
 
