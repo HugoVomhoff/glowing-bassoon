@@ -7,7 +7,7 @@ pygame.init()
 from Game_State import game_state
 
 # Sätter fönsternanet till spelets namn och gör så att muspekaren är synlig
-pygame.display.set_caption("Andreas Äventyr")
+pygame.display.set_caption("Dungeon Danger")
 pygame.mouse.set_visible(True) 
 
 # Fixar tick för spelet

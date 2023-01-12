@@ -72,7 +72,7 @@ class Player():
         undvika_fällan = random.randint(1,100)
         self.dodge_trap = False
         
-        self.Hp = self.Hp - 5
+        self.Hp = self.Hp - 2
         
         if undvika_fällan < (self.intelligence - 100):
             self.dodge_trap = True
