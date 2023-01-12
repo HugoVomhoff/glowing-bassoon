@@ -9,7 +9,7 @@ screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
 
 # Fonts
-font1, font2, Font1_30, Font1_70, Font1_100, Font1_120, Font6_20, Font6_25, Font6_35, Font6_55, Font6_70, Font6_80 = fonts
+Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_55, Font6_70, Font6_80 = fonts
 
 # Font colors
 Gray = (100, 100, 100)
@@ -23,8 +23,8 @@ Red = (120, 0, 0)
 Green = (0, 120, 0)
   
 # Default images
-Button_image = pygame.image.load("Bilder/Knapp.png").convert_alpha()
-Button1_image = pygame.image.load("Bilder/Knapp1.png").convert_alpha()
+Button_image = pygame.image.load("Bilder/Knappar/Knapp.png").convert_alpha()
+Button1_image = pygame.image.load("Bilder/Knappar/Knapp1.png").convert_alpha()
 
 image_Width = Button1_image.get_width() *scale
 image_Height = Button1_image.get_height() * scale
@@ -113,7 +113,7 @@ class GameState():
     
     def Choice_Scene(self): #klar
 
-        bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
+        bakgrund = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         bakgrund = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
         text_obj3 = Font1_100.render("Choose Your Action",True,Gray)
@@ -177,10 +177,10 @@ class GameState():
 
     def Show_Stats_Scene(self): #klar
 
-        bakgrund = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
+        bakgrund = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         bakgrund1 = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
-        Character = pygame.image.load("renders/Färdigt/Character - oilpaint.png")
+        Character = pygame.image.load("Bilder/Scener/Character - oilpaint.png")
         background_Width = Character.get_width() * scale * 0.9
         background_Height = Character.get_height() * scale * 0.9
         Character = pygame.transform.scale(Character, (background_Width, background_Height))
@@ -220,7 +220,7 @@ class GameState():
         
     def Show_Inv_Scene(self): #klar
         
-        backgrund_image = pygame.image.load("renders/Färdigt/Room1 v2 - oilpaint.png")
+        backgrund_image = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))
         
         text_obj4 = Font6_70.render("Go back", True, Dark_Grey)
@@ -305,7 +305,7 @@ class GameState():
 
     def Shop_Scene(self): # klar3
         
-        backgrund_image = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
+        backgrund_image = pygame.image.load("Bilder/Scener/Shop - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))       
        
         Item1_Bild = pygame.image.load(self.spelare.Shop_List[0].image)
@@ -349,7 +349,7 @@ class GameState():
         Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
 
         gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold)
-        gold = pygame.image.load(f"Bilder/Guld.png")
+        gold = pygame.image.load(f"Bilder/Scener/GULD.png")
         gold = pygame.transform.scale(gold, (70*scale, 70*scale))
         
         screen.blit(backgrund, (0, 0))
@@ -491,13 +491,13 @@ class GameState():
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
         if self.spelare.shop == False:
-            Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
+            Open_Chest = pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png")
             background_Width = Open_Chest.get_width() *scale
             background_Height = Open_Chest.get_height() *scale
             Open_Chest = pygame.transform.scale(Open_Chest, (background_Width, background_Height))
             screen.blit(Open_Chest, (0, 0))
         else:
-            Shop = pygame.image.load("renders/Färdigt/Shop - oilpaint.png")
+            Shop = pygame.image.load("Bilder/Scener/Shop - oilpaint.png")
             background_Width = Shop.get_width() *scale
             background_Height = Shop.get_height() *scale
             Shop = pygame.transform.scale(Shop, (background_Width, background_Height))
@@ -591,12 +591,12 @@ class GameState():
     def Door_Choice_Scene(self): #klar
         from Game_State import game_state
                         
-        Background_image = pygame.image.load("renders/Färdigt/Tre dörrar v3- oilpaint.png")
+        Background_image = pygame.image.load("Bilder/Scener/Tre dörrar v3- oilpaint.png")
         Background = pygame.transform.scale(Background_image, (screen_Width, screen_Height))
         
-        Door1 = pygame.image.load("Bilder/dörrknapp1.png")
-        Door2 = pygame.image.load("Bilder/dörrknapp2.png")
-        door3 = pygame.image.load("Bilder/dörrknapp3.png")
+        Door1 = pygame.image.load("Bilder/Knappar/dörrknapp1.png")
+        Door2 = pygame.image.load("Bilder/Knappar/dörrknapp2.png")
+        door3 = pygame.image.load("Bilder/Knappar/dörrknapp3.png")
 
         Door1_Button = Button(1458*scale, 235*scale, Door1, 1)   
         Door2_Button = Button(695*scale, 320*scale, Door2, 1) 
@@ -635,10 +635,10 @@ class GameState():
         text_obj3 = font_obj3.render("Press the chest to open it",True,Gray)
         text_rect = text_obj3.get_rect(center = (screen_Width//2, 150*scale))
 
-        Chest = pygame.image.load("renders/Färdigt/Kista - stängd - oilpaint.png")
+        Chest = pygame.image.load("Bilder/Scener/Kista - stängd - oilpaint.png")
         Chest = pygame.transform.scale(Chest, (screen_Width, screen_Height))
 
-        Chest_Button = pygame.image.load("Bilder/kistknapp.png")
+        Chest_Button = pygame.image.load("Bilder/Knappar/kistknapp.png")
         Chest_Button = Button(700*scale, 440*scale, Chest_Button, 1)
         
         screen.blit(Chest, (0, 0))
@@ -661,7 +661,7 @@ class GameState():
 
     def Chest_Scene_Open(self): #klar
         
-        Open_Chest = pygame.image.load("renders/Färdigt/Kista - öppen - oilpaint.png")
+        Open_Chest = pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png")
         Open_Chest = pygame.transform.scale(Open_Chest, (screen_Width, screen_Height)) 
         
         text_obj3 = Font1_100.render("You opened the chest and found:",True,Gray)
@@ -672,7 +672,7 @@ class GameState():
             text_obj4 = Font1_70.render(f"{self.found_item} Gold",True,Gray)
             text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
 
-            item = pygame.image.load(f"Bilder/GULD.png")
+            item = pygame.image.load(f"Bilder/Scener/GULD.png")
             item_Width = item.get_width() *scale
             item_Height = item.get_height() *scale
             item = pygame.transform.scale(item, (item_Width, item_Height))
@@ -715,7 +715,7 @@ class GameState():
                    
     def Monster_Scene(self): #klar
         
-        Monster1 = pygame.image.load("renders/Färdigt/spindel - oilpaint.png")
+        Monster1 = pygame.image.load("Bilder/Scener/spindel - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width,screen_Height))
 
         Attack = Font6_70.render("Attack", True, Dark_Grey)
@@ -740,7 +740,7 @@ class GameState():
             self.spelare.monster()
 
     def Win_Scene(self): #klar
-        Monster1 = pygame.image.load("renders/Färdigt/spindel - död - oilpaint.png")
+        Monster1 = pygame.image.load("Bilder/Scener/spindel - död - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
         
         text_obj = Font1_100.render("You slaughtered the spider",True,Gray)
@@ -775,7 +775,7 @@ class GameState():
             
     def Lose_Scene(self): #klar
         
-        Monster1_image = pygame.image.load("renders/Färdigt/spindel du dog - oilpaint.png")
+        Monster1_image = pygame.image.load("Bilder/Scener/spindel du dog - oilpaint.png")
         Monster1 = pygame.transform.scale(Monster1_image, (screen_Width, screen_Height))
         
         text_obj = Font1_100.render("You were hurt by the spider ",True,Gray)
@@ -807,7 +807,7 @@ class GameState():
 
     def Draw_Scene(self): #borde vara klar
         
-        Monster1 = pygame.image.load("renders/Färdigt/spindel - tie - oilpaint.png")
+        Monster1 = pygame.image.load("Bilder/Scener/spindel - tie - oilpaint.png")
         Monster1 = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
 
         text_obj = Font1_100.render("The fight was a fight",True,Gray)
@@ -839,7 +839,7 @@ class GameState():
        
     def Trap_Scene(self): #klar
         
-        Trap = pygame.image.load("renders/Färdigt/Trap1 - oilpaint.png")
+        Trap = pygame.image.load("Bilder/Scener/Trap1 - oilpaint.png")
         Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))
 
         Dodge_text = Font6_70.render("Dodge", True, Dark_Grey)
@@ -867,7 +867,7 @@ class GameState():
                 sys.exit()
                 
     def Dodge_Trap_Scene(self): #klar
-        Trap_image = pygame.image.load("renders/Färdigt/Trap1 - dodge - oilpaint.png")
+        Trap_image = pygame.image.load("Bilder/Scener/Trap1 - dodge - oilpaint.png")
         Trap = pygame.transform.scale(Trap_image, (screen_Width, screen_Height))
         
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
@@ -892,7 +892,7 @@ class GameState():
                 sys.exit()
                 
     def Fall_For_Trap_Scene(self): #klar
-        Trap = pygame.image.load("renders/Färdigt/Trap1 du dog - oilpaint.png")
+        Trap = pygame.image.load("Bilder/Scener/Trap1 du dog - oilpaint.png")
         Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))    
          
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
