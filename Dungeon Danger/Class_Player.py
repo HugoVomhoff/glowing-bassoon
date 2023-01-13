@@ -146,7 +146,7 @@ class Player():
             game_state.state = "Draw_Scene"
             
         else:
-            self.Hp -= (monster_str - self.Str)
+            self.Hp -= (5 + (2 * self.lvl))
             game_state.state = "Lose_Scene"
     
     # Om ditt inventory är fullt så får du välja om du vill byta ut ett av dina nuvarande items

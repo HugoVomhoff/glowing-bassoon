@@ -784,7 +784,7 @@ class GameState():
         text_obj2 = Font1_100.render("and ran away",True,Gray)
         text_rect2 = text_obj2.get_rect(center = (screen_Width/2, 325*scale))
 
-        text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
+        text_obj3 = Font1_100.render(f"You took {self.spelare.lvl*2+5} damage!",True,Gray)
         text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
         
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
@@ -899,12 +899,16 @@ class GameState():
         Continue_Button = Button(800, 900 , Button1_image, 0.7)
         
         SceneTitle =  Font1_100.render("You failed to dodge the boulder!",True,Gray)
-        text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale)) 
+        text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))
+        
+        text_obj = Font1_100.render(f"You took 2 damage!",True,Gray)
+        text_rect2 = text_obj.get_rect(center = (screen_Width/2, 300*scale))
         
         screen.blit(Trap, (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
+        screen.blit(text_obj, text_rect2)
         screen.blit(Continue_text, (820*scale, 900*scale ))
         pygame.display.flip()
        
