@@ -2,7 +2,7 @@ import pygame
 import time
 import sys
 from Class_Button import Button
-from Variabler import draw_rect_alpha, fonts
+from Variables import draw_rect_alpha, fonts
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_Width, screen_Height = pygame.display.get_surface().get_size()
