@@ -41,26 +41,24 @@ class GameState():
         self.cannot_afford = False
         self.count = 0
 
-    def Titlecard(self): #klar ish , behövs bakgrund
-          
-        text_obj = Font1_120.render("Dungeon Danger ",True,White)
-        text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height/2))
+    def Titlecard(self):
+        
+        Text1 = Font1_120.render("Dungeon Danger ",True,White)
+        Text1_pos = Text1.get_rect(center = (screen_Width//2, screen_Height/2))
 
-        text_obj2 = Font1_30.render("Press spacebar to continue", True, White)
-        text_rect2 = text_obj2.get_rect(center = (screen_Width//2, screen_Height-75*scale))
+        Text2 = Font1_30.render("Press spacebar to continue", True, White)
+        Text2_pos = Text2.get_rect(center = (screen_Width//2, screen_Height-75*scale))
 
         screen.fill((0,0,0))
-        screen.blit(text_obj, text_rect)
-        screen.blit(text_obj2, text_rect2)
+        screen.blit(Text1, Text1_pos)
+        screen.blit(Text2, Text2_pos)
         pygame.draw.rect(screen, (255, 255, 255), 
         pygame.Rect((screen_Width/2-(500*scale)), (screen_Height/2-(75*scale)), int(1000*scale), int(150*scale)), int(5*scale))
-
         pygame.display.flip()
         
         
         if pygame.key.get_pressed()[pygame.K_SPACE] == True:
             self.state = 'Difficulty_Scene'
-
 
         for event in pygame.event.get(pygame.QUIT):  
             if event.type == pygame.QUIT:
@@ -891,7 +889,7 @@ class GameState():
                 pygame.quit()
                 sys.exit()
                 
-    def Fall_For_Trap_Scene(self): #klar
+    def Fall_For_Trap_Scene(self):
         Trap = pygame.image.load("Bilder/Scener/Trap1 du dog - oilpaint.png")
         Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))    
          
@@ -920,17 +918,14 @@ class GameState():
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
          
-    def Game_Over_Scene(self): #klar
-        from Class_Item import Empty
-        self.spelare.Hp = 100
-        self.spelare.Str = 200
-        self.spelare.lvl = 1
-        self.spelare.intelligence = 100
-        self.spelare.gold = 0
-        self.spelare.inventory = [Empty, Empty, Empty, Empty, Empty]
-    
-        text_obj = Font1_120.render("You died",True,White)
-        text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2))
+    def Game_Over_Scene(self):
+        from Class_Player import Player
+        # resettar spelaren
+        self.spelare = Player(100, 100, 1, 100, 0)
+
+        # 
+        Text1 = Font1_120.render("You died",True,White)
+        Text_pos = Text1.get_rect(center = (screen_Width//2, screen_Height//2))
 
         Exit_text = Font6_70.render("Exit", True, Dark_Grey)
         Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
@@ -939,10 +934,9 @@ class GameState():
         Restart_Button = Button(430*scale, 757*scale, Button1_image, 0.7)
 
         screen.fill((0,0,0))
-        screen.blit(text_obj, text_rect)
+        screen.blit(Text1, Text_pos)
         Exit_Button.draw(screen)
         Restart_Button.draw(screen)
-        screen.blit(text_obj, text_rect)
         screen.blit(Exit_text, (1090*scale, 757*scale))
         screen.blit(Restart_text, (450*scale, 757*scale))
         pygame.display.flip()
@@ -962,12 +956,7 @@ class GameState():
             sys.exit()
 
     def state_manager(self):
-       
-        for event in pygame.event.get(pygame.QUIT):  
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-       
+ 
         if self.spelare.Hp < 1:
             self.state = "Game_Over_Scene"
 

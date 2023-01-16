@@ -3,7 +3,7 @@ import random
 from Class_Item import alla_items, Shop_List, Empty
 
 
-# Player initieras med massor med olika variabler som örr spelaren. Variablerna är styrka (Str), 
+# Player initieras med massor med olika variabler som rör spelaren. Variablerna är styrka (Str), 
 # Hälsa (Hp), Level (lvl), inteligens, (intelligence) och Guldmängd (gold)
 # En del andra standardvärden sätts även på variabler som ska användas i senare funktioner.
 

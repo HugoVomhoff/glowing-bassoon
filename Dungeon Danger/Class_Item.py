@@ -1,3 +1,6 @@
+# Item initieras med massor med olika variabler som örr spelaren. Variablerna är Name (namn), 
+# styrka (Strength), beskrivning (description), inteligens (intelligence) och itembilden (image) och pris(price)
+
 class Item():   
     def __init__ (self, Name, Strength, Description, intelligence, image, price):
         self.price = price
@@ -7,9 +10,7 @@ class Item():
         self.Description = Description
         self.image = image 
 
-
-Empty = Item("", 0, "", 0, "Bilder/Items/Empty.png", 0) 
-
+# Items som används i spelet sätts
 Crossbow = Item("A Crossow", 40, "A bow with alot of arrows!", 10, "Bilder/Items/crossbow.png", 300)
 Holy_Bible = Item("Holy Bible", 0, "The original Holy Bible!", 40, "Bilder/Items/Holy Bible.png", 250)
 Spiked_Club = Item("Spiked Mace Club", 40, "A heavy mace club filled with rusty spikes!", 0, "Bilder/Items/Spiked_Mace_Club.png", 275)
@@ -22,6 +23,11 @@ Spearaxe = Item("Spear-Axe", 50, "A powerfull axe that can also be used as a spe
 Dagger = Item("Long Dagger", 20, "A long but weak dagger", 0, "Bilder/Items/daggerish.png", 175)
 Mjölnir = Item("Mjölnir", 60, "The hammer of the allmighty Thor!", 5, "Bilder/Items/Mjolnir.png", 450)
 
+# tomt item för att illustrera att man exempelvis har en tom plats i inventoryt eller i shoppen. 
+Empty = Item("", 0, "", 0, "Bilder/Items/Empty.png", 0) 
 
+# Items som man kan få 
 alla_items = [Crossbow, Axe, Twosided_Axe, Spearaxe, Dagger, Mjölnir, Holy_Bible, Empty]
+
+# items som startar i shoppen 
 Shop_List = [Spiked_Club, Gandalf_Staff, Eternal_Flame, Excalibur]
