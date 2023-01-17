@@ -1,14 +1,16 @@
+# importerar pygame och andra viktiga funktioner och variabler, exempelvis Class_Button
 import pygame
-import time
 import sys
 from Class_Button import Button
 from Variables import draw_rect_alpha, fonts
 
+# Gör skärmen till Fullscreen, och hämtar skärmens resolution, alltså hur många pixlar skärmen har i x-led och y-led
+# Gör även en variabel "Scale" som gör att man kan anpassa spelet till olika storlekar av skärmar
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
 
-# Fonts
+# Hämtar alla fonter
 Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_55, Font6_70, Font6_80 = fonts
 
 # Font colors
@@ -21,11 +23,12 @@ Purple = (139, 0, 139)
 Yellow = (255, 255, 0)
 Red = (120, 0, 0)
 Green = (0, 120, 0)
-  
-# Default images
+
+# Vi imoportar bilderna som ska visas som knappar
 Button_image = pygame.image.load("Bilder/Knappar/Knapp.png").convert_alpha()
 Button1_image = pygame.image.load("Bilder/Knappar/Knapp1.png").convert_alpha()
 
+# Listar ut hur stora bilderna är och anpassar de till hur stor skärmen är
 image_Width = Button1_image.get_width() *scale
 image_Height = Button1_image.get_height() * scale
 
@@ -35,7 +38,8 @@ image_Height1 = Button_image.get_height() * scale
 class GameState(): 
     
     def __init__(self, spelare):
-       
+        # Sätter första scenen till Titlecard och sätter standardvariabler
+        
         self.state = 'Titlecard'
         self.spelare = spelare
         self.cannot_afford = False
