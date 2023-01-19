@@ -164,7 +164,7 @@ class GameState():
             pygame.quit()
             sys.exit()
 
-    def Show_Stats_Scene(self): #klar
+    def Show_Stats_Scene(self):
 
         bakgrund = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         bakgrund1 = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
@@ -207,7 +207,7 @@ class GameState():
                 pygame.quit()
                 sys.exit()
         
-    def Show_Inv_Scene(self): #klar
+    def Show_Inv_Scene(self):
         
         backgrund_image = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))
@@ -292,7 +292,7 @@ class GameState():
         if Go_back.clicked():
             self.state = 'Choice_Scene'
 
-    def Shop_Scene(self): # klar3
+    def Shop_Scene(self):
         
         backgrund_image = pygame.image.load("Bilder/Scener/Shop - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))       
@@ -331,7 +331,7 @@ class GameState():
         Cost_text4 = Font6_25.render(f"Cost: {self.spelare.Shop_List[3].price}",True,Gold)
         
         Buy_text = Font6_25.render("Click to buy!", True, White)
-        Cannot_afford_text = Font6_70.render("You don't have enough gold to buy this!", True, Gray)
+        Cannot_afford_text = Font6_70.render("fYou don't have enough gold to buy this!", True, Gray)
         Cannot_afford_text_position = Cannot_afford_text.get_rect(center = (screen_Width/2, 300*scale))
 
         Title = Font1_100.render("Shop", True, Gray)
@@ -448,7 +448,7 @@ class GameState():
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
-    def Item_manager(self): # klar
+    def Item_manager(self):
         inventory = self.spelare.inventory
 
         Description = Font1_70.render("Your inventory is full,",True,Gray)
@@ -577,7 +577,7 @@ class GameState():
                 pygame.quit()
                 sys.exit()
 
-    def Door_Choice_Scene(self): #klar
+    def Door_Choice_Scene(self):
         from Game_State import game_state
                         
         Background_image = pygame.image.load("Bilder/Scener/Tre dörrar v3- oilpaint.png")
@@ -613,7 +613,7 @@ class GameState():
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
-    def Chest_Scene(self): #klar
+    def Chest_Scene(self):
 
         font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
         text_obj3 = font_obj3.render("Press the chest to open it",True,Gray)
@@ -636,7 +636,7 @@ class GameState():
             self.found_item = self.spelare.current_item
             self.state = 'Chest_Scene_Open'
 
-    def Chest_Scene_Open(self): #klar
+    def Chest_Scene_Open(self):
         
         Open_Chest = pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png")
         Open_Chest = pygame.transform.scale(Open_Chest, (screen_Width, screen_Height)) 
@@ -682,7 +682,7 @@ class GameState():
             else:
                 self.state = "Choice_Scene"         
                    
-    def Monster_Scene(self): #klar
+    def Monster_Scene(self):
         
         Monster1 = pygame.image.load("Bilder/Scener/spindel - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width,screen_Height))
