@@ -350,7 +350,7 @@ class GameState():
         gold = pygame.transform.scale(GULD, (70*scale, 70*scale))
         
 
-        
+
         screen.blit(Bakgrund1, (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
@@ -642,13 +642,7 @@ class GameState():
 
         screen.blit(text_obj4,text_rect1)
         screen.blit(Continue_text, (820*scale, 900*scale))
-        
-        if Continue_Button.clicked():
             
-            if self.spelare.inv_full == True and self.spelare.chest_gold == False:
-                self.state = 'Item_manager'
-            else:
-                self.state = "Choice_Scene"         
                    
     def Monster_Scene(self):
         

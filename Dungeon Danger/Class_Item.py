@@ -23,6 +23,8 @@ Spearaxe = Item("Spear-Axe", 50, "A powerfull axe that can also be used as a spe
 Dagger = Item("Long Dagger", 20, "A long but weak dagger", 0, "Bilder/Items/daggerish.png", 175)
 Mjölnir = Item("Mjölnir", 60, "The hammer of the allmighty Thor!", 5, "Bilder/Items/Mjolnir.png", 450)
 
+Crown = Item("The Queens Crown", 0, "The legendary crown worn by the queen", 0, "Bilder/Items/Crown.png", 0)
+
 # tomt item för att illustrera att man exempelvis har en tom plats i inventoryt eller i shoppen. 
 Empty = Item("", 0, "", 0, "Bilder/Items/Empty.png", 0) 
 
