@@ -829,8 +829,12 @@ class GameState():
         if Dodge_button.clicked():
             if self.spelare.dodge_trap == True:
                 self.state = 'Dodge_Trap_Scene'
+            
+            elif self.Hp <= 0:
+                self.Reset()
+                self.state = "Game_Over_Scene"
             else:
-                self.state = 'Fall_For_Trap_Scene' 
+                self.state = 'Fall_For_Trap_Scene'
                 
     def Dodge_Trap_Scene(self):
         # Knapp med tillhörande text sätts
@@ -861,7 +865,7 @@ class GameState():
         SceneTitle =  Font1_100.render("You failed to dodge the boulder!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))
         
-        text_obj = Font1_100.render(f"You took 2 damage!",True,Gray)
+        text_obj = Font1_100.render(f"You took 3 damage!",True,Gray)
         text_rect2 = text_obj.get_rect(center = (screen_Width/2, 300*scale))
         
         # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
@@ -877,8 +881,6 @@ class GameState():
             self.state = 'Choice_Scene'
          
     def Game_Over_Scene(self):
-        self.spelare.Reset()
-
         # Beskrivande text med vald position sätts i variabler
         Text1 = Font1_120.render("You died",True,White)
         Text_pos = Text1.get_rect(center = (screen_Width//2, screen_Height//2))
@@ -887,52 +889,34 @@ class GameState():
         Exit_text = Font6_70.render("Exit", True, Dark_Grey)
         Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
 
-        Restart_text = Font6_70.render("Restart", True, Dark_Grey)
-        Restart_Button = Button(430*scale, 757*scale, Button1_image, 0.7)
-
         # Spelets bakgrund blir svart. Alla texter och knappar ritas ut
         screen.fill((0,0,0))
         screen.blit(Text1, Text_pos)
         Exit_Button.draw(screen)
-        Restart_Button.draw(screen)
-        screen.blit(Exit_text, (1090*scale, 757*scale))
-        screen.blit(Restart_text, (450*scale, 757*scale))
-        
-        # Restartar spelet från början
-        if Restart_Button.clicked():
-            self.state = 'Titlecard'
 
+        screen.blit(Exit_text, (1090*scale, 757*scale))
+        
         # Stänger av spelet
         if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
     
     def You_Won_Scene(self):
-        self.spelare.Reset()
-
         # Beskrivande text med vald position sätts i variabler
-        Text1 = Font1_120.render("You finally accomplished you mission in finding the crown",True,White)
+        Text1 = Font1_70.render("You finally accomplished you mission in finding the crown",True,White)
         Text_pos = Text1.get_rect(center = (screen_Width//2, screen_Height//2))
 
         # Knappar med tillhörande text sätts
         Exit_text = Font6_70.render("Exit", True, Dark_Grey)
         Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
 
-        Play_again_text = Font6_70.render("Play again", True, Dark_Grey)
-        Play_again_Button = Button(430*scale, 757*scale, Button1_image, 0.7)
-
         # Spelets bakgrund blir svart. Alla texter och knappar ritas ut
         screen.fill((0,0,0))
         screen.blit(Text1, Text_pos)
         Exit_Button.draw(screen)
-        Play_again_Button.draw(screen)
         screen.blit(Exit_text, (1090*scale, 757*scale))
-        screen.blit(Play_again_text, (450*scale, 757*scale))
+     
         
-        # Restartar spelet från början
-        if Play_again_Button.clicked():
-            self.state = 'Titlecard'
-
         # Stänger av spelet
         if Exit_Button.clicked():
             pygame.quit()

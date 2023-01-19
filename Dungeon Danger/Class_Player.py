@@ -18,6 +18,9 @@ class Player():
         self.Shop_List = Shop_List
         self.noitems = False
         self.can_afford = True
+        self.win = False
+        self.last = 10
+        self.reset = False
 
         self.inventory = [Empty, Empty ,Empty ,Empty ,Empty]
         self.alla_items = alla_items
@@ -59,17 +62,18 @@ class Player():
             utfall = random.randint(1,3)   
             
             # antingen så hamnar du hos ett monster
-            if utfall == 1:
+            if utfall == 1 and self.last != 1:
                 game_state.state = "Monster_Scene"
 
             # eller så hamnar du i en fälla
-            if utfall == 2:
+            if utfall == 2 and self.last != 2:
                 self.Trap()
             
             # eller så hamnar du vid en kista
-            if utfall == 3:   
+            if utfall == 3 and self.last != 3:   
                 game_state.state = 'Chest_Scene'
     
+            self.last = utfall
     # och slutligen om du valde att klicka på shop knappen så sätts scenen till "shop_scene" och du hamnar istället vid shopmenyn
         elif Choice == 4:
             game_state.state = "Shop_Scene"
@@ -84,16 +88,13 @@ class Player():
         
         if undvika_fällan < (self.intelligence - 100):
             self.dodge_trap = True
+            game_state.state = "Trap_Scene"
         else:
             self.Hp = self.Hp - 3
             if self.Hp <= 0:
-                self.Reset()
                 game_state.state = "Game_Over_Scene"
-        
-        game_state.state = "Trap_Scene"
-
-    
-    # och du får guld istället.
+            else:
+                game_state.state = "Trap_Scene"
             
     def Chest(self):
         
@@ -101,38 +102,41 @@ class Player():
         guld_eller_item = random.randint(1,10)
         self.chest_gold = False
         
-        # När du öppnar en kista är det 30% chans att du får ett item medans det är 70% att du får guld
-        if guld_eller_item <= 3 and self.alla_items[0].Name != "":
-            
-            # Om det inte finns några items kvar att få eller du är level 15 så vinner du spelet och hittar automatiskt kronan
-            if self.noitems == True or self.lvl >= 15:
-                from Class_Item import Crown
-                self.current_item == Crown
-                self.win = True
 
-
-            # Det sista itemet i itemlistan som vi hämta från är ett specialitem, om det itemet är det enda i listan så sätts "noitems" till True och
-            # du kommer vinna spelet nästa gång du hamnar vid en kista
-            elif(self.alla_items[1].Name == ""):
-                self.shop = False
-                self.inv_add(self.alla_items[0])
-                self.current_item = self.alla_items[0]
-                self.alla_items.pop(0)
-                self.noitems = True
-            
-            # Om inget av de övre if-satserna "triggras" men du ska få ett item så får du ett item och det läggs till i inventoryt
-            else:                
-                self.shop = False
-                self.inv_add(self.alla_items[0])
-                self.current_item = self.alla_items[0]
-                self.alla_items.pop(0)
-
-        # Hur mycket guld du får slumpas fram mellan 40 och 120 och adderas på ditt nuvarande.
+        # Om det inte finns några items kvar att få eller du är level 15 så vinner du spelet och hittar automatiskt kronan
+        if self.noitems == True or self.lvl >= 15:
+            from Class_Item import Crown
+            self.current_item = Crown
+            self.win = True
+        
         else:
 
-            self.chest_gold = True
-            self.current_item = random.randint(40,120)
-            self.gold += self.current_item
+            # När du öppnar en kista är det 20% chans att du får ett item medans det är 80% att du får guld
+            if guld_eller_item < 3 and self.alla_items[0].Name != "":
+
+
+                # Det sista itemet i itemlistan som vi hämta från är ett specialitem, om det itemet är det enda i listan så sätts "noitems" till True och
+                # du kommer vinna spelet nästa gång du hamnar vid en kista
+                if(self.alla_items[1].Name == ""):
+                    self.shop = False
+                    self.inv_add(self.alla_items[0])
+                    self.current_item = self.alla_items[0]
+                    self.alla_items.pop(0)
+                    self.noitems = True
+                
+                # Om inget av de övre if-satserna "triggras" men du ska få ett item så får du ett item och det läggs till i inventoryt
+                else:                
+                    self.shop = False
+                    self.inv_add(self.alla_items[0])
+                    self.current_item = self.alla_items[0]
+                    self.alla_items.pop(0)
+
+            # Hur mycket guld du får slumpas fram mellan 40 och 120 och adderas på ditt nuvarande.
+            elif self.win != True:
+
+                self.chest_gold = True
+                self.current_item = random.randint(40,120)
+                self.gold += self.current_item
 
     # Adderar given mängd styrka ovanpå din tidigare styrka
     def str_add(self, AddedStr):
@@ -172,7 +176,6 @@ class Player():
             
             # Om du hamnar under eller på 0 hp så förlorar du och scenen ändras till "Game_Over_Scene"
             if self.Hp <= 0:
-                self.Reset()
                 game_state.state = "Game_Over_Scene"
 
             # Om monstret har mer styrka så tappar du hp baserat på vilken level du är och scenen ändras till "Loose_Scene"
@@ -289,10 +292,3 @@ class Player():
         # Om du inte har mer pengar än vad itemet kostar så sätts "can_afford" till False
         else:
             self.can_afford = False
-
-    def Reset(self):
-        
-        # Initialisar spelaren och gamestate igen så att allting sätts till vad det var i början
-        from Class_GameState import GameState
-        spelare = Player(100, 100, 1, 100, 0)
-        game_state = GameState(spelare)
