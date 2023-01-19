@@ -1,5 +1,5 @@
 # importerar klasser
-from Class_GameState import GameState
+from Class_gamesate_prova2 import GameState
 from Class_Player import Player
 
 # skapar en spelare och scenhanterare (gamestate)

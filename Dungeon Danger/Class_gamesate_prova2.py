@@ -140,8 +140,7 @@ class GameState():
         Exit_game = Font6_70.render("Exit Game", True, Dark_Grey)
         
         # Bakgrunden och en semitransparent rektangel ritas ut
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (510*scale, 85*scale,900*scale, 120*scale,))
         
         # Knapparnas bilder och texter ritas ut
@@ -192,12 +191,10 @@ class GameState():
         Character = pygame.image.load("Bilder/Scener/Character - oilpaint.png")
 
         # Bakgrunden sätts till en bild, en svart transparent ruta skapas och allting ritas ut på skärmen
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png"), (screen_Width, screen_Height))
-, (0,0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png"), (screen_Width, screen_Height)), (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 90*scale,1620*scale, 900*scale,))
         Return_button.draw(screen)
-        screen.blit(pygame.transform.scale(Character, ((Character.get_width() * scale * 0.9), Character.get_height() * scale * 0.9))
-, (1200*scale, 125*scale))
+        screen.blit(pygame.transform.scale(Character, ((Character.get_width() * scale * 0.9), Character.get_height() * scale * 0.9)), (1200*scale, 125*scale))
         screen.blit(Health_text, (200*scale, 150*scale))
         screen.blit(Str_text, (200*scale, 300*scale))
         screen.blit(Level_text, (200*scale, 450*scale))
@@ -260,8 +257,7 @@ class GameState():
         
         # Bakgrundsbilden målas ut, en halvtransparent svart ruta målas ovanpå det, knappar målas ut
         # och slutligen målas texter ut ovanpå dem
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
         Go_back.draw(screen)
         screen.blit(text_obj4, (775*scale, 880*scale))
@@ -351,8 +347,7 @@ class GameState():
         gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold)
         gold = pygame.transform.scale(pygame.image.load("Bilder/Scener/GULD.png"), (70*scale, 70*scale))
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Shop - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Shop - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
         screen.blit(gold_ammount, (160*scale, 90*scale))
@@ -484,11 +479,9 @@ class GameState():
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
         if self.spelare.shop == False:
-            screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+            screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         else:
-            screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Shop - oilpaint.png"), (screen_Width, screen_Height))
-), (0, 0)
+            screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Shop - oilpaint.png"), (screen_Width, screen_Height))), (0, 0)
         
         Item0 = pygame.image.load(self.spelare.current_item.image)
         Item0_Bild = pygame.transform.scale(Item0, (179*scale, 179*scale))
@@ -578,8 +571,7 @@ class GameState():
         text_obj3 = Font1_100.render("Where do you want to go? Pick a door!",True,Gray)
         text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Tre dörrar v3- oilpaint.png"), (screen_Width, screen_Height))
-,(0,0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Tre dörrar v3- oilpaint.png"), (screen_Width, screen_Height)),(0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (100*scale, 20*scale,1720*scale, 120*scale,))
         Door1_Button.draw(screen)
         Door2_Button.draw(screen)
@@ -605,8 +597,7 @@ class GameState():
         Chest_Button = pygame.image.load("Bilder/Knappar/kistknapp.png")
         Chest_Button = Button(700*scale, 440*scale, Chest_Button, 1)
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         Chest_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
         screen.blit(text_obj3,text_rect)
@@ -625,8 +616,7 @@ class GameState():
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Continue_Button = Button(800, 900 , Button1_image, 0.7)
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Kista - öppen - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
         screen.blit(text_obj3,text_rect)
         Continue_Button.draw(screen)
@@ -665,8 +655,7 @@ class GameState():
         text_obj3 = Font1_100.render("You encountered a spider!",True,Gray)
         text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
 
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (350*scale, 20*scale,1220*scale, 120*scale,))
         Attack_Button.draw(screen)
         screen.blit(Attack, (820*scale, 900*scale))
@@ -715,8 +704,7 @@ class GameState():
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Return_Button = Button(800, 900 , Button1_image, 0.7)  
             
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel du dog - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel du dog - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
         screen.blit(text_obj2, text_rect2)
@@ -740,8 +728,7 @@ class GameState():
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Return_Button = Button(800, 900 , Button1_image, 0.7)  
          
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel - tie - oilpaint.png"), (screen_Width, screen_Height))
-, (0, 0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel - tie - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
         screen.blit(text_obj2, text_rect2)
@@ -759,8 +746,7 @@ class GameState():
         SceneTitle =  Font1_100.render("You encountered a rolling boulder, try to dodge!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))  
 
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Trap1 - oilpaint.png"), (screen_Width, screen_Height))
-, (0,0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Trap1 - oilpaint.png"), (screen_Width, screen_Height)), (0,0))
         Dodge_button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 80*scale,1820*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect)
@@ -781,8 +767,7 @@ class GameState():
         SceneTitle =  Font1_100.render("You succeeded to dodge the boulder!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale)) 
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Trap1 - dodge - oilpaint.png"), (screen_Width, screen_Height))
-, (0,0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Trap1 - dodge - oilpaint.png"), (screen_Width, screen_Height)), (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
@@ -802,8 +787,7 @@ class GameState():
         text_obj = Font1_100.render(f"You took 2 damage!",True,Gray)
         text_rect2 = text_obj.get_rect(center = (screen_Width/2, 300*scale))
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Trap1 du dog - oilpaint.png"), (screen_Width, screen_Height))
-, (0,0))
+        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/Trap1 du dog - oilpaint.png"), (screen_Width, screen_Height)), (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
