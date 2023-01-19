@@ -87,6 +87,7 @@ class Player():
         else:
             self.Hp = self.Hp - 3
             if self.Hp <= 0:
+                self.Reset()
                 game_state.state = "Game_Over_Scene"
         
         game_state.state = "Trap_Scene"
@@ -171,6 +172,7 @@ class Player():
             
             # Om du hamnar under eller på 0 hp så förlorar du och scenen ändras till "Game_Over_Scene"
             if self.Hp <= 0:
+                self.Reset()
                 game_state.state = "Game_Over_Scene"
 
             # Om monstret har mer styrka så tappar du hp baserat på vilken level du är och scenen ändras till "Loose_Scene"
@@ -287,3 +289,10 @@ class Player():
         # Om du inte har mer pengar än vad itemet kostar så sätts "can_afford" till False
         else:
             self.can_afford = False
+
+    def Reset(self):
+        
+        # Initialisar spelaren och gamestate igen så att allting sätts till vad det var i början
+        from Class_GameState import GameState
+        spelare = Player(100, 100, 1, 100, 0)
+        game_state = GameState(spelare)
