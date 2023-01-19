@@ -306,15 +306,17 @@ class GameState():
         Item3_Bild = pygame.image.load(self.spelare.Shop_List[2].image)
         Item4_Bild = pygame.image.load(self.spelare.Shop_List[3].image)
 
-        # Knappar 
+        # Knappar med bilder på itemsen sätts
         item1 = Button(300*scale, 400*scale, Item1_Bild, 0.46875)
         item2 = Button(650*scale, 400*scale, Item2_Bild, 0.46875)
         item3 = Button(1150*scale, 400*scale, Item3_Bild, 0.46875)
         item4 = Button(1480*scale, 400*scale, Item4_Bild, 0.46875)
         
+        # "Gå tillbakaknappen" sätts med tillhörande text
         Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
         Go_back_text = Font6_70.render("Go back", True, Dark_Grey)
-        
+
+        # Itemsens namn, styrka, intelligens och kostnad sätts som text        
         Item1_text = Font6_35.render(f"{self.spelare.Shop_List[0].Name}",True,White)
         Item2_text = Font6_35.render(f"{self.spelare.Shop_List[1].Name}",True,White)
         Item3_text = Font6_35.render(f"{self.spelare.Shop_List[2].Name}",True,White)
@@ -339,11 +341,15 @@ class GameState():
         Cannot_afford_text = Font6_70.render("fYou don't have enough gold to buy this!", True, Gray)
         Cannot_afford_text_position = Cannot_afford_text.get_rect(center = (screen_Width/2, 300*scale))
 
+        # Scentiteln sätts som en text och positioneras
         Title = Font1_100.render("Shop", True, Gray)
         Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
 
+        # Mängden guld sätts som en text
         gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold)
         gold = pygame.transform.scale(GULD, (70*scale, 70*scale))
+        
+
         
         screen.blit(Bakgrund1, (0, 0))
         screen.blit(Title, Title_center)
