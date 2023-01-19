@@ -62,14 +62,8 @@ class GameState():
         # Ifall man trycker på mellanslag så går man vidare till nästa scen
         if pygame.key.get_pressed()[pygame.K_SPACE] == True:
             self.state = 'Difficulty_Scene'
-
-        # ifall man trycker på alt-F4 eller stänger spelet på andra sätt avslutas programmet
-        for event in pygame.event.get(pygame.QUIT):  
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
                   
-    def Difficulty_Scene(self): #klar ish, behövs bakgrund
+    def Difficulty_Scene(self):
 
         text_obj = Font1_120.render("Choose Difficulty",True,White)
         text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
@@ -111,19 +105,14 @@ class GameState():
         if S_button.clicked():
             self.spelare.Set_Difficulty(3)
             self.state = 'Choice_Scene'    
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
     
-    def Choice_Scene(self): #klar
-
+    def Choice_Scene(self): 
+        # En bild importas och skalas till skärmens storlek
         bakgrund = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         bakgrund = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
-        text_obj3 = Font1_100.render("Choose Your Action",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width/2, 150*scale))
+        text_obj = Font1_100.render("Choose Your Action",True,Gray)
+        text_rect = text_obj.get_rect(center = (screen_Width/2, 150*scale))
 
         Äventyr_Button = Button(75*scale, (1*(screen_Height-(image_Height*6.5))/(7.5)+2 * image_Height), Button_image, 0.8)
         text_äventyr1 = Font6_70.render("Begin Exploring", True, Dark_Grey)
@@ -139,27 +128,25 @@ class GameState():
 
         Exit_Button = Button(75*scale, (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height), Button_image, 0.8)
         Exit_game = Font6_70.render("Exit Game", True, Dark_Grey)
-
-           
+        
+        # Bakgrunden och en semitransparent rektangel ritas ut
         screen.blit(bakgrund, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (510*scale, 85*scale,900*scale, 120*scale,))
+        
+        # Knapparnas bilder och texter ritas ut
         Exit_Button.draw(screen)
         Stats_Button.draw(screen)
         Inventory_Button.draw(screen)
         Äventyr_Button.draw(screen)
-        Shop_button.draw(screen)
-                
-        screen.blit(text_obj3,text_rect)
+        Shop_button.draw(screen)       
+        screen.blit(text_obj,text_rect)
         screen.blit(text_äventyr1,((125*scale+image_Width*0.05), (1*(screen_Height-(image_Height*6.5))/(7.5)+ 2 * image_Height)))
         screen.blit(text_inventory,((125*scale+image_Width*0.05), (2*(screen_Height-(image_Height*6.5))/(7.5)+ 3 * image_Height)))
         screen.blit(text_stats,((125*scale+image_Width*0.05), (3*(screen_Height-(image_Height*6.5))/(7.5)+ 4 * image_Height)))
         screen.blit(text_shop,((125*scale+image_Width*0.05), (4*(screen_Height-(image_Height*6.5))/(7.5)+ 5 * image_Height)))
         screen.blit(Exit_game,((125*scale+image_Width*0.05), (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height)))
         
-        
-        
-    
-        
+        # 
         if Stats_Button.clicked():
             self.spelare.Choice(1)
 
@@ -172,11 +159,7 @@ class GameState():
         if Shop_button.clicked():
             self.state = 'Shop_Scene'
         
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-       
+        # ifall knappen trycks ned avslutas spelet
         if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
@@ -627,11 +610,6 @@ class GameState():
         if Door3_Button.clicked():
             self.spelare.Choice(3)
         
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
@@ -651,13 +629,6 @@ class GameState():
         Chest_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
         screen.blit(text_obj3,text_rect)
-        
-        
-        
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
         
         if Chest_Button.clicked():
             
@@ -703,15 +674,7 @@ class GameState():
         Continue_Button.draw(screen)
         screen.blit(Continue_text, (820*scale, 900*scale))
         screen.blit(item, (screen_Width//2-item_Width/2, 500*scale))
-         
-        
-        
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        
+   
         if Continue_Button.clicked():
             
             if self.spelare.inv_full == True and self.spelare.chest_gold == False:
@@ -736,16 +699,10 @@ class GameState():
         screen.blit(Attack, (820*scale, 900*scale))
         screen.blit(text_obj3, text_rect)
         
-        
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        
         if Attack_Button.clicked():
             self.spelare.monster()
 
-    def Win_Scene(self): #klar
+    def Win_Scene(self):
         Monster1 = pygame.image.load("Bilder/Scener/spindel - död - oilpaint.png")
         Bakground = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
         
@@ -770,16 +727,10 @@ class GameState():
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
 
-        
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
             
-    def Lose_Scene(self): #klar
+    def Lose_Scene(self):
         
         Monster1_image = pygame.image.load("Bilder/Scener/spindel du dog - oilpaint.png")
         Monster1 = pygame.transform.scale(Monster1_image, (screen_Width, screen_Height))
@@ -803,15 +754,10 @@ class GameState():
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
         
-        
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
 
-    def Draw_Scene(self): #borde vara klar
+    def Draw_Scene(self):
         
         Monster1 = pygame.image.load("Bilder/Scener/spindel - tie - oilpaint.png")
         Monster1 = pygame.transform.scale(Monster1, (screen_Width, screen_Height))
@@ -834,16 +780,11 @@ class GameState():
         screen.blit(text_obj2, text_rect2)
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
-        
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+    
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
        
-    def Trap_Scene(self): #klar
+    def Trap_Scene(self):
         
         Trap = pygame.image.load("Bilder/Scener/Trap1 - oilpaint.png")
         Trap = pygame.transform.scale(Trap, (screen_Width, screen_Height))
@@ -866,13 +807,8 @@ class GameState():
                 self.state = 'Dodge_Trap_Scene'
             else:
                 self.state = 'Fall_For_Trap_Scene' 
-        
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
                 
-    def Dodge_Trap_Scene(self): #klar
+    def Dodge_Trap_Scene(self):
         Trap_image = pygame.image.load("Bilder/Scener/Trap1 - dodge - oilpaint.png")
         Trap = pygame.transform.scale(Trap_image, (screen_Width, screen_Height))
         
@@ -891,11 +827,6 @@ class GameState():
         
         if Continue_Button.clicked():
             self.state = "Choice_Scene"
-            
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
                 
     def Fall_For_Trap_Scene(self):
         Trap = pygame.image.load("Bilder/Scener/Trap1 du dog - oilpaint.png")
@@ -916,13 +847,7 @@ class GameState():
         screen.blit(SceneTitle, text_rect) 
         screen.blit(text_obj, text_rect2)
         screen.blit(Continue_text, (820*scale, 900*scale ))
-        
-       
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            
+  
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
          
@@ -947,14 +872,6 @@ class GameState():
         Restart_Button.draw(screen)
         screen.blit(Exit_text, (1090*scale, 757*scale))
         screen.blit(Restart_text, (450*scale, 757*scale))
-        
-       
-        
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
                 
         if Restart_Button.clicked():
             self.state = 'Titlecard'
@@ -964,10 +881,14 @@ class GameState():
             sys.exit()
 
     def state_manager(self):
- 
+        # Scenhanterare
+        
+        # När spelare dör byts scenen till game_over scenen
         if self.spelare.Hp < 1:
             self.state = "Game_Over_Scene"
 
+        # Beroende på vad "self.state" sätts byter programmet till rätt scen
+        # Varje defenition är sin egna scen
         if self.state == 'Titlecard':
             self.Titlecard()
         if self.state == 'Difficulty_Scene':
