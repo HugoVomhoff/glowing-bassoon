@@ -38,7 +38,8 @@ image_Height1 = Button_image.get_height() * scale
 class GameState(): 
     
     def __init__(self, spelare):
-        # Sätter första scenen till Titlecard och sätter standardvariabler
+        # Sätter första scenen till Titlecard och håller kvar den passade spelaren som en variabel i gamestaten
+        # Sätter även variabler som ska ha ett startvärde
         
         self.state = 'Titlecard'
         self.spelare = spelare
@@ -46,17 +47,22 @@ class GameState():
         self.count = 0
 
     def Titlecard(self):
-        
+      
+        # Texten sparas i variabler och ges en position
         Text1 = Font1_120.render("Dungeon Danger ",True,White)
         Text1_pos = Text1.get_rect(center = (screen_Width//2, screen_Height/2))
 
         Text2 = Font1_30.render("Press spacebar to continue", True, White)
         Text2_pos = Text2.get_rect(center = (screen_Width//2, screen_Height-75*scale))
 
-        # Bakgrundsfärgen väljs till svart. 
+        # Skärmen/bakgrunden blir svart
         screen.fill((0,0,0))
+        
+        # Texten ritas ut
         screen.blit(Text1, Text1_pos)
         screen.blit(Text2, Text2_pos)
+
+        # En ram ritas ut
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(500*scale)), (screen_Height/2-(75*scale)), int(1000*scale), int(150*scale)), int(5*scale))
         
         # Ifall man trycker på mellanslag så går man vidare till nästa scen
@@ -64,21 +70,22 @@ class GameState():
             self.state = 'Difficulty_Scene'
                   
     def Difficulty_Scene(self):
-
-        text_obj = Font1_120.render("Choose Difficulty",True,White)
-        text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
-       
-        # Knappar görs från en knapp bild och sätts på en position
+        
+        # Knappar skapas med storlek baserat på given bild eller med "skalinputen"
+        # Knapparna får också en position på skärmen
         L_button = Button((1*(screen_Width-(image_Width*3))/(4)), 500*scale, Button1_image,1)
         N_button = Button((2*(screen_Width-(image_Width*3))/(4)+ image_Width), 500*scale, Button1_image, 1)
         S_button = Button((3*(screen_Width-(image_Width*3))/(4)+ 2* image_Width), 500*scale ,Button1_image,1)
         
-        #
+        # Text tillsammans med en font och färg sätts i en variabel
         Easy = Font6_80.render("Easy", True, Dark_Grey)
         Normal = Font6_80.render("Normal", True, Dark_Grey)
         Hard = Font6_80.render("Hard", True, Dark_Grey)
+
+        text_obj = Font1_120.render("Choose Difficulty",True,White)
+        text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
         
-        # Bakgrundsfärgen görs till svart. Texten och en rektangel printas ut på skärmen 
+        # Bakgrundsfärgen görs till svart. Texten och en ram printas ut på skärmen 
         screen.fill((0, 0, 0))
         screen.blit(text_obj,text_rect)
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(600*scale)), (screen_Height/2-(275*scale)), int(1200*scale), int(175*scale)), int(5*scale))
@@ -88,12 +95,12 @@ class GameState():
         N_button.draw(screen)
         L_button.draw(screen)
 
-        # texten för de olika svårighetsgraderna position blir vald och ritas ut
+        # Texten ritas ut ovanpå de olika svårighetsgradsknapparna
         screen.blit(Easy,(1*(screen_Width-(image_Width*3))/(4)+ 40*scale, 500*scale))
         screen.blit(Normal,(2*(screen_Width-(image_Width*3))/(4) + image_Width + 40*scale ,500*scale))
         screen.blit(Hard,(3*(screen_Width-(image_Width*3))/(4) + 2* image_Width + 40*scale, 500*scale))
         
-        # ifall en av knapparna trycks ned blir svårighetsgraden vald och scenen byts
+        # Ifall en av knapparna trycks ned blir svårighetsgraden satt och scenen byts
         if L_button.clicked():
             self.spelare.Set_Difficulty(1)
             self.state = 'Choice_Scene'
@@ -107,13 +114,16 @@ class GameState():
             self.state = 'Choice_Scene'    
     
     def Choice_Scene(self): 
-        # En bild importas och skalas till skärmens storlek
+       
+        # En bild importeras, skalas till skärmens storlek och sätts i en variabel
         bakgrund = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         bakgrund = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
+        # Text tillsammans med en font och färg sätts i en variabel
         text_obj = Font1_100.render("Choose Your Action",True,Gray)
         text_rect = text_obj.get_rect(center = (screen_Width/2, 150*scale))
 
+        # Knappar skapas med en bild och mer textvariabler skapas på samma sätt som ovan
         Äventyr_Button = Button(75*scale, (1*(screen_Height-(image_Height*6.5))/(7.5)+2 * image_Height), Button_image, 0.8)
         text_äventyr1 = Font6_70.render("Begin Exploring", True, Dark_Grey)
     
@@ -146,7 +156,8 @@ class GameState():
         screen.blit(text_shop,((125*scale+image_Width*0.05), (4*(screen_Height-(image_Height*6.5))/(7.5)+ 5 * image_Height)))
         screen.blit(Exit_game,((125*scale+image_Width*0.05), (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height)))
         
-        # 
+        # Baserat på vilken knapp man klickar på så blir man kastad till olika scener
+        # T.ex om man klickar på shopknappen så hamnar man i shopscenen
         if Stats_Button.clicked():
             self.spelare.Choice(1)
 
@@ -159,30 +170,35 @@ class GameState():
         if Shop_button.clicked():
             self.state = 'Shop_Scene'
         
-        # ifall knappen trycks ned avslutas spelet
+        # Ifall knappen trycks ned avslutas spelet
         if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
 
     def Show_Stats_Scene(self):
 
+        # Bakgrunden ändras till en annan bild
         bakgrund = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         bakgrund1 = pygame.transform.scale(bakgrund, (screen_Width, screen_Height))
         
+        # Bilder importeras och skalas
         Character = pygame.image.load("Bilder/Scener/Character - oilpaint.png")
         background_Width = Character.get_width() * scale * 0.9
         background_Height = Character.get_height() * scale * 0.9
         Character = pygame.transform.scale(Character, (background_Width, background_Height))
 
+        # Texter sätts i variabler 
         Health_text = Font1_70.render(f"Health : {self.spelare.Hp}",True,Red)
         Str_text = Font1_70.render(f"Strength : {self.spelare.Str}",True,Purple)
         Level_text = Font1_70.render(f"Level : {self.spelare.lvl}",True,Green)        
         Intelligence_text = Font1_70.render(f"Intelligence : {self.spelare.intelligence}",True,Yellow)
         Gold_text = Font1_70.render(f"Gold : {self.spelare.gold}", True, Gold)
 
-        Return_text= Font6_70.render("Go back", True, Dark_Grey)
+        # En knapp skapas med en tillhörande text
+        Return_text = Font6_70.render("Go back", True, Dark_Grey)
         Return_button = Button(730*scale, 850*scale, Button1_image, 0.8)
 
+        # Bakgrunden sätts till en bild, en svart transparent ruta skapas och allting ritas ut på skärmen
         screen.blit(bakgrund1, (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 90*scale,1620*scale, 900*scale,))
         Return_button.draw(screen)
@@ -195,29 +211,30 @@ class GameState():
         screen.blit(Return_text, (775*scale, 850*scale))
         
         
-
+        # Om du klickar på knappen så hamnar du på scenen innan (choicescenen)
         if Return_button.clicked():
             self.state = 'Choice_Scene'
         
+        # Om du klickar på escape hamnar du också på scenen innan (choicescenen)
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
-
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
         
     def Show_Inv_Scene(self):
         
+        #Bakgrundbilden sätts till en bild som importeras
         backgrund_image = pygame.image.load("Bilder/Scener/Room1 v2 - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))
         
+        # En text sätts
         text_obj4 = Font6_70.render("Go back", True, Dark_Grey)
         
+        # En gå tillbakaknapp skapas
         Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
         
+        # Spelarens inventory sparas i en ny variabel bara för att korta ner raderna lite
         inventory = self.spelare.inventory
         
+        # Bilder laddas in baserat på vad man har i inventoriet
         Item1_Bild = pygame.image.load(inventory[0].image)
         Item1 = pygame.transform.scale(Item1_Bild, (120*scale, 120*scale))
         Item2_Bild = pygame.image.load(inventory[1].image)
@@ -229,24 +246,29 @@ class GameState():
         Item5_Bild = pygame.image.load(inventory[4].image)
         Item5 = pygame.transform.scale(Item5_Bild, (120*scale, 120*scale))
         
+        # Texter sätts med itemnamnen och deras beskrivning
         Item1_text = Font6_35.render(f" {inventory[0].Name},  {inventory[0].Description}",True,White)
         Item2_text = Font6_35.render(f" {inventory[1].Name},  {inventory[1].Description}",True,White)
         Item3_text = Font6_35.render(f" {inventory[2].Name},  {inventory[2].Description}",True,White)
         Item4_text = Font6_35.render(f" {inventory[3].Name},  {inventory[3].Description}",True,White)
         Item5_text = Font6_35.render(f" {inventory[4].Name},  {inventory[4].Description}",True,White)
         
+        # Texter sätts med itemstyrkan
         Str_text1 = Font6_25.render(f" Strength: {inventory[0].Strength}",True,Red)
         Str_text2 = Font6_25.render(f" Strength: {inventory[1].Strength}",True,Red)
         Str_text3 = Font6_25.render(f" Strength: {inventory[2].Strength}",True,Red)
         Str_text4 = Font6_25.render(f" Strength: {inventory[3].Strength}",True,Red)
         Str_text5 = Font6_25.render(f" Strength: {inventory[4].Strength}",True,Red)
         
+        #Texter sätts med itemintelligensen
         Int_text1 = Font6_25.render(f"Intelligence: {inventory[0].intelligence}",True,Yellow)
         Int_text2 = Font6_25.render(f"Intelligence: {inventory[1].intelligence}",True,Yellow)
         Int_text3 = Font6_25.render(f"Intelligence: {inventory[2].intelligence}",True,Yellow)
         Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
+        # Bakgrundsbilden målas ut, en halvtransparent svart ruta målas ovanpå det, knappar målas ut
+        # och slutligen målas texter ut ovanpå dem
         screen.blit(backgrund, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
         Go_back.draw(screen)
@@ -258,6 +280,8 @@ class GameState():
         screen.blit(Item4, (100*scale, 550*scale))
         screen.blit(Item5, (100*scale, 700*scale))
         
+        # Om har ett item på given plats i inventoriet så ritas egenskaperna ut, om du inte har ett item 
+        # på den platsen så ritas inte egenskaperna ut
         if inventory[0].Name != "":
             screen.blit(Int_text1, (430*scale, 150*scale))
             screen.blit(Str_text1, (250*scale, 150*scale))
@@ -278,14 +302,10 @@ class GameState():
             screen.blit(Int_text5, (430*scale, 750*scale))
             screen.blit(Str_text5, (250*scale, 750*scale))
             screen.blit(Item5_text, (250*scale, 700*scale))
-       
-        
-                    
-        for event in pygame.event.get(pygame.QUIT):
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
 
+
+        # Precis som innan så kan du backa till scenen innan (choicescenen) om man klickar antingen på
+        # knappen på skärmen eller escape
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
@@ -294,14 +314,17 @@ class GameState():
 
     def Shop_Scene(self):
         
+        # Bakgrundbilden sätts till en bild
         backgrund_image = pygame.image.load("Bilder/Scener/Shop - oilpaint.png")
         backgrund = pygame.transform.scale(backgrund_image, (screen_Width, screen_Height))       
        
+        # De olika itemsen som ska gå att köpa i shopens bilder laddas in och sätts i variabler
         Item1_Bild = pygame.image.load(self.spelare.Shop_List[0].image)
         Item2_Bild = pygame.image.load(self.spelare.Shop_List[1].image)
         Item3_Bild = pygame.image.load(self.spelare.Shop_List[2].image)
         Item4_Bild = pygame.image.load(self.spelare.Shop_List[3].image)
 
+        # Knappar 
         item1 = Button(300*scale, 400*scale, Item1_Bild, 0.46875)
         item2 = Button(650*scale, 400*scale, Item2_Bild, 0.46875)
         item3 = Button(1150*scale, 400*scale, Item3_Bild, 0.46875)
