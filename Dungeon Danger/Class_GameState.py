@@ -53,17 +53,17 @@ class GameState():
         Text2 = Font1_30.render("Press spacebar to continue", True, White)
         Text2_pos = Text2.get_rect(center = (screen_Width//2, screen_Height-75*scale))
 
+        # Bakgrundsfärgen väljs till svart. 
         screen.fill((0,0,0))
         screen.blit(Text1, Text1_pos)
         screen.blit(Text2, Text2_pos)
-        pygame.draw.rect(screen, (255, 255, 255), 
-        pygame.Rect((screen_Width/2-(500*scale)), (screen_Height/2-(75*scale)), int(1000*scale), int(150*scale)), int(5*scale))
-        pygame.display.flip()
+        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(500*scale)), (screen_Height/2-(75*scale)), int(1000*scale), int(150*scale)), int(5*scale))
         
-        
+        # Ifall man trycker på mellanslag så går man vidare till nästa scen
         if pygame.key.get_pressed()[pygame.K_SPACE] == True:
             self.state = 'Difficulty_Scene'
 
+        # ifall man trycker på alt-F4 eller stänger spelet på andra sätt avslutas programmet
         for event in pygame.event.get(pygame.QUIT):  
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -71,31 +71,35 @@ class GameState():
                   
     def Difficulty_Scene(self): #klar ish, behövs bakgrund
 
-        text_obj3 = Font1_120.render("Choose Difficulty",True,White)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
+        text_obj = Font1_120.render("Choose Difficulty",True,White)
+        text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
        
+        # Knappar görs från en knapp bild och sätts på en position
         L_button = Button((1*(screen_Width-(image_Width*3))/(4)), 500*scale, Button1_image,1)
         N_button = Button((2*(screen_Width-(image_Width*3))/(4)+ image_Width), 500*scale, Button1_image, 1)
         S_button = Button((3*(screen_Width-(image_Width*3))/(4)+ 2* image_Width), 500*scale ,Button1_image,1)
         
+        #
         Easy = Font6_80.render("Easy", True, Dark_Grey)
         Normal = Font6_80.render("Normal", True, Dark_Grey)
         Hard = Font6_80.render("Hard", True, Dark_Grey)
         
+        # Bakgrundsfärgen görs till svart. Texten och en rektangel printas ut på skärmen 
         screen.fill((0, 0, 0))
-        screen.blit(text_obj3,text_rect)
+        screen.blit(text_obj,text_rect)
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(600*scale)), (screen_Height/2-(275*scale)), int(1200*scale), int(175*scale)), int(5*scale))
 
+        # Knapparna ritas ut
         S_button.draw(screen) 
         N_button.draw(screen)
         L_button.draw(screen)
 
+        # texten för de olika svårighetsgraderna position blir vald och ritas ut
         screen.blit(Easy,(1*(screen_Width-(image_Width*3))/(4)+ 40*scale, 500*scale))
         screen.blit(Normal,(2*(screen_Width-(image_Width*3))/(4) + image_Width + 40*scale ,500*scale))
         screen.blit(Hard,(3*(screen_Width-(image_Width*3))/(4) + 2* image_Width + 40*scale, 500*scale))
-        pygame.display.flip()
         
-
+        # ifall en av knapparna trycks ned blir svårighetsgraden vald och scenen byts
         if L_button.clicked():
             self.spelare.Set_Difficulty(1)
             self.state = 'Choice_Scene'
@@ -153,7 +157,7 @@ class GameState():
         screen.blit(Exit_game,((125*scale+image_Width*0.05), (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height)))
         
         
-        pygame.display.flip()
+        
     
         
         if Stats_Button.clicked():
@@ -207,7 +211,7 @@ class GameState():
         screen.blit(Gold_text, (200*scale, 750*scale))
         screen.blit(Return_text, (775*scale, 850*scale))
         
-        pygame.display.flip()
+        
 
         if Return_button.clicked():
             self.state = 'Choice_Scene'
@@ -292,7 +296,7 @@ class GameState():
             screen.blit(Str_text5, (250*scale, 750*scale))
             screen.blit(Item5_text, (250*scale, 700*scale))
        
-        pygame.display.flip()
+        
                     
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -451,7 +455,7 @@ class GameState():
         Go_back.draw(screen)
         screen.blit(Go_back_text,(740*scale, 880*scale))
     
-        pygame.display.flip()
+        
 
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -562,7 +566,7 @@ class GameState():
         Continue_Button.draw(screen)
         screen.blit(Continue_text, (820*scale, 940*scale))
 
-        pygame.display.flip()
+        
 
         if Item1_Button.clicked():
             self.spelare.inv_change(0)
@@ -614,7 +618,7 @@ class GameState():
         Door3_Button.draw(screen)
         screen.blit(text_obj3, text_rect)
         
-        pygame.display.flip()
+        
 
         if Door1_Button.clicked():
             self.spelare.Choice(3)
@@ -647,7 +651,7 @@ class GameState():
         Chest_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
         screen.blit(text_obj3,text_rect)
-        pygame.display.flip()
+        
         
         
         for event in pygame.event.get(pygame.QUIT):
@@ -701,7 +705,7 @@ class GameState():
         screen.blit(item, (screen_Width//2-item_Width/2, 500*scale))
          
         
-        pygame.display.flip()
+        
 
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -731,7 +735,7 @@ class GameState():
         Attack_Button.draw(screen)
         screen.blit(Attack, (820*scale, 900*scale))
         screen.blit(text_obj3, text_rect)
-        pygame.display.flip()
+        
         
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -766,7 +770,7 @@ class GameState():
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
 
-        pygame.display.flip()
+        
 
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -798,7 +802,7 @@ class GameState():
         screen.blit(text_obj2, text_rect2)
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
-        pygame.display.flip()
+        
         
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -830,7 +834,7 @@ class GameState():
         screen.blit(text_obj2, text_rect2)
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
-        pygame.display.flip()
+        
 
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -855,7 +859,7 @@ class GameState():
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 80*scale,1820*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect)
         screen.blit(Dodge_text, (820*scale, 900*scale ))
-        pygame.display.flip()
+        
         
         if Dodge_button.clicked():
             if self.spelare.dodge_trap == True:
@@ -883,7 +887,7 @@ class GameState():
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
         screen.blit(Continue_text, (820*scale, 900*scale ))
-        pygame.display.flip()
+        
         
         if Continue_Button.clicked():
             self.state = "Choice_Scene"
@@ -912,7 +916,7 @@ class GameState():
         screen.blit(SceneTitle, text_rect) 
         screen.blit(text_obj, text_rect2)
         screen.blit(Continue_text, (820*scale, 900*scale ))
-        pygame.display.flip()
+        
        
         for event in pygame.event.get(pygame.QUIT):
             if event.type == pygame.QUIT:
@@ -943,7 +947,7 @@ class GameState():
         Restart_Button.draw(screen)
         screen.blit(Exit_text, (1090*scale, 757*scale))
         screen.blit(Restart_text, (450*scale, 757*scale))
-        pygame.display.flip()
+        
        
         
 

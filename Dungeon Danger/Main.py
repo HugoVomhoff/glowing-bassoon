@@ -1,6 +1,7 @@
 # Importerar och initializar pygame
 
 import pygame
+import sys
 pygame.init()   
  
 # Hämtar scenhanteraren som heter gamestate från textfilen som också heter gamestate
@@ -17,6 +18,13 @@ Clock = pygame.time.Clock()
 while True:
     game_state.state_manager()
     pygame.event.clear()
+    pygame.display.flip()
+    
+    for event in pygame.event.get(pygame.QUIT):
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+            
     Clock.tick(60)
 
 
