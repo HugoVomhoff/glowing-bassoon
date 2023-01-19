@@ -886,14 +886,14 @@ class GameState():
 
         # Knappar med tillhörande text sätts
         Exit_text = Font6_70.render("Exit", True, Dark_Grey)
-        Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
+        Exit_Button = Button(830*scale, 757*scale , Button1_image, 0.7)       
 
         # Spelets bakgrund blir svart. Alla texter och knappar ritas ut
         screen.fill((0,0,0))
         screen.blit(Text1, Text_pos)
         Exit_Button.draw(screen)
 
-        screen.blit(Exit_text, (1090*scale, 757*scale))
+        screen.blit(Exit_text, (870*scale, 757*scale))
         
         # Stänger av spelet
         if Exit_Button.clicked():
@@ -907,13 +907,13 @@ class GameState():
 
         # Knappar med tillhörande text sätts
         Exit_text = Font6_70.render("Exit", True, Dark_Grey)
-        Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
+        Exit_Button = Button(830*scale, 757*scale , Button1_image, 0.7)       
 
         # Spelets bakgrund blir svart. Alla texter och knappar ritas ut
         screen.fill((0,0,0))
         screen.blit(Text1, Text_pos)
         Exit_Button.draw(screen)
-        screen.blit(Exit_text, (1090*scale, 757*scale))
+        screen.blit(Exit_text, (870*scale, 757*scale))
      
         
         # Stänger av spelet
