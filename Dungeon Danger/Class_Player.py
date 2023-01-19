@@ -91,10 +91,7 @@ class Player():
             game_state.state = "Trap_Scene"
         else:
             self.Hp = self.Hp - 3
-            if self.Hp <= 0:
-                game_state.state = "Game_Over_Scene"
-            else:
-                game_state.state = "Trap_Scene"
+            game_state.state = "Trap_Scene"
             
     def Chest(self):
         
