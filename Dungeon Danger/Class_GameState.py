@@ -345,19 +345,19 @@ class GameState():
         Title = Font1_100.render("Shop", True, Gray)
         Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
 
-        # Mängden guld sätts som en text
+        # Mängden guld sätts som en text och går en icon
         gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold)
         gold = pygame.transform.scale(GULD, (70*scale, 70*scale))
         
-
-
+        # Bakgrunden sätts till bild och positioneras, en semitransperent rektangel, guldiconen och alla texter ritas ut på skärmen 
         screen.blit(Bakgrund1, (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
         screen.blit(gold_ammount, (160*scale, 90*scale))
         screen.blit(gold, (70*scale, 90*scale))
         
-
+        # När man håller musen över itemet får man se dess namn, styrka, intelligens och kostnad
+        # annars är det bara en semitransperant runt som syns bakom itemet
         if item1.hover():
             draw_rect_alpha(screen, (0, 0, 0, 150), (130*scale, 400*scale,450*scale, 320*scale,))
             screen.blit(Item1_text, (200*scale, 520*scale))
@@ -398,12 +398,17 @@ class GameState():
         else:
             draw_rect_alpha(screen, (0, 0, 0, 100), (1460*scale, 400*scale,160*scale, 160*scale,))
 
+        # Om man klickar på ett item köps det och läggs i ditt inventory
+        # ifall man inte har råd med itemet kommer en text upp som varnar spelaren om att man inte har råd
+        # ifall inventoryt är fullt när man klcikar på ett item tar man sig till "item_maneger" scenen
         if item1.clicked():   
             
+            # tittar först ifall det finns ett item i den "slotten"
             if self.spelare.Shop_List[0].Name != "":
                 self.spelare.Buy_item(self.spelare.Shop_List[0], 0)
                 self.count = 0
-    
+
+            # ifall spelaren inte har råd med itemet, sätts "self.cannot_afford" till True
             if self.spelare.can_afford == False:
                 self.cannot_afford = True
 
@@ -434,26 +439,32 @@ class GameState():
             if self.spelare.can_afford == False:
                 self.cannot_afford = True
         
+        # Gör så att man hinner se texten som handlar om att man inte har råd
         if self.cannot_afford == True and self.count < 15:
                 screen.blit(Cannot_afford_text,  Cannot_afford_text_position)      
                 self.count += 1 
-    
-        if Go_back.clicked():
-            self.state = "Choice_Scene"
-        
+
+        # Knappar med bilder på itemsen, gå tillbakaknappen och gå tillbaka texten ritas ut på skärmen
         item1.draw(screen)
         item2.draw(screen)
         item3.draw(screen)
         item4.draw(screen)
         Go_back.draw(screen)
         screen.blit(Go_back_text,(740*scale, 880*scale))
-    
+
+        # Precis som innan så kan du backa till scenen innan (choicescenen) om man klickar antingen på
+        # knappen på skärmen eller escape
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
-    def Item_manager(self):
-        inventory = self.spelare.inventory
+        if Go_back.clicked():
+            self.state = "Choice_Scene"
 
+    def Item_manager(self):
+        # Item manager 
+        inventory = self.spelare.inventory
+        
+        # Texter som beskriver vad som händer sätts i variabler 
         Description = Font1_70.render("Your inventory is full,",True,Gray)
         Description2 = Font1_70.render("click on one of the",True,Gray)
         Description3 = Font1_70.render("items below to switch",True,Gray)
@@ -461,6 +472,7 @@ class GameState():
         Description5 = Font1_70.render("throw away the bought item",True,Gray)
         Description_Bought_Item = Font1_70.render("The item you bought:", True, Gray)
 
+        # Itemsens namn, styrka och intelligens sätts som text   
         Item0_text = Font6_35.render(f"{self.spelare.current_item.Name}",True,White)
         Item1_text = Font6_35.render(f"{inventory[0].Name}",True,White)
         Item2_text = Font6_35.render(f"{inventory[1].Name}",True,White)
@@ -482,19 +494,20 @@ class GameState():
         Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
+        # bakgrunden baseras på varifrån man kom ifrån 
         if self.spelare.shop == False:
             screen.blit(Bakgrund3, (0, 0))
         else:
             screen.blit(Bakgrund1, (0, 0))
-        
-        Item0 = pygame.image.load(self.spelare.current_item.image)
-        Item0_Bild = pygame.transform.scale(Item0, (179*scale, 179*scale))
 
+        # "Continue"Knappen sätts med tillhörande text
         Continue_Button = Button(800*scale, 940*scale, Button1_image, 0.6)
         Continue_text = Font6_55.render("Continue", True, Dark_Grey)
 
+        # Semitransperent rektangel ritus ut med hjälp av en defenition
         draw_rect_alpha(screen, (0, 0, 0, 100), (100*scale, 40*scale,1720*scale, 1000*scale,))
 
+        # beskrivningstexterna ritas ut
         screen.blit(Description, (200*scale,130*scale))
         screen.blit(Description2, (200*scale,210*scale))
         screen.blit(Description3, (200*scale,290*scale))
@@ -502,19 +515,24 @@ class GameState():
         screen.blit(Description5, (200*scale,450*scale))
         screen.blit(Description_Bought_Item, (1100*scale,190*scale))
 
+        # Det köpta itemet bild och alla items från inventoryt bilder sätts i variiabler
+        Item0 = pygame.image.load(self.spelare.current_item.image)
+        Item0_Bild = pygame.transform.scale(Item0, (179*scale, 179*scale))
+
         Item1_Bild = pygame.image.load(inventory[0].image)
         Item2_Bild = pygame.image.load(inventory[1].image)
         Item3_Bild = pygame.image.load(inventory[2].image)
         Item4_Bild = pygame.image.load(inventory[3].image)
         Item5_Bild = pygame.image.load(inventory[4].image)
-        
-        screen.blit(Item0_Bild, (1200*scale, 290*scale))
+
+        # Inventoryts items bilder görs till knappar
         Item1_Button = Button(150*scale, 600*scale, Item1_Bild, 0.7)
         Item2_Button = Button(510*scale, 600*scale, Item2_Bild, 0.7)
         Item3_Button = Button(870*scale, 600*scale, Item3_Bild, 0.7)
         Item4_Button = Button(1231*scale, 600*scale, Item4_Bild, 0.7)
         Item5_Button = Button(1591*scale, 600*scale, Item5_Bild, 0.7)
         
+        # Alla items namn, styrka och intelligens skrivs ut på skärmen på en en vald position
         screen.blit(Item0_text, (1400*scale, 300*scale))
         screen.blit(Item1_text, (125*scale, 790*scale))
         screen.blit(Item2_text, (500*scale, 790*scale))
@@ -536,14 +554,19 @@ class GameState():
         screen.blit(Int_text4, (1230*scale, 880*scale))
         screen.blit(Int_text5, (1590*scale, 880*scale))
 
+        # Alla item bilder och item knappar ritas ut
+        screen.blit(Item0_Bild, (1200*scale, 290*scale))
         Item1_Button.draw(screen)
         Item2_Button.draw(screen)
         Item3_Button.draw(screen)
         Item4_Button.draw(screen)
         Item5_Button.draw(screen)
+
+        # Ritar ut "continue" knappen och tillhörande text
         Continue_Button.draw(screen)
         screen.blit(Continue_text, (820*scale, 940*scale))
 
+        # Ifall man klickar på en av itemknapparna byts det köpta itemet ut med itemet man klickade på
         if Item1_Button.clicked():
             self.spelare.inv_change(0)
             
@@ -558,12 +581,14 @@ class GameState():
 
         if Item5_Button.clicked():
             self.spelare.inv_change(4)
-
+        
+        # Ifall man klickar på continueknappen så slänger man iväg det köpta itemet och scenen ändras
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
 
     def Door_Choice_Scene(self):
-                           
+
+        # Dörrbilder görs till 3 olika knappar                   
         Door1 = pygame.image.load("Bilder/Knappar/dörrknapp1.png")
         Door2 = pygame.image.load("Bilder/Knappar/dörrknapp2.png")
         door3 = pygame.image.load("Bilder/Knappar/dörrknapp3.png")
@@ -572,40 +597,49 @@ class GameState():
         Door2_Button = Button(695*scale, 320*scale, Door2, 1) 
         Door3_Button = Button(145*scale, 270*scale, door3, 1)
         
-        text_obj3 = Font1_100.render("Where do you want to go? Pick a door!",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
-        
+        # Bakgrund sätts till en bild med en vald position
         screen.blit(Bakgrund4,(0,0))
+
+        # Scentitle med vald position och med tillhörande semitransperent rektangel ritas ut
+        text_obj = Font1_100.render("Where do you want to go? Pick a door!",True,Gray)
+        text_rect = text_obj.get_rect(center = (screen_Width//2, 75*scale))
         draw_rect_alpha(screen, (0, 0, 0, 100), (100*scale, 20*scale,1720*scale, 120*scale,))
+        screen.blit(text_obj, text_rect)
+
+        # Dörrknapparna ritas ut
         Door1_Button.draw(screen)
         Door2_Button.draw(screen)
         Door3_Button.draw(screen)
-        screen.blit(text_obj3, text_rect)
         
+        # När man klickar på en av knappar startas Choice funktion i klassen Player
         if Door1_Button.clicked():
             self.spelare.Choice(3)
         if Door2_Button.clicked():
             self.spelare.Choice(3)
         if Door3_Button.clicked():
             self.spelare.Choice(3)
-        
+
+        # Backa till scenen innan (choice scene) genom att trycka på escapeknappen
         if pygame.key.get_pressed()[pygame.K_ESCAPE] == True:
             self.state = 'Choice_Scene'
 
     def Chest_Scene(self):
 
-        font_obj3 = pygame.font.Font("Fonts/Font1.TTF", int(100 *scale))
-        text_obj3 = font_obj3.render("Press the chest to open it",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, 150*scale))
-
+        # Kistknapp skapes med hjälp av en bild på en kista
         Chest_Button = pygame.image.load("Bilder/Knappar/kistknapp.png")
         Chest_Button = Button(700*scale, 440*scale, Chest_Button, 1)
         
-        screen.blit(Bakgrund3, (0, 0))
+        # Bakgrunden sätts till en vald bild och postition och ritas ut. Kistknappen ritas också ut
+        screen.blit(Bakgrund2, (0, 0))
         Chest_Button.draw(screen)
+
+        # Beskrivning med vald position sätts i variabler och ritas ut med en tillhörande semitransperent rektangel
+        text_obj = Font1_100.render("Press the chest to open it",True,Gray)
+        text_rect = text_obj.get_rect(center = (screen_Width//2, 150*scale))
         draw_rect_alpha(screen, (0, 0, 0, 100), (410*scale, 90*scale,1100*scale, 120*scale,))
-        screen.blit(text_obj3,text_rect)
+        screen.blit(text_obj ,text_rect)
         
+        # Ifall man klickar på kistknappen(kistan) startas funktionen "chest" i klassen player och scenen byts
         if Chest_Button.clicked():
             
             self.spelare.Chest()
@@ -613,56 +647,84 @@ class GameState():
             self.state = 'Chest_Scene_Open'
 
     def Chest_Scene_Open(self):
-        
-        text_obj3 = Font1_100.render("You opened the chest and found:",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, 170*scale))
-        
+
+        # Bakgrunden är en vald bils som ritas ut på vald position
+        screen.blit(Bakgrund3, (0, 0))
+
+        # text och textens position sätts i variabler och ritas sedan ut med en tillhörande semi transperent rektangel
+        text_obj = Font1_100.render("You opened the chest and found:",True,Gray)
+        text_rect = text_obj.get_rect(center = (screen_Width//2, 170*scale))
+        draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
+        screen.blit(text_obj,text_rect)
+
+        # En forsättnings knapp med tillhörande text sätts i variabler och ritas ut
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Continue_Button = Button(800, 900 , Button1_image, 0.7)
-        
-        screen.blit(Bakgrund3, (0, 0))
-        draw_rect_alpha(screen, (0, 0, 0, 100), (310*scale, 90*scale,1300*scale, 900*scale,))
-        screen.blit(text_obj3,text_rect)
         Continue_Button.draw(screen)
+        screen.blit(Continue_text, (820*scale, 900*scale))
 
+        # Ifall man får guld från kistan 
         if self.spelare.chest_gold == True:
-
-            text_obj4 = Font1_70.render(f"{self.found_item} Gold",True,Gray)
-            text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
+            
+            # Text baserad på hur mycket guld man får sätts i en variable
+            # Guldiconen ritas också ut
+            text_obj1 = Font1_70.render(f"{self.found_item} Gold",True,Gray)
+            text_rect1 = text_obj1.get_rect(center = (screen_Width//2, 300*scale))
             screen.blit(GULD1, (screen_Width//2-(GULD.get_width()*scale)/2, 500*scale))
 
         else:
            
-            text_obj4 = Font1_70.render(self.found_item.Name,True,Gray)
-            text_rect1 = text_obj4.get_rect(center = (screen_Width//2, 300*scale))
+            # Text baserad på vilket item man får sätts i en variabel och får även en position
+            text_obj1 = Font1_70.render(self.found_item.Name,True,Gray)
+            text_rect1 = text_obj1.get_rect(center = (screen_Width//2, 300*scale))
 
+            # Bilden på det funna itemet laddas in och ritas ut på en vald position
             item = pygame.image.load(self.found_item.image)
             item = pygame.transform.scale(item, (item.get_width() *scale, item.get_height() *scale)) 
             screen.blit(item, (screen_Width//2-(item.get_width() *scale)/2, 500*scale))
 
-        screen.blit(text_obj4,text_rect1)
-        screen.blit(Continue_text, (820*scale, 900*scale))
-            
+        # Texten om vad man får skrivs ut på skärmen
+        screen.blit(text_obj1,text_rect1)
+    
+        # Ifall man klickar på continue knappen går man till 'You_Won_Scene' scenen
+        # annars går man till "item manager" eller tillbaka till "choice" scenen beroende på
+        if Continue_Button.clicked():
+            if self.spelare.win == True:
+                self.state = 'You_Won_Scene'
+
+            elif self.spelare.inv_full == True and self.spelare.chest_gold == False:
+                self.state = 'Item_manager'
+
+            else:
+                self.state = "Choice_Scene"        
                    
     def Monster_Scene(self):
-        
+        # Text med tillhörande knapp för att attackera monstret sätts i en variabel
         Attack = Font6_70.render("Attack", True, Dark_Grey)
         Attack_Button = Button(800, 900 , Button1_image, 0.7)  
 
-        text_obj3 = Font1_100.render("You encountered a spider!",True,Gray)
-        text_rect = text_obj3.get_rect(center = (screen_Width//2, 75*scale))
+        # beskrivande text om vad som händer sätts i en variabel
+        text_obj = Font1_100.render("You encountered a spider!",True,Gray)
+        text_rect = text_obj.get_rect(center = (screen_Width//2, 75*scale))
 
+        # Bakgrunden ritas ut på vald position
         screen.blit(Bakgrund5, (0, 0))
+
+        # Beskrivande texten med tillhörande semi transperent rektangel ritas ut
+        screen.blit(text_obj, text_rect)
         draw_rect_alpha(screen, (0, 0, 0, 100), (350*scale, 20*scale,1220*scale, 120*scale,))
+        
+        # Knappen med tillhörande texten ritas ut
         Attack_Button.draw(screen)
         screen.blit(Attack, (820*scale, 900*scale))
-        screen.blit(text_obj3, text_rect)
         
+        # Ifal man klickar på knappen attackerar man monstret och en defenition i klasses Player startas
         if Attack_Button.clicked():
             self.spelare.monster()
 
     def Win_Scene(self):
-
+        
+        # Beskrivande text med position sätts i variabler
         text_obj = Font1_100.render("You slaughtered the spider",True,Gray)
         text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
 
@@ -672,23 +734,25 @@ class GameState():
         text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
         text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
         
+        # Knapp med tillhörande text sätts 
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Return_Button = Button(800, 900 , Button1_image, 0.7)  
         
-        screen.blit(pygame.transform.scale(pygame.image.load("Bilder/Scener/spindel - död - oilpaint.png"), (screen_Width, screen_Height)), (0, 0))
+        # Bakgrunden, Semi transperenta rektangeln, alla text och knappar ritas ut på skärmen
+        screen.blit(Bakgrund7, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 75), (50*scale, 50*scale,1820*scale, 980*scale,))
-        
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
         screen.blit(text_obj2, text_rect2)
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
 
+        # Ifall knappen trycks ned ändras scen till "choice_scene"
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
             
     def Lose_Scene(self):
-        
+        # Beskrivande texter med vald position sätts i variabler
         text_obj = Font1_100.render("You were hurt by the spider ",True,Gray)
         text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
 
@@ -698,9 +762,11 @@ class GameState():
         text_obj3 = Font1_100.render(f"You took {self.spelare.lvl*2+5} damage!",True,Gray)
         text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
         
+        # Knapp med tillhörande text sätts
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Return_Button = Button(800, 900 , Button1_image, 0.7)  
-            
+        
+        # Bakgrunden, knappen och alla texter ritas ut
         screen.blit(Bakgrund6, (0, 0))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
@@ -708,11 +774,12 @@ class GameState():
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
         
+        # Ifall man trycker på knappen ändras scen till "choice_scene"
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
 
     def Draw_Scene(self):
-        
+        # Beskrivande texter med vald position sätts i variabler
         text_obj = Font1_100.render("The fight was a fight",True,Gray)
         text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
 
@@ -722,34 +789,39 @@ class GameState():
         text_obj3 = Font1_100.render("Press the button to continue",True,Gray)
         text_rect3 = text_obj3.get_rect(center = (screen_Width/2, 450*scale))
         
+        # Knapp med tillhörande text sätts
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Return_Button = Button(800, 900 , Button1_image, 0.7)  
-         
+        
+        # Bakgrunden, knappen och alla texter ritas ut
         screen.blit(Bakgrund8, (0, 0))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
         screen.blit(text_obj2, text_rect2)
         screen.blit(text_obj3, text_rect3)
         screen.blit(Continue_text, (820*scale, 900*scale))
-    
+
+        # Ifall man trycker på knappen ändras scen till "choice_scene"
         if Return_Button.clicked():
             self.state = 'Choice_Scene'
        
     def Trap_Scene(self):
-
+        # Knapp med tillhörande text sätts  
         Dodge_text = Font6_70.render("Dodge", True, Dark_Grey)
         Dodge_button = Button(800, 900 , Button1_image, 0.7)
         
+        # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You encountered a rolling boulder, try to dodge!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))  
 
+        # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
         screen.blit(Bakgrund9, (0,0))
         Dodge_button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 80*scale,1820*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect)
         screen.blit(Dodge_text, (820*scale, 900*scale ))
         
-        
+        # När knappen trycks ned byter spelet scen beroende på ifall spelaren lyckas dodga
         if Dodge_button.clicked():
             if self.spelare.dodge_trap == True:
                 self.state = 'Dodge_Trap_Scene'
@@ -757,78 +829,87 @@ class GameState():
                 self.state = 'Fall_For_Trap_Scene' 
                 
     def Dodge_Trap_Scene(self):
- 
+        # Knapp med tillhörande text sätts
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Continue_Button = Button(800, 900 , Button1_image, 0.7)
         
+        # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You succeeded to dodge the boulder!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale)) 
         
+        # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
         screen.blit(Bakgrund10, (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
         screen.blit(Continue_text, (820*scale, 900*scale ))
         
-        
+        # När knappen trycks ned byts scenen till "choice_scene"
         if Continue_Button.clicked():
             self.state = "Choice_Scene"
                 
     def Fall_For_Trap_Scene(self):
+        # Knapp med tillhörande text sätts  
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
         Continue_Button = Button(800, 900 , Button1_image, 0.7)
-        
+
+        # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You failed to dodge the boulder!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))
         
         text_obj = Font1_100.render(f"You took 2 damage!",True,Gray)
         text_rect2 = text_obj.get_rect(center = (screen_Width/2, 300*scale))
         
+        # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
         screen.blit(Bakgrund11, (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
         screen.blit(text_obj, text_rect2)
         screen.blit(Continue_text, (820*scale, 900*scale ))
-  
+
+        # När knappen trycks ned byts scenen till "choice_scene"
         if Continue_Button.clicked():
             self.state = 'Choice_Scene'
          
     def Game_Over_Scene(self):
         from Class_Player import Player
-        # resettar spelaren
+        # in
         self.spelare = Player(100, 100, 1, 100, 0)
 
-        # 
+        # Beskrivande text med vald position sätts i variabler
         Text1 = Font1_120.render("You died",True,White)
         Text_pos = Text1.get_rect(center = (screen_Width//2, screen_Height//2))
 
+        # Knappar med tillhörande text sätts
         Exit_text = Font6_70.render("Exit", True, Dark_Grey)
         Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
 
         Restart_text = Font6_70.render("Restart", True, Dark_Grey)
         Restart_Button = Button(430*scale, 757*scale, Button1_image, 0.7)
 
+        # Spelets bakgrund blir svart. Alla texter och knappar ritas ut
         screen.fill((0,0,0))
         screen.blit(Text1, Text_pos)
         Exit_Button.draw(screen)
         Restart_Button.draw(screen)
         screen.blit(Exit_text, (1090*scale, 757*scale))
         screen.blit(Restart_text, (450*scale, 757*scale))
-                
+        
+        # Restartar spelet från början
         if Restart_Button.clicked():
             self.state = 'Titlecard'
 
+        # Stänger av spelet
         if Exit_Button.clicked():
             pygame.quit()
             sys.exit()
+    
+    def You_Won_Scene(self):
+        print("hello")
 
     def state_manager(self):
         # Scenhanterare
-        
-        # När spelare dör byts scenen till game_over scenen
-        if self.spelare.Hp < 1:
-            self.state = "Game_Over_Scene"
 
         # Beroende på vad "self.state" sätts byter programmet till rätt scen
         # Varje defenition är sin egna scen
@@ -870,3 +951,5 @@ class GameState():
             self.Door_Choice_Scene()       
         if self.state == "Shop_Scene":
             self.Shop_Scene()
+        if self.state == 'You_Won_Scene':
+            self.You_Won_Scene()
