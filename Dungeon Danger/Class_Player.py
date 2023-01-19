@@ -101,7 +101,7 @@ class Player():
         
 
         # Om det inte finns några items kvar att få eller du är level 15 så vinner du spelet och hittar automatiskt kronan
-        if self.alla_items[0].name == ""  and self.Shop_List.count(Empty) == 4 or self.lvl >= 15:
+        if self.alla_items[0].Name == ""  and self.Shop_List.count(Empty) == 4 or self.lvl >= 15:
             from Class_Item import Crown
             self.current_item = Crown
             self.win = True
