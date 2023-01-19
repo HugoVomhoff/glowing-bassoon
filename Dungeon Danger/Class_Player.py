@@ -105,7 +105,7 @@ class Player():
         if guld_eller_item <= 3 and self.alla_items[0].Name != "":
             
             # Om det inte finns några items kvar att få eller du är level 15 så vinner du spelet och hittar automatiskt kronan
-            if self.noitems == True or self.lvl == 15:
+            if self.noitems == True or self.lvl >= 15:
                 from Class_Item import Crown
                 self.current_item == Crown
                 self.win = True

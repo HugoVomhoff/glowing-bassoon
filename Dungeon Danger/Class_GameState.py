@@ -11,7 +11,7 @@ screen_Width, screen_Height = pygame.display.get_surface().get_size()
 scale = screen_Width / 1920
 
 # Hämtar alla fonter
-Font1_30, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_55, Font6_70, Font6_80 = fonts
+Font1_30,Font1_40, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_55, Font6_70, Font6_80 = fonts
 
 # Font colors
 Gray = (100, 100, 100)
@@ -56,6 +56,9 @@ class GameState():
         Text1 = Font1_120.render("Dungeon Danger ",True,White)
         Text1_pos = Text1.get_rect(center = (screen_Width//2, screen_Height/2))
 
+        Text3 = Font1_40.render("You are sent out to find the lost crown that once belonged to Queen Efelia IV",True,White)
+        Text3_pos = Text3.get_rect(center = (screen_Width//2, screen_Height/2+150*scale))
+
         Text2 = Font1_30.render("Press spacebar to continue", True, White)
         Text2_pos = Text2.get_rect(center = (screen_Width//2, screen_Height-75*scale))
 
@@ -65,6 +68,7 @@ class GameState():
         # Texten ritas ut
         screen.blit(Text1, Text1_pos)
         screen.blit(Text2, Text2_pos)
+        screen.blit(Text3, Text3_pos)
 
         # En ram ritas ut
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(500*scale)), (screen_Height/2-(75*scale)), int(1000*scale), int(150*scale)), int(5*scale))
@@ -873,9 +877,7 @@ class GameState():
             self.state = 'Choice_Scene'
          
     def Game_Over_Scene(self):
-        from Class_Player import Player
-        # in
-        self.spelare = Player(100, 100, 1, 100, 0)
+        self.spelare.Reset()
 
         # Beskrivande text med vald position sätts i variabler
         Text1 = Font1_120.render("You died",True,White)
@@ -906,7 +908,35 @@ class GameState():
             sys.exit()
     
     def You_Won_Scene(self):
-        print("hello")
+        self.spelare.Reset()
+
+        # Beskrivande text med vald position sätts i variabler
+        Text1 = Font1_120.render("You finally accomplished you mission in finding the crown",True,White)
+        Text_pos = Text1.get_rect(center = (screen_Width//2, screen_Height//2))
+
+        # Knappar med tillhörande text sätts
+        Exit_text = Font6_70.render("Exit", True, Dark_Grey)
+        Exit_Button = Button(1070*scale, 757*scale , Button1_image, 0.7)       
+
+        Play_again_text = Font6_70.render("Play again", True, Dark_Grey)
+        Play_again_Button = Button(430*scale, 757*scale, Button1_image, 0.7)
+
+        # Spelets bakgrund blir svart. Alla texter och knappar ritas ut
+        screen.fill((0,0,0))
+        screen.blit(Text1, Text_pos)
+        Exit_Button.draw(screen)
+        Play_again_Button.draw(screen)
+        screen.blit(Exit_text, (1090*scale, 757*scale))
+        screen.blit(Play_again_text, (450*scale, 757*scale))
+        
+        # Restartar spelet från början
+        if Play_again_Button.clicked():
+            self.state = 'Titlecard'
+
+        # Stänger av spelet
+        if Exit_Button.clicked():
+            pygame.quit()
+            sys.exit()
 
     def state_manager(self):
         # Scenhanterare
