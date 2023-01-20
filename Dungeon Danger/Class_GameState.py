@@ -663,7 +663,7 @@ class GameState():
 
         # En forsättnings knapp med tillhörande text sätts i variabler och ritas ut
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
-        Continue_Button = Button(800, 900 , Button1_image, 0.7)
+        Continue_Button = Button(800*scale, 900*scale , Button1_image, 0.7)
         Continue_Button.draw(screen)
         screen.blit(Continue_text, (820*scale, 900*scale))
 
@@ -812,7 +812,7 @@ class GameState():
     def Trap_Scene(self):
         # Knapp med tillhörande text sätts  
         Dodge_text = Font6_70.render("Dodge", True, Dark_Grey)
-        Dodge_button = Button(*scale, 900*scale , Button1_image, 0.7)
+        Dodge_button = Button(800*scale, 900*scale , Button1_image, 0.7)
         
         # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You encountered a rolling boulder, try to dodge!",True,Gray)
