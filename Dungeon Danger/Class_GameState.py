@@ -128,7 +128,7 @@ class GameState():
         text_rect = text_obj.get_rect(center = (screen_Width/2, 150*scale))
 
         # Knappar skapas med en bild och mer textvariabler skapas på samma sätt som ovan
-        Äventyr_Button = Button(75*scale, (1*(screen_Height-(image_Height*6.5))/(7.5)+2 * image_Height), Button_image, 0.8)
+        Adventure_Button = Button(75*scale, (1*(screen_Height-(image_Height*6.5))/(7.5)+2 * image_Height), Button_image, 0.8)
         text_äventyr1 = Font6_70.render("Begin Exploring", True, Dark_Grey)
     
         Inventory_Button = Button(75*scale, (2*(screen_Height-(image_Height*6.5))/(7.5)+ 3* image_Height), Button_image, 0.8)
@@ -151,7 +151,7 @@ class GameState():
         Exit_Button.draw(screen)
         Stats_Button.draw(screen)
         Inventory_Button.draw(screen)
-        Äventyr_Button.draw(screen)
+        Adventure_Button.draw(screen)
         Shop_button.draw(screen)       
         screen.blit(text_obj,text_rect)
         screen.blit(text_äventyr1,((125*scale+image_Width*0.05), (1*(screen_Height-(image_Height*6.5))/(7.5)+ 2 * image_Height)))
@@ -168,7 +168,7 @@ class GameState():
         if Inventory_Button.clicked():
             self.spelare.Choice(2)
 
-        if Äventyr_Button.clicked():
+        if  Adventure_Button.clicked():
             self.state = 'Door_Choice_Scene' 
 
         if Shop_button.clicked():
@@ -216,7 +216,7 @@ class GameState():
     def Show_Inv_Scene(self):
         
         # En text sätts
-        text_obj4 = Font6_70.render("Go back", True, Dark_Grey)
+        text_obj = Font6_70.render("Go back", True, Dark_Grey)
         
         # En gå tillbakaknapp skapas
         Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
@@ -225,16 +225,16 @@ class GameState():
         inventory = self.spelare.inventory
         
         # Bilder laddas in baserat på vad man har i inventoriet
-        Item1_Bild = pygame.image.load(inventory[0].image)
-        Item1 = pygame.transform.scale(Item1_Bild, (120*scale, 120*scale))
-        Item2_Bild = pygame.image.load(inventory[1].image)
-        Item2 = pygame.transform.scale(Item2_Bild, (120*scale, 120*scale))
-        Item3_Bild = pygame.image.load(inventory[2].image)
-        Item3 = pygame.transform.scale(Item3_Bild, (120*scale, 120*scale))
-        Item4_Bild = pygame.image.load(inventory[3].image)
-        Item4 = pygame.transform.scale(Item4_Bild, (120*scale, 120*scale))
-        Item5_Bild = pygame.image.load(inventory[4].image)
-        Item5 = pygame.transform.scale(Item5_Bild, (120*scale, 120*scale))
+        Item1_Image = pygame.image.load(inventory[0].image)
+        Item1 = pygame.transform.scale(Item1_Image, (120*scale, 120*scale))
+        Item2_Image = pygame.image.load(inventory[1].image)
+        Item2 = pygame.transform.scale(Item2_Image, (120*scale, 120*scale))
+        Item3_Image = pygame.image.load(inventory[2].image)
+        Item3 = pygame.transform.scale(Item3_Image, (120*scale, 120*scale))
+        Item4_Image = pygame.image.load(inventory[3].image)
+        Item4 = pygame.transform.scale(Item4_Image, (120*scale, 120*scale))
+        Item5_Image = pygame.image.load(inventory[4].image)
+        Item5 = pygame.transform.scale(Item5_Image, (120*scale, 120*scale))
         
         # Texter sätts med itemnamnen och deras beskrivning
         Item1_text = Font6_35.render(f" {inventory[0].Name},  {inventory[0].Description}",True,White)
@@ -262,7 +262,7 @@ class GameState():
         screen.blit(Background, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
         Go_back.draw(screen)
-        screen.blit(text_obj4, (775*scale, 880*scale))
+        screen.blit(text_obj, (775*scale, 880*scale))
         
         screen.blit(Item1, (100*scale, 100*scale))
         screen.blit(Item2, (100*scale, 250*scale))
@@ -305,17 +305,17 @@ class GameState():
     def Shop_Scene(self):  
        
         # De olika itemsen som ska gå att köpa i shopens bilder laddas in och sätts i variabler
-        Item1_Bild = pygame.image.load(self.spelare.Shop_List[0].image)
-        Item2_Bild = pygame.image.load(self.spelare.Shop_List[1].image)
-        Item3_Bild = pygame.image.load(self.spelare.Shop_List[2].image)
-        Item4_Bild = pygame.image.load(self.spelare.Shop_List[3].image)
+        Item1_Image = pygame.image.load(self.spelare.Shop_List[0].image)
+        Item2_Image = pygame.image.load(self.spelare.Shop_List[1].image)
+        Item3_Image = pygame.image.load(self.spelare.Shop_List[2].image)
+        Item4_Image = pygame.image.load(self.spelare.Shop_List[3].image)
 
         # Knappar med bilder på itemsen sätts
-        item1 = Button(300*scale, 400*scale, Item1_Bild, 0.46875)
-        item2 = Button(650*scale, 400*scale, Item2_Bild, 0.46875)
-        item3 = Button(1150*scale, 400*scale, Item3_Bild, 0.46875)
-        item4 = Button(1480*scale, 400*scale, Item4_Bild, 0.46875)
-        
+        item1 = Button(300*scale, 400*scale, Item1_Image, 0.46875)
+        item2 = Button(650*scale, 400*scale, Item2_Image, 0.46875)
+        item3 = Button(1150*scale, 400*scale, Item3_Image, 0.46875)
+        item4 = Button(1480*scale, 400*scale, Item4_Image, 0.46875)
+     
         # "Gå tillbakaknappen" sätts med tillhörande text
         Go_back = Button(730*scale, 880*scale, Button1_image, 0.8)
         Go_back_text = Font6_70.render("Go back", True, Dark_Grey)
@@ -350,15 +350,15 @@ class GameState():
         Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
 
         # Mängden guld sätts som en text och går en icon
-        gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold_color)
-        gold = pygame.transform.scale(GULD, (70*scale, 70*scale))
+        Gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold_color)
+        Gold = pygame.transform.scale(GULD, (70*scale, 70*scale))
         
         # Backgrounden sätts till bild och positioneras, en semitransperent rektangel, guldiconen och alla texter ritas ut på skärmen 
         screen.blit(Background1, (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
-        screen.blit(gold_ammount, (160*scale, 90*scale))
-        screen.blit(gold, (70*scale, 90*scale))
+        screen.blit(Gold_ammount, (160*scale, 90*scale))
+        screen.blit(Gold, (70*scale, 90*scale))
         
         # När man håller musen över itemet får man se dess namn, styrka, intelligens och kostnad
         # annars är det bara en semitransperant runt som syns bakom itemet
@@ -521,20 +521,20 @@ class GameState():
 
         # Det köpta itemet bild och alla items från inventoryt bilder sätts i variiabler
         Item0 = pygame.image.load(self.spelare.current_item.image)
-        Item0_Bild = pygame.transform.scale(Item0, (179*scale, 179*scale))
+        Item0_Image = pygame.transform.scale(Item0, (179*scale, 179*scale))
 
-        Item1_Bild = pygame.image.load(inventory[0].image)
-        Item2_Bild = pygame.image.load(inventory[1].image)
-        Item3_Bild = pygame.image.load(inventory[2].image)
-        Item4_Bild = pygame.image.load(inventory[3].image)
-        Item5_Bild = pygame.image.load(inventory[4].image)
+        Item1_Image = pygame.image.load(inventory[0].image)
+        Item2_Image = pygame.image.load(inventory[1].image)
+        Item3_Image = pygame.image.load(inventory[2].image)
+        Item4_Image = pygame.image.load(inventory[3].image)
+        Item5_Image = pygame.image.load(inventory[4].image)
 
         # Inventoryts items bilder görs till knappar
-        Item1_Button = Button(150*scale, 600*scale, Item1_Bild, 0.7)
-        Item2_Button = Button(510*scale, 600*scale, Item2_Bild, 0.7)
-        Item3_Button = Button(870*scale, 600*scale, Item3_Bild, 0.7)
-        Item4_Button = Button(1231*scale, 600*scale, Item4_Bild, 0.7)
-        Item5_Button = Button(1591*scale, 600*scale, Item5_Bild, 0.7)
+        Item1_Button = Button(150*scale, 600*scale, Item1_Image, 0.7)
+        Item2_Button = Button(510*scale, 600*scale, Item2_Image, 0.7)
+        Item3_Button = Button(870*scale, 600*scale, Item3_Image, 0.7)
+        Item4_Button = Button(1231*scale, 600*scale, Item4_Image, 0.7)
+        Item5_Button = Button(1591*scale, 600*scale, Item5_Image, 0.7)
         
         # Alla items namn, styrka och intelligens skrivs ut på skärmen på en en vald position
         screen.blit(Item0_text, (1400*scale, 300*scale))
@@ -559,7 +559,7 @@ class GameState():
         screen.blit(Int_text5, (1590*scale, 880*scale))
 
         # Alla item bilder och item knappar ritas ut
-        screen.blit(Item0_Bild, (1200*scale, 290*scale))
+        screen.blit(Item0_Image, (1200*scale, 290*scale))
         Item1_Button.draw(screen)
         Item2_Button.draw(screen)
         Item3_Button.draw(screen)
@@ -595,11 +595,11 @@ class GameState():
         # Dörrbilder görs till 3 olika knappar                   
         Door1 = pygame.image.load("Bilder/Knappar/dörrknapp1.png")
         Door2 = pygame.image.load("Bilder/Knappar/dörrknapp2.png")
-        door3 = pygame.image.load("Bilder/Knappar/dörrknapp3.png")
+        Door3 = pygame.image.load("Bilder/Knappar/dörrknapp3.png")
 
         Door1_Button = Button(1458*scale, 235*scale, Door1, 1)   
         Door2_Button = Button(695*scale, 320*scale, Door2, 1) 
-        Door3_Button = Button(145*scale, 270*scale, door3, 1)
+        Door3_Button = Button(145*scale, 270*scale, Door3, 1)
         
         # Background sätts till en bild med en vald position
         screen.blit(Background4,(0,0))
