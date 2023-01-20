@@ -784,7 +784,7 @@ class GameState():
 
     def Draw_Scene(self):
         # Beskrivande texter med vald position sätts i variabler
-        text_obj = Font1_100.render("The fight was a fight",True,Gray)
+        text_obj = Font1_100.render("The fight ended in a draw",True,Gray)
         text_rect1 = text_obj.get_rect(center = (screen_Width/2, 200*scale))
 
         text_obj2 = Font1_100.render("and you ran away",True,Gray)
@@ -923,6 +923,11 @@ class GameState():
 
     def state_manager(self):
         # Scenhanterare
+        for event in pygame.event.get(pygame.QUIT):
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+    
 
         # Beroende på vad "self.state" sätts byter programmet till rätt scen
         # Varje defenition är sin egna scen

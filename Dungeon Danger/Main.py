@@ -17,14 +17,8 @@ Clock = pygame.time.Clock()
 # Sätter tickhastigheten och startar igång första scenen
 while True:
     game_state.state_manager()
-    pygame.event.clear()
-    pygame.display.flip()
-    
-    for event in pygame.event.get(pygame.QUIT):
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-            
+    pygame.event.clear() 
+    pygame.display.flip()            
     Clock.tick(60)
 
 

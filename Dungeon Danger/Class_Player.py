@@ -61,6 +61,9 @@ class Player():
         elif Choice == 3:
             utfall = random.randint(1,3)   
             
+            if utfall == self.last:
+                self.Choice(3)
+                
             # antingen så hamnar du hos ett monster
             if utfall == 1 and self.last != 1:
                 game_state.state = "Monster_Scene"
