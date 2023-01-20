@@ -2,7 +2,7 @@
 import pygame
 import sys
 from Class_Button import Button
-from Variables import draw_rect_alpha, fonts, Scendetaljer
+from Variables import draw_rect_alpha, fonts, Scene_details
 
 # Gör skärmen till Fullscreen, och hämtar skärmens resolution, alltså hur många pixlar skärmen har i x-led och y-led
 # Gör även en variabel "Scale" som gör att man kan anpassa spelet till olika storlekar av skärmar
@@ -17,7 +17,7 @@ Font1_30,Font1_40, Font1_70, Font1_100, Font1_120, Font6_25, Font6_35, Font6_55,
 Gray = (100, 100, 100)
 Black = (0,0,0)
 White = (255, 255, 255)
-Gold = (255, 192, 0)
+Gold_color = (255, 192, 0)
 Dark_Grey = (10, 10, 10)
 Purple = (139, 0, 139)
 Yellow = (255, 255, 0)
@@ -36,7 +36,7 @@ image_Width1 = Button_image.get_width() *scale
 image_Height1 = Button_image.get_height() * scale
 
 # Sätter alla scenbakgrundrunder och detaljer
-Bakgrund, Bakgrund1, Bakgrund2, Bakgrund3, Bakgrund4, Bakgrund5, Bakgrund6, Bakgrund7, Bakgrund8, Bakgrund9, Bakgrund10, Bakgrund11, Character, Character1, GULD, GULD1 = Scendetaljer
+Background, Background1, Background2, Background3, Background4, Background5, Background6, Background7, Background8, Background9, Background10, Background11, Character, Character1, GULD, GULD1 = Scene_details
 
 
 class GameState(): 
@@ -93,7 +93,7 @@ class GameState():
         text_obj = Font1_120.render("Choose Difficulty",True,White)
         text_rect = text_obj.get_rect(center = (screen_Width//2, screen_Height//2-190*scale))
         
-        # Bakgrundsfärgen görs till svart. Texten och en ram printas ut på skärmen 
+        # Backgroundsfärgen görs till svart. Texten och en ram printas ut på skärmen 
         screen.fill((0, 0, 0))
         screen.blit(text_obj,text_rect)
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen_Width/2-(600*scale)), (screen_Height/2-(275*scale)), int(1200*scale), int(175*scale)), int(5*scale))
@@ -143,8 +143,8 @@ class GameState():
         Exit_Button = Button(75*scale, (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height), Button_image, 0.8)
         Exit_game = Font6_70.render("Exit Game", True, Dark_Grey)
         
-        # Bakgrunden och en semitransparent rektangel ritas ut
-        screen.blit(Bakgrund, (0, 0))
+        # Backgrounden och en semitransparent rektangel ritas ut
+        screen.blit(Background, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (510*scale, 85*scale,900*scale, 120*scale,))
         
         # Knapparnas bilder och texter ritas ut
@@ -186,14 +186,14 @@ class GameState():
         Str_text = Font1_70.render(f"Strength : {self.spelare.Str}",True,Purple)
         Level_text = Font1_70.render(f"Level : {self.spelare.lvl}",True,Green)        
         Intelligence_text = Font1_70.render(f"Intelligence : {self.spelare.intelligence}",True,Yellow)
-        Gold_text = Font1_70.render(f"Gold : {self.spelare.gold}", True, Gold)
+        Gold_text = Font1_70.render(f"Gold : {self.spelare.gold}", True, Gold_color)
 
         # En knapp skapas med en tillhörande text
         Return_text = Font6_70.render("Go back", True, Dark_Grey)
         Return_button = Button(730*scale, 850*scale, Button1_image, 0.8)
 
-        # Bakgrunden sätts till en bild, en svart transparent ruta skapas och allting ritas ut på skärmen
-        screen.blit(Bakgrund, (0,0))
+        # Backgrounden sätts till en bild, en svart transparent ruta skapas och allting ritas ut på skärmen
+        screen.blit(Background, (0,0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 90*scale,1620*scale, 900*scale,))
         Return_button.draw(screen)
         screen.blit(Character1, (1200*scale, 125*scale))
@@ -257,9 +257,9 @@ class GameState():
         Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
-        # Bakgrundsbilden målas ut, en halvtransparent svart ruta målas ovanpå det, knappar målas ut
+        # Backgroundsbilden målas ut, en halvtransparent svart ruta målas ovanpå det, knappar målas ut
         # och slutligen målas texter ut ovanpå dem
-        screen.blit(Bakgrund, (0, 0))
+        screen.blit(Background, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 50*scale,1820*scale, 980*scale,))
         Go_back.draw(screen)
         screen.blit(text_obj4, (775*scale, 880*scale))
@@ -336,10 +336,10 @@ class GameState():
         Int_text3 = Font6_25.render(f"Intelligence: {self.spelare.Shop_List[2].intelligence}",True,Yellow)
         Int_text4 = Font6_25.render(f"Intelligence: {self.spelare.Shop_List[3].intelligence}",True,Yellow)
 
-        Cost_text1 = Font6_25.render(f"Cost: {self.spelare.Shop_List[0].price}",True,Gold)
-        Cost_text2 = Font6_25.render(f"Cost: {self.spelare.Shop_List[1].price}",True,Gold)
-        Cost_text3 = Font6_25.render(f"Cost: {self.spelare.Shop_List[2].price}",True,Gold)
-        Cost_text4 = Font6_25.render(f"Cost: {self.spelare.Shop_List[3].price}",True,Gold)
+        Cost_text1 = Font6_25.render(f"Cost: {self.spelare.Shop_List[0].price}",True,Gold_color)
+        Cost_text2 = Font6_25.render(f"Cost: {self.spelare.Shop_List[1].price}",True,Gold_color)
+        Cost_text3 = Font6_25.render(f"Cost: {self.spelare.Shop_List[2].price}",True,Gold_color)
+        Cost_text4 = Font6_25.render(f"Cost: {self.spelare.Shop_List[3].price}",True,Gold_color)
         
         Buy_text = Font6_25.render("Click to buy!", True, White)
         Cannot_afford_text = Font6_70.render("fYou don't have enough gold to buy this!", True, Gray)
@@ -350,11 +350,11 @@ class GameState():
         Title_center = Title.get_rect(center = (screen_Width/2, 150*scale))
 
         # Mängden guld sätts som en text och går en icon
-        gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold)
+        gold_ammount = Font6_55.render(f"Gold: {self.spelare.gold} ", True, Gold_color)
         gold = pygame.transform.scale(GULD, (70*scale, 70*scale))
         
-        # Bakgrunden sätts till bild och positioneras, en semitransperent rektangel, guldiconen och alla texter ritas ut på skärmen 
-        screen.blit(Bakgrund1, (0, 0))
+        # Backgrounden sätts till bild och positioneras, en semitransperent rektangel, guldiconen och alla texter ritas ut på skärmen 
+        screen.blit(Background1, (0, 0))
         screen.blit(Title, Title_center)
         draw_rect_alpha(screen, (0, 0, 0, 100), (760*scale, 85*scale,400*scale, 125*scale,))
         screen.blit(gold_ammount, (160*scale, 90*scale))
@@ -498,11 +498,11 @@ class GameState():
         Int_text4 = Font6_25.render(f"Intelligence: {inventory[3].intelligence}",True,Yellow)
         Int_text5 = Font6_25.render(f"Intelligence: {inventory[4].intelligence}",True,Yellow)
         
-        # bakgrunden baseras på varifrån man kom ifrån 
+        # Bakgrunden baseras på varifrån man kom ifrån 
         if self.spelare.shop == False:
-            screen.blit(Bakgrund3, (0, 0))
+            screen.blit(Background3, (0, 0))
         else:
-            screen.blit(Bakgrund1, (0, 0))
+            screen.blit(Background1, (0, 0))
 
         # "Continue"Knappen sätts med tillhörande text
         Continue_Button = Button(800*scale, 940*scale, Button1_image, 0.6)
@@ -601,8 +601,8 @@ class GameState():
         Door2_Button = Button(695*scale, 320*scale, Door2, 1) 
         Door3_Button = Button(145*scale, 270*scale, door3, 1)
         
-        # Bakgrund sätts till en bild med en vald position
-        screen.blit(Bakgrund4,(0,0))
+        # Background sätts till en bild med en vald position
+        screen.blit(Background4,(0,0))
 
         # Scentitle med vald position och med tillhörande semitransperent rektangel ritas ut
         text_obj = Font1_100.render("Where do you want to go? Pick a door!",True,Gray)
@@ -633,8 +633,8 @@ class GameState():
         Chest_Button = pygame.image.load("Bilder/Knappar/kistknapp.png")
         Chest_Button = Button(700*scale, 440*scale, Chest_Button, 1)
         
-        # Bakgrunden sätts till en vald bild och postition och ritas ut. Kistknappen ritas också ut
-        screen.blit(Bakgrund2, (0, 0))
+        # Backgrounden sätts till en vald bild och postition och ritas ut. Kistknappen ritas också ut
+        screen.blit(Background2, (0, 0))
         Chest_Button.draw(screen)
 
         # Beskrivning med vald position sätts i variabler och ritas ut med en tillhörande semitransperent rektangel
@@ -652,8 +652,8 @@ class GameState():
 
     def Chest_Scene_Open(self):
 
-        # Bakgrunden är en vald bils som ritas ut på vald position
-        screen.blit(Bakgrund3, (0, 0))
+        # Backgrounden är en vald bils som ritas ut på vald position
+        screen.blit(Background3, (0, 0))
 
         # text och textens position sätts i variabler och ritas sedan ut med en tillhörande semi transperent rektangel
         text_obj = Font1_100.render("You opened the chest and found:",True,Gray)
@@ -705,14 +705,14 @@ class GameState():
     def Monster_Scene(self):
         # Text med tillhörande knapp för att attackera monstret sätts i en variabel
         Attack = Font6_70.render("Attack", True, Dark_Grey)
-        Attack_Button = Button(800, 900 , Button1_image, 0.7)  
+        Attack_Button = Button(800*scale, 900 *scale, Button1_image, 0.7)  
 
         # beskrivande text om vad som händer sätts i en variabel
         text_obj = Font1_100.render("You encountered a spider!",True,Gray)
         text_rect = text_obj.get_rect(center = (screen_Width//2, 75*scale))
 
-        # Bakgrunden ritas ut på vald position
-        screen.blit(Bakgrund5, (0, 0))
+        # Backgrounden ritas ut på vald position
+        screen.blit(Background5, (0, 0))
 
         # Beskrivande texten med tillhörande semi transperent rektangel ritas ut
         screen.blit(text_obj, text_rect)
@@ -740,10 +740,10 @@ class GameState():
         
         # Knapp med tillhörande text sätts 
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
-        Return_Button = Button(800, 900 , Button1_image, 0.7)  
+        Return_Button = Button(800*scale, 900*scale , Button1_image, 0.7)  
         
-        # Bakgrunden, Semi transperenta rektangeln, alla text och knappar ritas ut på skärmen
-        screen.blit(Bakgrund7, (0, 0))
+        # Backgrounden, Semi transperenta rektangeln, alla text och knappar ritas ut på skärmen
+        screen.blit(Background7, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 75), (50*scale, 50*scale,1820*scale, 980*scale,))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
@@ -768,10 +768,10 @@ class GameState():
         
         # Knapp med tillhörande text sätts
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
-        Return_Button = Button(800, 900 , Button1_image, 0.7)  
+        Return_Button = Button(800*scale, 900*scale , Button1_image, 0.7)  
         
-        # Bakgrunden, knappen och alla texter ritas ut
-        screen.blit(Bakgrund6, (0, 0))
+        # Backgrounden, knappen och alla texter ritas ut
+        screen.blit(Background6, (0, 0))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
         screen.blit(text_obj2, text_rect2)
@@ -795,10 +795,10 @@ class GameState():
         
         # Knapp med tillhörande text sätts
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
-        Return_Button = Button(800, 900 , Button1_image, 0.7)  
+        Return_Button = Button(800*scale, 900*scale , Button1_image, 0.7)  
         
-        # Bakgrunden, knappen och alla texter ritas ut
-        screen.blit(Bakgrund8, (0, 0))
+        # Backgrounden, knappen och alla texter ritas ut
+        screen.blit(Background8, (0, 0))
         Return_Button.draw(screen)
         screen.blit(text_obj, text_rect1)
         screen.blit(text_obj2, text_rect2)
@@ -812,14 +812,14 @@ class GameState():
     def Trap_Scene(self):
         # Knapp med tillhörande text sätts  
         Dodge_text = Font6_70.render("Dodge", True, Dark_Grey)
-        Dodge_button = Button(800, 900 , Button1_image, 0.7)
+        Dodge_button = Button(*scale, 900*scale , Button1_image, 0.7)
         
         # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You encountered a rolling boulder, try to dodge!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale))  
 
-        # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
-        screen.blit(Bakgrund9, (0,0))
+        # Backgrounden, knappen, semi transperanterenta och alla texter ritas ut
+        screen.blit(Background9, (0,0))
         Dodge_button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (50*scale, 80*scale,1820*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect)
@@ -838,14 +838,14 @@ class GameState():
     def Dodge_Trap_Scene(self):
         # Knapp med tillhörande text sätts
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
-        Continue_Button = Button(800, 900 , Button1_image, 0.7)
+        Continue_Button = Button(800*scale, 900*scale , Button1_image, 0.7)
         
         # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You succeeded to dodge the boulder!",True,Gray)
         text_rect = SceneTitle.get_rect(center = (screen_Width//2, 155*scale)) 
         
-        # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
-        screen.blit(Bakgrund10, (0,0))
+        # Backgrounden, knappen, semi transperanterenta och alla texter ritas ut
+        screen.blit(Background10, (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
@@ -858,7 +858,7 @@ class GameState():
     def Fall_For_Trap_Scene(self):
         # Knapp med tillhörande text sätts  
         Continue_text = Font6_70.render("Continue", True, Dark_Grey)
-        Continue_Button = Button(800, 900 , Button1_image, 0.7)
+        Continue_Button = Button(800*scale, 900*scale , Button1_image, 0.7)
 
         # Beskrivande text med vald position sätts i variabler
         SceneTitle =  Font1_100.render("You failed to dodge the boulder!",True,Gray)
@@ -867,8 +867,8 @@ class GameState():
         text_obj = Font1_100.render(f"You took 3 damage!",True,Gray)
         text_rect2 = text_obj.get_rect(center = (screen_Width/2, 300*scale))
         
-        # Bakgrunden, knappen, semi transperanterenta och alla texter ritas ut
-        screen.blit(Bakgrund11, (0,0))
+        # Backgrounden, knappen, semi transperanterenta och alla texter ritas ut
+        screen.blit(Background11, (0,0))
         Continue_Button.draw(screen)
         draw_rect_alpha(screen, (0, 0, 0, 100), (150*scale, 100*scale,1620*scale, 120*scale,))
         screen.blit(SceneTitle, text_rect) 
@@ -966,3 +966,4 @@ class GameState():
             self.Shop_Scene()
         if self.state == 'You_Won_Scene':
             self.You_Won_Scene()
+            
