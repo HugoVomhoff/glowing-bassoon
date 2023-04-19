@@ -1,7 +1,6 @@
 # Importerar och initializar pygame
 
 import pygame
-import sys
 pygame.init()   
  
 # Hämtar scenhanteraren som heter gamestate från textfilen som också heter gamestate
@@ -17,7 +16,6 @@ Clock = pygame.time.Clock()
 # Sätter tickhastigheten och startar igång första scenen
 while True:
     game_state.state_manager()
-    pygame.event.clear() 
     pygame.display.flip()            
     Clock.tick(60)
 

@@ -42,7 +42,8 @@ Background, Background1, Background2, Background3, Background4, Background5, Bac
 class GameState(): 
     
     def __init__(self, spelare):
-        # Sätter första scenen till Titlecard och håller kvar den passade spelaren som en variabel i gamestaten
+        # Sätter första scenen till Titlecard och gör spelaren till ett attrbut i gamestaten
+        # För att de ska kunna interagera med varandra
         # Sätter även variabler som ska ha ett startvärde
         
         self.state = 'Titlecard'
@@ -125,7 +126,6 @@ class GameState():
 
         # Text tillsammans med en font och färg sätts i en variabel
         text_obj = Font1_100.render("Choose Your Action",True,Gray)
-        text_rect = text_obj.get_rect(center = (screen_Width/2, 150*scale))
 
         # Knappar skapas med en bild och mer textvariabler skapas på samma sätt som ovan
         Adventure_Button = Button(75*scale, (1*(screen_Height-(image_Height*6.5))/(7.5)+2 * image_Height), Button_image, 0.8)
@@ -143,7 +143,7 @@ class GameState():
         Exit_Button = Button(75*scale, (5*(screen_Height-(image_Height*6.5))/(7.5)+ 6 * image_Height), Button_image, 0.8)
         Exit_game = Font6_70.render("Exit Game", True, Dark_Grey)
         
-        # Backgrounden och en semitransparent rektangel ritas ut
+        # Bakgrunden och en semitransparent rektangel ritas ut
         screen.blit(Background, (0, 0))
         draw_rect_alpha(screen, (0, 0, 0, 100), (510*scale, 85*scale,900*scale, 120*scale,))
         
@@ -153,7 +153,7 @@ class GameState():
         Inventory_Button.draw(screen)
         Adventure_Button.draw(screen)
         Shop_button.draw(screen)       
-        screen.blit(text_obj,text_rect)
+        screen.blit(text_obj, (screen_Width/2-384*scale, 95*scale))
         screen.blit(text_äventyr1,((125*scale+image_Width*0.05), (1*(screen_Height-(image_Height*6.5))/(7.5)+ 2 * image_Height)))
         screen.blit(text_inventory,((125*scale+image_Width*0.05), (2*(screen_Height-(image_Height*6.5))/(7.5)+ 3 * image_Height)))
         screen.blit(text_stats,((125*scale+image_Width*0.05), (3*(screen_Height-(image_Height*6.5))/(7.5)+ 4 * image_Height)))

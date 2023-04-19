@@ -63,20 +63,24 @@ class Player():
             
             if utfall == self.last:
                 self.Choice(3)
-                
-            # antingen så hamnar du hos ett monster
-            if utfall == 1 and self.last != 1:
-                game_state.state = "Monster_Scene"
-
-            # eller så hamnar du i en fälla
-            if utfall == 2 and self.last != 2:
-                self.Trap()
             
-            # eller så hamnar du vid en kista
-            if utfall == 3 and self.last != 3:   
-                game_state.state = 'Chest_Scene'
+            else:
+
+                # antingen så hamnar du hos ett monster
+                if utfall == 1:
+                    self.last = utfall
+                    game_state.state = "Monster_Scene"
+
+                # eller så hamnar du i en fälla
+                if utfall == 2:
+                    self.last = utfall
+                    self.Trap()
+                
+                # eller så hamnar du vid en kista
+                if utfall == 3: 
+                    self.last = utfall  
+                    game_state.state = 'Chest_Scene'
     
-            self.last = utfall
     # och slutligen om du valde att klicka på shop knappen så sätts scenen till "shop_scene" och du hamnar istället vid shopmenyn
         elif Choice == 4:
             game_state.state = "Shop_Scene"
